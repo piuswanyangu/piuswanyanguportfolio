@@ -1,26 +1,171 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #07111f;
+  --foreground: #f8fafc;
+  --muted: #12263a;
+  --muted-foreground: #94a3b8;
+  --border: rgba(148, 163, 184, 0.16);
+  --accent: #38bdf8;
+  --accent-hover: #7dd3fc;
+  --accent-soft: #0c2c42;
+  --accent-foreground: #07111f;
+  --secondary-accent: #14b8a6;
+  --surface: #0d1b2a;
+  --surface-muted: #0a1725;
+  --surface-elevated: #12263a;
+  --duration-fast: 150ms;
+  --duration-normal: 220ms;
+  --duration-slow: 480ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @theme inline {
+  --default-transition-duration: var(--duration-fast);
+  --default-transition-timing-function: var(--ease-standard);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-secondary-accent: var(--secondary-accent);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-elevated: var(--surface-elevated);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
+  min-height: 100%;
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
+  background-image: radial-gradient(
+    circle at 50% -12rem,
+    rgba(56, 189, 248, 0.08),
+    transparent 34rem
+  );
+  background-repeat: no-repeat;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@keyframes content-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes status-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(20, 184, 166, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.12);
+  }
+}
+
+.content-enter {
+  animation: content-enter var(--duration-slow) var(--ease-emphasized) both;
+}
+
+.hero-reveal {
+  animation: content-enter var(--duration-slow) var(--ease-emphasized) both;
+}
+
+.hero-reveal-2 {
+  animation-delay: 70ms;
+}
+
+.hero-reveal-3 {
+  animation-delay: 140ms;
+}
+
+.hero-reveal-4 {
+  animation-delay: 210ms;
+}
+
+.hero-reveal-5 {
+  animation-delay: 280ms;
+}
+
+.status-pulse {
+  animation: status-pulse 2.8s ease-in-out infinite;
+}
+
+a,
+button {
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+a:active,
+button:active {
+  transition-duration: 50ms;
+  opacity: 0.88;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .content-enter,
+  .hero-reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  a:hover,
+  button:hover,
+  .group:hover figure,
+  .group:hover img {
+    transform: none !important;
+  }
 }
