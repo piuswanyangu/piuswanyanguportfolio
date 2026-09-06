@@ -1,47 +1,52 @@
 import { Container } from "@/components/layout/container";
 
 const workflow = [
-  ["Discover", "Understand users, business needs, and practical constraints."],
-  ["Design", "Shape clear journeys, interfaces, and product requirements."],
-  ["Architect", "Define system boundaries, APIs, data models, and infrastructure."],
-  ["Build", "Implement maintainable frontend and backend systems."],
-  ["Test", "Validate behavior, edge cases, and system integration."],
-  ["Deploy", "Prepare delivery workflows and ship dependable software."],
-  ["Observe", "Monitor behavior and identify failures or bottlenecks."],
-  ["Improve", "Use feedback and evidence to guide the next iteration."],
+  [
+    "Understand the workflow",
+    "Identify users, permissions, data, failure points, and the operational process before choosing implementation details.",
+  ],
+  [
+    "Model the system",
+    "Define data models, API boundaries, state transitions, and background work before expanding the interface.",
+  ],
+  [
+    "Build and validate",
+    "Implement the core path first, then check edge cases, permissions, API behavior, tests, and responsive UI.",
+  ],
+  [
+    "Deploy and iterate",
+    "Run linting, type checks, production builds, and project-specific tests before deployment, then refine actual behavior.",
+  ],
 ] as const;
 
 export function HowIBuild() {
   return (
     <section
       aria-labelledby="how-i-build-heading"
-      className="border-y border-border bg-surface-muted py-16 sm:py-20 lg:py-24"
+      className="border-t border-border py-14 sm:py-18 lg:py-20"
     >
       <Container>
         <div className="max-w-2xl">
-          <p className="font-mono text-sm font-medium tracking-wide text-accent">
-            Engineering process
-          </p>
           <h2
             id="how-i-build-heading"
-            className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
+            className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
           >
-            How I Build Software
+            How I Work
           </h2>
           <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            A practical process that connects product understanding with sound
-            engineering and continuous improvement.
+            Four principles I use to move from an operational workflow to a
+            tested implementation.
           </p>
         </div>
 
-        <ol className="mt-12 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-10 border-t border-border sm:mt-12">
           {workflow.map(([title, description], index) => (
-            <li key={title} className="bg-surface p-6">
-              <p className="font-mono text-xs text-secondary-accent">
+            <li key={title} className="grid gap-3 border-b border-border py-6 md:grid-cols-[4rem_14rem_1fr] md:gap-6">
+              <p className="font-mono text-xs text-muted-foreground">
                 {String(index + 1).padStart(2, "0")}
               </p>
-              <h3 className="mt-4 font-semibold text-foreground">{title}</h3>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              <h3 className="font-semibold text-foreground">{title}</h3>
+              <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
                 {description}
               </p>
             </li>

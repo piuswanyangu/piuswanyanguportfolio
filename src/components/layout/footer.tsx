@@ -10,7 +10,7 @@ export function Footer() {
       <Container className="grid gap-8 text-sm text-muted-foreground md:grid-cols-[1fr_auto] md:items-end">
         <div>
           <Link href="/" className="rounded-sm font-semibold text-foreground transition-colors hover:text-accent">
-            PIUS.
+            Pius Wanyangu
           </Link>
           <p className="mt-2">Full-Stack Software Engineer</p>
           <p className="mt-4">&copy; {currentYear} Pius Wanyangu</p>

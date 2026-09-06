@@ -30,9 +30,9 @@ export function ArchitectureDiagram({
         {steps.map((step, index) => (
           <li
             key={`${step.label}-${index}`}
-            className="relative min-w-0 border border-border bg-surface p-5 transition-[border-color,background-color] hover:border-accent/35 hover:bg-surface-elevated"
+            className="relative min-w-0 border border-border bg-surface p-5 transition-colors hover:border-accent/35"
           >
-            <p className="font-mono text-[0.6875rem] uppercase tracking-wider text-secondary-accent">
+            <p className="font-mono text-[0.6875rem] uppercase tracking-wider text-muted-foreground">
               {String(index + 1).padStart(2, "0")} / {roleLabels[step.role]}
             </p>
             <p className="mt-3 break-words font-semibold text-foreground">
@@ -46,7 +46,7 @@ export function ArchitectureDiagram({
             {index < steps.length - 1 && (
               <span
                 aria-hidden="true"
-                className="mt-4 block font-mono text-sm text-accent xl:absolute xl:-right-3 xl:top-1/2 xl:z-10 xl:mt-0 xl:-translate-y-1/2 xl:bg-surface-muted xl:px-1"
+                className="mt-4 block font-mono text-sm text-muted-foreground xl:absolute xl:-right-3 xl:top-1/2 xl:z-10 xl:mt-0 xl:-translate-y-1/2 xl:bg-background xl:px-1"
               >
                 <span className="xl:hidden">↓</span>
                 <span className="hidden xl:inline">→</span>

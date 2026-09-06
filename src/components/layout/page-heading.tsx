@@ -10,9 +10,9 @@ export function PageHeading({
   description,
 }: PageHeadingProps) {
   return (
-    <header className="content-enter max-w-3xl">
+    <header className="max-w-3xl">
       {eyebrow && (
-        <p className="font-mono text-sm font-medium tracking-wide text-accent">
+        <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
           {eyebrow}
         </p>
       )}

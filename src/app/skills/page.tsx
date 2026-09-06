@@ -16,7 +16,7 @@ export default function SkillsPage() {
       <PageHeading
         eyebrow="Capabilities"
         title="Technical Skills"
-        description="My stack spans frontend engineering, backend systems, databases, automation, and deployment tooling, with technology choices guided by each problem."
+        description="Technologies I use across interfaces, APIs, data models, background work, automation, and deployment."
       />
 
       <div className="mt-12 grid gap-x-10 gap-y-10 md:grid-cols-2 lg:gap-x-16 lg:gap-y-12">
@@ -28,16 +28,9 @@ export default function SkillsPage() {
             <p className="mt-3 max-w-xl leading-7 text-muted-foreground">
               {group.description}
             </p>
-            <ul className="mt-5 flex flex-wrap gap-2">
-              {group.skills.map((skill) => (
-                <li
-                  key={skill}
-                  className="rounded-sm border border-border bg-surface px-3 py-1.5 font-mono text-xs text-muted-foreground"
-                >
-                  {skill}
-                </li>
-              ))}
-            </ul>
+            <p className="mt-5 font-mono text-xs leading-6 text-muted-foreground">
+              {group.skills.join(" / ")}
+            </p>
           </section>
         ))}
       </div>

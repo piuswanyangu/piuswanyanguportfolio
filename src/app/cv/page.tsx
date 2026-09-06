@@ -43,9 +43,8 @@ export default function CvPage() {
             Professional Profile
           </h2>
           <p className="mt-4 max-w-3xl text-lg leading-8 text-muted-foreground">
-            Pius Wanyangu is a Full-Stack Software Engineer focused on practical
-            web systems, backend engineering, workflow automation, and AI-powered
-            applications.
+            I am a Full-Stack Software Engineer focused on backend systems, API
+            design, workflow automation, and AI-powered applications.
           </p>
         </section>
 
@@ -72,7 +71,7 @@ export default function CvPage() {
           <div className="mt-6 grid gap-7 md:grid-cols-2">
             {projects.map((project) => (
               <article key={project.slug}>
-                <p className="font-mono text-xs text-secondary-accent">
+                <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                   {project.category}
                 </p>
                 <h3 className="mt-2 text-lg font-semibold text-foreground">

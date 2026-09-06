@@ -38,6 +38,7 @@ export type Project = {
   valueProposition: string;
   problem: string;
   solution: string;
+  plannedWork?: string;
   technologies: readonly string[];
   featured: boolean;
   status: string | null;
@@ -64,7 +65,9 @@ export const projects = [
     problem:
       "Job opportunities, service providers, business discovery, communication, and transactions often live across disconnected systems.",
     solution:
-      "Engineered the Next.js product experience across onboarding, profiles, multiple marketplaces, messaging, an AI assistant, wallet, escrow, checkout, and notifications, alongside SEO and PWA production audit work. The wider architecture pairs the frontend with a planned Django and PostgreSQL backend.",
+      "Engineered the Next.js product experience across onboarding, profiles, multiple marketplaces, messaging, an AI assistant, wallet, escrow, checkout, and notifications, alongside SEO and PWA production audit work.",
+    plannedWork:
+      "The broader application architecture includes a planned Django and PostgreSQL backend.",
     technologies: ["Next.js", "TypeScript", "Django", "PostgreSQL"],
     featured: true,
     status: "In development",

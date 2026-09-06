@@ -20,7 +20,7 @@ export function ProjectMedia({ project, priority = false }: ProjectMediaProps) {
         fill
         priority={priority}
         sizes="(min-width: 1024px) 50vw, 100vw"
-        className="object-cover transition-transform group-hover:scale-[1.015]"
+        className="object-cover"
       />
     </figure>
   );

@@ -9,23 +9,19 @@ export function FeaturedProjects() {
   return (
     <section
       aria-labelledby="featured-projects-heading"
-      className="py-16 sm:py-20 lg:py-24"
+      className="border-t border-border py-14 sm:py-18 lg:py-20"
     >
       <Container>
         <div className="max-w-2xl">
-          <p className="font-mono text-sm font-medium tracking-wide text-accent">
-            Selected work
-          </p>
           <h2
             id="featured-projects-heading"
-            className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
+            className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
           >
-            Featured Projects
+            Selected Projects
           </h2>
           <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            Selected projects demonstrating full-stack product engineering,
-            backend architecture, workflow automation, and practical AI
-            integration.
+            Systems I have built while developing my full-stack and backend
+            engineering skills.
           </p>
         </div>
 

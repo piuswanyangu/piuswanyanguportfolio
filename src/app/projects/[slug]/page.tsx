@@ -63,11 +63,17 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
         ← Back to Projects
       </Link>
 
-      <header className="content-enter mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(24rem,0.9fr)] lg:items-center lg:gap-14">
+      <header className="mt-8 grid gap-10 xl:grid-cols-[minmax(0,1.1fr)_minmax(24rem,0.9fr)] xl:items-start xl:gap-16">
         <div className="min-w-0">
-          <p className="font-mono text-sm font-medium text-secondary-accent">
-            {project.category}
-          </p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+            <span>{project.category}</span>
+            {project.status && (
+              <span className="inline-flex items-center gap-2 text-foreground">
+                <span aria-hidden="true" className="size-1.5 rounded-full bg-secondary-accent" />
+                Status: {project.status}
+              </span>
+            )}
+          </div>
           <h1 className="mt-4 break-words text-4xl font-semibold leading-tight tracking-[-0.03em] text-foreground sm:text-5xl">
             {project.name}
           </h1>
@@ -78,19 +84,12 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
             {project.summary}
           </p>
 
-          <ul
+          <p
             aria-label={`${project.name} technologies`}
-            className="mt-7 flex flex-wrap gap-2"
+            className="mt-7 font-mono text-xs leading-6 text-muted-foreground"
           >
-            {project.technologies.map((technology) => (
-              <li
-                key={technology}
-                className="rounded-sm border border-border bg-surface px-3 py-1.5 font-mono text-xs text-muted-foreground"
-              >
-                {technology}
-              </li>
-            ))}
-          </ul>
+            {project.technologies.join(" / ")}
+          </p>
 
           {(project.githubUrl || project.liveUrl) && (
             <div className="mt-7 flex flex-wrap gap-3">
@@ -116,22 +115,32 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
               )}
             </div>
           )}
+          {!project.githubUrl && !project.liveUrl && (
+            <p className="mt-7 font-mono text-xs leading-6 text-muted-foreground">
+              Public repository and live demo links are not currently provided.
+            </p>
+          )}
         </div>
         <ProjectMedia project={project} priority />
       </header>
 
       <div className="mt-16 lg:mt-20">
-        <CaseStudySection number="01" title="Overview">
+        <CaseStudySection id="overview" title="Overview">
           <p>{project.summary}</p>
         </CaseStudySection>
-        <CaseStudySection number="02" title="The Problem">
+        <CaseStudySection id="problem" title="Problem">
           <p>{project.problem}</p>
         </CaseStudySection>
-        <CaseStudySection number="04" title="Solution">
+        <CaseStudySection id="implementation" title="Implementation">
           <p>{project.solution}</p>
         </CaseStudySection>
+        {project.plannedWork && (
+          <CaseStudySection id="planned-work" title="Planned Work">
+            <p>{project.plannedWork}</p>
+          </CaseStudySection>
+        )}
         {project.architecture && (
-          <CaseStudySection number="05" title="Architecture">
+          <CaseStudySection id="architecture" title="Architecture">
             <ArchitectureDiagram
               projectName={project.name}
               steps={project.architecture}
@@ -139,10 +148,10 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
           </CaseStudySection>
         )}
         {project.features && (
-          <CaseStudySection number="06" title="Key Features">
+          <CaseStudySection id="features" title="Implemented Features">
             <ul className="grid gap-3 sm:grid-cols-2">
               {project.features.map((feature) => (
-                <li key={feature} className="border-l-2 border-accent-soft pl-4">
+                <li key={feature} className="border-l-2 border-border pl-4">
                   {feature}
                 </li>
               ))}
@@ -150,12 +159,12 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
           </CaseStudySection>
         )}
         {project.engineeringDecisions && (
-          <CaseStudySection number="07" title="Engineering Decisions">
+          <CaseStudySection id="decisions" title="Engineering Decisions">
             <EngineeringDecisions decisions={project.engineeringDecisions} />
           </CaseStudySection>
         )}
         {project.testing && (
-          <CaseStudySection number="09" title="Testing">
+          <CaseStudySection id="testing" title="Testing">
             <p>{project.testing}</p>
           </CaseStudySection>
         )}

@@ -6,38 +6,39 @@ export function ContactCta() {
   return (
     <section
       aria-labelledby="contact-cta-heading"
-      className="border-t border-border py-16 sm:py-20 lg:py-24"
+      className="border-t border-border py-14 sm:py-18 lg:py-20"
     >
       <Container>
-        <div className="border border-border bg-surface px-6 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-14">
-          <div className="max-w-3xl">
-            <p className="font-mono text-sm font-medium tracking-wide text-accent">
-              Contact
-            </p>
-            <h2
-              id="contact-cta-heading"
-              className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
+        <div className="grid gap-8 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-12 lg:gap-20">
+          <h2
+            id="contact-cta-heading"
+            className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
+          >
+            Contact
+          </h2>
+          <div className="max-w-2xl">
+            <h3
+              className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
             >
-              Let&apos;s Build Something Useful
-            </h2>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
-              I&apos;m open to software engineering opportunities, freelance
-              projects, product collaborations, and conversations with businesses
-              looking to improve their digital workflows.
+              Interested in working together?
+            </h3>
+            <p className="mt-4 leading-7 text-muted-foreground">
+              I&apos;m open to software engineering roles, freelance development
+              work, and technical collaborations.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <a
                 href={contact.emailUrl}
-                className="inline-flex min-h-12 items-center justify-center rounded-md bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground transition-[background-color,transform] hover:-translate-y-px hover:bg-accent-hover active:translate-y-0"
+                className="inline-flex min-h-11 items-center rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
               >
-                Email Me
+                Email Pius
               </a>
               <a
                 href={contact.whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex min-h-12 items-center justify-center rounded-md border border-border bg-background px-6 py-3 text-sm font-semibold text-foreground transition-[background-color,border-color,transform] hover:-translate-y-px hover:border-accent/40 hover:bg-accent-soft"
+                className="inline-flex min-h-11 items-center rounded-sm text-foreground transition-colors hover:text-accent"
               >
                 WhatsApp Me
                 <span className="sr-only"> (opens in a new tab)</span>

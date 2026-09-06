@@ -51,14 +51,14 @@ export default function WritingPage() {
       ) : (
         <section
           aria-labelledby="writing-status-heading"
-          className="mt-12 border border-border bg-surface p-8 sm:p-10"
+          className="mt-12 border-t border-border pt-8"
         >
           <h2 id="writing-status-heading" className="text-xl font-semibold">
             Notes are in preparation
           </h2>
           <p className="mt-3 max-w-2xl leading-7 text-muted-foreground">
-            Published articles will appear here when they are ready. No placeholder
-            articles have been presented as finished work.
+            I have not published any engineering notes here yet. Articles will
+            appear when there is completed work worth documenting.
           </p>
         </section>
       )}

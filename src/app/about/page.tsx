@@ -13,19 +13,19 @@ export const metadata = createPageMetadata({
 const aboutSections = [
   {
     title: "What I build",
-    body: "I work across frontend and backend development, with a strong interest in backend engineering, workflow automation, and AI-powered applications that address real operational needs.",
+    body: "I work across frontend and backend development, with a strong interest in APIs, data flows, workflow automation, and AI integrations.",
   },
   {
-    title: "Engineering philosophy",
-    body: "I value maintainable architecture, clear system boundaries, and reliable behavior. Technology choices should serve the product and its users rather than add complexity without purpose.",
+    title: "What I pay attention to",
+    body: "I focus on permissions, data models, clear system boundaries, failure cases, and the path from an interface action to stored data or background work.",
   },
   {
-    title: "How I approach problems",
-    body: "I start by understanding the user, business need, and constraints, then connect interface design, application logic, data, testing, and delivery into one coherent system.",
+    title: "How I approach a build",
+    body: "I start with the users, workflow, and constraints, then define the application logic, API boundaries, data model, validation, and delivery path.",
   },
   {
-    title: "Where I am growing",
-    body: "I continue to deepen my capabilities in backend systems, cloud, automation, and AI-enabled software, with particular interest in useful technology for businesses and users across Africa and beyond.",
+    title: "What I am developing",
+    body: "I am continuing to deepen my backend, cloud, automation, and system-design skills through full-stack projects and AI-enabled software.",
   },
 ] as const;
 
@@ -35,7 +35,7 @@ export default function AboutPage() {
       <PageHeading
         eyebrow="About"
         title="About Pius"
-        description="A full-stack software engineer focused on turning real operational needs into practical digital systems."
+        description="I work across the application stack, with the strongest interest in backend systems, API design, automation, and system architecture."
       />
 
       <div className="mt-12 grid gap-x-14 gap-y-10 border-t border-border pt-8 md:grid-cols-2 lg:gap-x-20">
@@ -54,15 +54,15 @@ export default function AboutPage() {
       <div className="mt-12 flex flex-col gap-3 border-t border-border pt-8 sm:flex-row">
         <Link
           href="/projects"
-          className="inline-flex min-h-12 items-center justify-center rounded-md bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground transition-[background-color,transform] hover:-translate-y-px hover:bg-accent-hover active:translate-y-0"
+          className="inline-flex min-h-12 items-center justify-center rounded-md bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
         >
-          Explore My Work
+          Projects
         </Link>
         <Link
           href="/contact"
-          className="inline-flex min-h-12 items-center justify-center rounded-md border border-border bg-surface px-6 py-3 text-sm font-semibold text-foreground transition-[background-color,border-color,transform] hover:-translate-y-px hover:border-accent/40 hover:bg-accent-soft"
+          className="inline-flex min-h-12 items-center justify-center rounded-md border border-border bg-surface px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-accent/40"
         >
-          Start a Conversation
+          Contact
         </Link>
       </div>
     </Container>

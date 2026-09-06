@@ -24,7 +24,7 @@ export function Navigation() {
               <Link
                 href={item.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`inline-flex border-b-2 px-3 py-2 text-sm font-medium transition-colors hover:text-accent ${
+                className={`inline-flex border-b-2 px-2 py-2 text-sm font-medium transition-colors hover:text-accent lg:px-3 ${
                   isActive
                     ? "border-accent text-accent"
                     : "border-transparent text-muted-foreground"

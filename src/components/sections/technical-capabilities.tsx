@@ -5,47 +5,34 @@ export function TechnicalCapabilities() {
   return (
     <section
       aria-labelledby="technical-capabilities-heading"
-      className="border-y border-border bg-surface-muted py-16 sm:py-20 lg:py-24"
+      className="border-t border-border py-14 sm:py-18 lg:py-20"
     >
       <Container>
-        <div className="max-w-2xl">
-          <p className="font-mono text-sm font-medium tracking-wide text-accent">
-            Technical capabilities
-          </p>
+        <div className="grid gap-8 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-12 lg:gap-20">
+          <div>
           <h2
             id="technical-capabilities-heading"
-            className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
+            className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
           >
-            Tools Behind the Work
+            Engineering Stack
           </h2>
-          <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            My stack spans frontend development, backend systems, databases,
-            automation, and deployment tooling. I choose technologies around the
-            problem rather than forcing every project into the same stack.
-          </p>
-        </div>
-
-        <div className="mt-10 grid gap-x-10 gap-y-10 sm:mt-12 md:grid-cols-2 lg:gap-x-16 lg:gap-y-12">
-          {capabilityGroups.map((group) => (
-            <article key={group.title} className="border-t border-border pt-6">
-              <h3 className="text-xl font-semibold tracking-tight text-foreground">
-                {group.title}
-              </h3>
-              <p className="mt-3 max-w-xl leading-7 text-muted-foreground">
-                {group.description}
-              </p>
-              <ul className="mt-5 flex flex-wrap gap-2">
-                {group.skills.map((skill) => (
-                  <li
-                    key={skill}
-                    className="rounded-sm border border-border bg-surface px-3 py-1.5 font-mono text-xs text-muted-foreground"
-                  >
-                    {skill}
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
+            <p className="mt-5 max-w-md leading-7 text-muted-foreground">
+              Technologies I use across interfaces, APIs, data models,
+              background work, and deployment.
+            </p>
+          </div>
+          <dl className="border-t border-border">
+            {capabilityGroups.map((group) => (
+              <div key={group.title} className="grid gap-2 border-b border-border py-5 sm:grid-cols-[10rem_1fr] sm:gap-6">
+                <dt className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                  {group.title.replace(" Engineering", "")}
+                </dt>
+                <dd className="leading-7 text-foreground">
+                  {group.skills.join(" · ")}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </Container>
     </section>

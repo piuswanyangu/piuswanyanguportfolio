@@ -17,7 +17,7 @@ export default function ProjectsPage() {
       <PageHeading
         eyebrow="Selected work"
         title="Projects"
-        description="These projects demonstrate full-stack product development, backend architecture, workflow automation, and practical AI-enabled software."
+        description="Three systems covering marketplace workflows, API monitoring and background processing, and structured case reporting."
       />
 
       <div className="mt-12">

@@ -12,7 +12,7 @@ export function EngineeringDecisions({ decisions }: EngineeringDecisionsProps) {
           <h3 className="font-semibold text-foreground">{decision.decision}</h3>
           <dl className="mt-4 grid gap-4 sm:grid-cols-2">
             <div>
-              <dt className="font-mono text-xs uppercase tracking-wider text-secondary-accent">
+              <dt className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                 Why
               </dt>
               <dd className="mt-2 text-sm leading-6 text-muted-foreground">
@@ -21,7 +21,7 @@ export function EngineeringDecisions({ decisions }: EngineeringDecisionsProps) {
             </div>
             {decision.alternative && (
               <div>
-                <dt className="font-mono text-xs uppercase tracking-wider text-secondary-accent">
+                <dt className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                   Alternative
                 </dt>
                 <dd className="mt-2 text-sm leading-6 text-muted-foreground">
@@ -31,7 +31,7 @@ export function EngineeringDecisions({ decisions }: EngineeringDecisionsProps) {
             )}
             {decision.tradeoff && (
               <div>
-                <dt className="font-mono text-xs uppercase tracking-wider text-secondary-accent">
+                <dt className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                   Trade-off
                 </dt>
                 <dd className="mt-2 text-sm leading-6 text-muted-foreground">

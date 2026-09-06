@@ -1,63 +1,73 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
+import { contact } from "@/data/contact";
 
 export function Hero() {
   return (
-    <section aria-labelledby="hero-heading" className="py-16 sm:py-20 lg:py-24 xl:py-28">
+    <section aria-labelledby="hero-heading" className="py-14 sm:py-18 lg:py-22 xl:py-24">
       <Container>
         <div className="max-w-4xl">
-          <div className="hero-reveal">
-            <p className="font-mono text-sm font-medium uppercase tracking-[0.14em] text-accent">
-              Full-Stack Software Engineer
-            </p>
-            <p className="mt-5 text-base font-semibold tracking-tight text-foreground sm:text-lg">
-              Pius Wanyangu
-            </p>
-          </div>
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+            Backend-focused / Full-stack
+          </p>
 
           <h1
             id="hero-heading"
-            className="hero-reveal hero-reveal-2 mt-3 max-w-3xl text-4xl font-semibold leading-[1.1] tracking-[-0.035em] text-foreground sm:text-5xl lg:text-5xl 2xl:text-6xl"
+            className="mt-5 max-w-3xl text-5xl font-semibold leading-[1.02] tracking-[-0.045em] text-foreground sm:text-6xl lg:text-7xl"
           >
-            Building software that solves real-world problems.
+            Pius Wanyangu
           </h1>
 
-          <p className="hero-reveal hero-reveal-3 mt-6 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl sm:leading-9">
-            I design, build, and deploy scalable web systems, AI-powered
-            applications, and business automation solutions.
+          <p className="mt-5 text-xl font-medium tracking-[-0.015em] text-foreground sm:text-2xl">
+            Full-Stack Software Engineer
           </p>
 
-          <div className="hero-reveal hero-reveal-4 mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-7 max-w-2xl space-y-3 text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
+            <p>
+              I build full-stack applications with a strong focus on backend
+              systems, APIs, automation, and dependable data flows.
+            </p>
+            <p>
+              My recent work includes marketplace workflows, API monitoring,
+              background processing, and case-management systems.
+            </p>
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-semibold">
             <Link
               href="/projects"
-              className="inline-flex min-h-12 items-center justify-center rounded-md bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground transition-[background-color,transform] hover:-translate-y-px hover:bg-accent-hover active:translate-y-0"
+              className="inline-flex min-h-11 items-center rounded-md bg-accent px-5 py-2.5 text-accent-foreground transition-colors hover:bg-accent-hover"
             >
-              Explore My Work
+              Projects
             </Link>
-            <Link
-              href="/contact"
-              className="inline-flex min-h-12 items-center justify-center rounded-md border border-border bg-surface px-6 py-3 text-sm font-semibold text-foreground transition-[background-color,border-color,transform] hover:-translate-y-px hover:border-accent/40 hover:bg-accent-soft active:translate-y-0"
+            <a
+              href={contact.emailUrl}
+              className="inline-flex min-h-11 items-center rounded-sm text-accent underline decoration-border underline-offset-4 transition-colors hover:text-accent-hover hover:decoration-accent-hover"
             >
-              Let&apos;s Talk
-            </Link>
-          </div>
-
-          <div className="hero-reveal hero-reveal-5 mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
-            <span className="inline-flex items-center gap-2 text-muted-foreground">
-              <span aria-hidden="true" className="status-pulse size-2 rounded-full bg-secondary-accent" />
-              Available for opportunities &amp; freelance projects
-            </span>
+              Email Pius
+            </a>
             <Link
               href="/cv"
-              className="rounded-sm font-semibold text-accent underline decoration-border underline-offset-4 transition-colors hover:text-accent-hover hover:decoration-accent-hover"
+              className="inline-flex min-h-11 items-center rounded-sm text-foreground transition-colors hover:text-accent"
             >
-              View CV
+              CV
             </Link>
           </div>
 
-          <p className="hero-reveal hero-reveal-5 mt-9 font-mono text-xs leading-6 text-muted-foreground sm:text-sm">
-            Next.js · React · TypeScript · Python · Django · PostgreSQL · Docker · AI
-          </p>
+          <dl className="mt-10 grid max-w-3xl gap-4 border-t border-border pt-5 font-mono text-xs sm:grid-cols-3">
+            <div>
+              <dt className="uppercase tracking-wider text-muted-foreground">Focus</dt>
+              <dd className="mt-1.5 text-foreground">Backend systems &amp; APIs</dd>
+            </div>
+            <div>
+              <dt className="uppercase tracking-wider text-muted-foreground">Core stack</dt>
+              <dd className="mt-1.5 text-foreground">Next.js / Django / PostgreSQL</dd>
+            </div>
+            <div>
+              <dt className="uppercase tracking-wider text-muted-foreground">Also building</dt>
+              <dd className="mt-1.5 text-foreground">Automation / AI integrations</dd>
+            </div>
+          </dl>
         </div>
       </Container>
     </section>

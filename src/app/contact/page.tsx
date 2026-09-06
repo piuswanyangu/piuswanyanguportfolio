@@ -16,7 +16,7 @@ export default function ContactPage() {
       <PageHeading
         eyebrow="Get in touch"
         title="Contact"
-        description="I'm open to software engineering opportunities, freelance projects, collaborations, and conversations with businesses that need practical software or automation."
+        description="I'm open to software engineering roles, freelance development work, technical collaborations, and business automation projects."
       />
 
       <section

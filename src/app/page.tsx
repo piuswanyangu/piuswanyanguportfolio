@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { AboutPreview } from "@/components/sections/about-preview";
 import { ContactCta } from "@/components/sections/contact-cta";
-import { EngineeringFocus } from "@/components/sections/engineering-focus";
-import { EngineeringNotes } from "@/components/sections/engineering-notes";
 import { FeaturedProjects } from "@/components/sections/featured-projects";
 import { Hero } from "@/components/sections/hero";
 import { HowIBuild } from "@/components/sections/how-i-build";
@@ -16,11 +14,9 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <EngineeringFocus />
       <FeaturedProjects />
       <TechnicalCapabilities />
       <HowIBuild />
-      <EngineeringNotes />
       <AboutPreview />
       <ContactCta />
     </>

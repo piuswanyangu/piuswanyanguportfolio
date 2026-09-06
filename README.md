@@ -6,7 +6,7 @@ A production-ready portfolio for Pius Wanyangu, a Full-Stack Software Engineer f
 
 This portfolio presents Pius's engineering experience to software recruiters, businesses looking for dependable software solutions, and potential collaborators. It demonstrates practical full-stack work through project case studies, technical capabilities, and clear contact paths.
 
-The interface uses a restrained, engineering-focused design: strong typography, deliberate spacing, reusable components, accessible interactions, and minimal motion. Content is kept in centralized data modules so the site can evolve without coupling portfolio information to presentation code.
+The interface follows a Developer Editorial direction: factual project evidence, strong typography, deliberate spacing, reusable components, accessible interactions, and minimal motion. Content is kept in centralized data modules so the site can evolve without coupling portfolio information to presentation code.
 
 ## Live Site
 
@@ -16,7 +16,7 @@ Production URL will be added after Vercel deployment.
 
 - Responsive application shell with reusable header, navigation, and footer
 - Accessible desktop and mobile navigation
-- Homepage sections for positioning, engineering focus, projects, capabilities, process, writing, and contact
+- Homepage sections for identity, selected projects, engineering stack, working approach, about, and contact
 - Data-driven project case studies with architecture and engineering decisions
 - Dedicated About, Projects, Skills, CV, Writing, and Contact pages
 - Email and WhatsApp contact options
@@ -91,6 +91,17 @@ The App Router owns routing, page metadata, static project generation, and searc
 
 Project case-study routes are generated from `src/data/projects.ts`.
 
+## Homepage Structure
+
+The homepage prioritizes inspectable work before broader positioning:
+
+1. Hero
+2. Selected Projects
+3. Engineering Stack
+4. How I Work
+5. About
+6. Contact
+
 ## Design System
 
 The dark engineering palette is expressed through semantic CSS tokens, allowing components to use intent-based colors instead of repeating raw values.
@@ -109,7 +120,7 @@ Geist Sans supports interface and long-form text, while Geist Mono is used for t
 
 ## Motion
 
-Motion is implemented in CSS using centralized duration and easing tokens. It includes a staged hero entrance and restrained hover feedback without a JavaScript animation library. The `prefers-reduced-motion` media query removes non-essential animation and smooth scrolling for users who request it.
+Motion is implemented in CSS using centralized duration and easing tokens. It is limited to restrained navigation, disclosure, and link feedback without a JavaScript animation library. The `prefers-reduced-motion` media query removes non-essential animation, transitions, and smooth scrolling for users who request it.
 
 ## Accessibility
 
@@ -146,8 +157,8 @@ Use the local fallback during development where appropriate, and configure the f
 Prerequisites: a current Node.js release compatible with Next.js 16 and npm.
 
 ```bash
-git clone <repository-url>
-cd pius-wanyangu-portfolio
+git clone https://github.com/piuswanyangu/piuswanyanguportfolio.git
+cd piuswanyanguportfolio
 npm install
 ```
 
