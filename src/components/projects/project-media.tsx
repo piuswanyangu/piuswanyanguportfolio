@@ -13,14 +13,15 @@ export function ProjectMedia({ project, priority = false }: ProjectMediaProps) {
   }
 
   return (
-    <figure className="relative aspect-[4/3] overflow-hidden border border-border bg-surface-muted transition-[border-color] group-hover:border-accent/25">
+    <figure className="overflow-hidden border border-border bg-surface-muted transition-[border-color] group-hover:border-accent/25">
       <Image
         src={project.image.src}
         alt={project.image.alt}
-        fill
-        priority={priority}
+        width={project.image.width}
+        height={project.image.height}
+        preload={priority}
         sizes="(min-width: 1024px) 50vw, 100vw"
-        className="object-cover"
+        className="h-auto w-full"
       />
     </figure>
   );

@@ -23,7 +23,7 @@ export function HowIBuild() {
   return (
     <section
       aria-labelledby="how-i-build-heading"
-      className="border-t border-border py-14 sm:py-18 lg:py-20"
+      className="section-enter border-t border-border py-14 sm:py-18 lg:py-20"
     >
       <Container>
         <div className="max-w-2xl">

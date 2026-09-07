@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/layout/container";
@@ -97,20 +98,20 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
                 <Link
                   href={project.liveUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="inline-flex min-h-11 items-center rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
                 >
-                  Live Demo<span className="sr-only"> (opens in a new tab)</span>
+                  Live Demo <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span>
                 </Link>
               )}
               {project.githubUrl && (
                 <Link
                   href={project.githubUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="inline-flex min-h-11 items-center rounded-md border border-border bg-surface px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-accent/40 hover:bg-accent-soft"
                 >
-                  GitHub<span className="sr-only"> (opens in a new tab)</span>
+                  GitHub <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span>
                 </Link>
               )}
             </div>
@@ -166,6 +167,39 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
         {project.testing && (
           <CaseStudySection id="testing" title="Testing">
             <p>{project.testing}</p>
+          </CaseStudySection>
+        )}
+        {project.seo && (
+          <CaseStudySection id="seo" title="SEO">
+            <p>{project.seo}</p>
+          </CaseStudySection>
+        )}
+        {project.limitations && (
+          <CaseStudySection id="limitations" title="Current Limitations">
+            <p>{project.limitations}</p>
+          </CaseStudySection>
+        )}
+        {project.learning && (
+          <CaseStudySection id="learning" title="What I Learned">
+            <p>{project.learning}</p>
+          </CaseStudySection>
+        )}
+        {project.screenshots && (
+          <CaseStudySection id="screenshots" title="Screenshots">
+            <div className="space-y-6">
+              {project.screenshots.map((screenshot) => (
+                <figure key={screenshot.src} className="overflow-hidden border border-border bg-surface-muted">
+                  <Image
+                    src={screenshot.src}
+                    alt={screenshot.alt}
+                    width={screenshot.width}
+                    height={screenshot.height}
+                    sizes="(min-width: 1280px) 768px, (min-width: 768px) 75vw, 100vw"
+                    className="h-auto w-full"
+                  />
+                </figure>
+              ))}
+            </div>
           </CaseStudySection>
         )}
       </div>

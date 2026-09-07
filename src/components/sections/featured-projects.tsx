@@ -9,7 +9,7 @@ export function FeaturedProjects() {
   return (
     <section
       aria-labelledby="featured-projects-heading"
-      className="border-t border-border py-14 sm:py-18 lg:py-20"
+      className="section-enter border-t border-border py-14 sm:py-18 lg:py-20"
     >
       <Container>
         <div className="max-w-2xl">

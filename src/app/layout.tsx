@@ -8,6 +8,21 @@ import { contact } from "@/data/contact";
 import { absoluteUrl, siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
+const themeInitializer = `
+  (function () {
+    try {
+      var preference = localStorage.getItem("pius-theme");
+      if (preference !== "dark" && preference !== "green") {
+        preference = "dark";
+      }
+      var root = document.documentElement;
+      root.dataset.theme = preference;
+      root.dataset.themePreference = preference;
+      root.style.colorScheme = "dark";
+    } catch (_) {}
+  })();
+`;
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -85,9 +100,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-screen flex-col">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitializer }} />
+      </head>
+      <body className="theme-transition flex min-h-screen flex-col">
         <StructuredData data={structuredData} />
         <Header />
         <main id="main-content" className="flex-1">

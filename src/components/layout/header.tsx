@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { MobileNavigation } from "@/components/layout/mobile-navigation";
 import { Navigation } from "@/components/layout/navigation";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 export function Header() {
   return (
@@ -13,8 +14,11 @@ export function Header() {
         >
           Pius Wanyangu
         </Link>
-        <Navigation />
-        <MobileNavigation />
+        <div className="flex items-center gap-1">
+          <Navigation />
+          <ThemeToggle />
+          <MobileNavigation />
+        </div>
       </Container>
     </header>
   );

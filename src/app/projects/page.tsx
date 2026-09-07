@@ -17,7 +17,7 @@ export default function ProjectsPage() {
       <PageHeading
         eyebrow="Selected work"
         title="Projects"
-        description="Three systems covering marketplace workflows, API monitoring and background processing, and structured case reporting."
+        description="Marketplace, monitoring, and workflow projects showing practical frontend, backend, API, testing, and system-design work."
       />
 
       <div className="mt-12">

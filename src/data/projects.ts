@@ -28,6 +28,8 @@ export type ProjectVisual = {
 export type ProjectImage = {
   src: string;
   alt: string;
+  width: number;
+  height: number;
 };
 
 export type Project = {
@@ -47,6 +49,10 @@ export type Project = {
   features?: readonly string[];
   architecture?: readonly ArchitectureStep[];
   testing?: string;
+  seo?: string;
+  limitations?: string;
+  learning?: string;
+  screenshots?: readonly ProjectImage[];
   engineeringDecisions?: readonly EngineeringDecision[];
   image: ProjectImage | null;
   socialImage: string | null;
@@ -134,6 +140,71 @@ export const projects = [
     },
   },
   {
+    slug: "staynia",
+    name: "StayNia",
+    category: "Accommodation marketplace",
+    summary:
+      "A responsive accommodation marketplace prototype for discovering fixture-based stays across Kenya.",
+    valueProposition: "Find trusted stays across Kenya.",
+    problem:
+      "Accommodation marketplace interfaces need property discovery, filtering, pricing information, and detail pages while remaining usable across different devices.",
+    solution:
+      "Built a Next.js marketplace prototype with destination search, URL-backed filters, sorting, reusable property data, statically generated detail pages, internal API routes, responsive property cards, SEO metadata, and browser testing.",
+    technologies: ["Next.js", "React", "TypeScript", "Playwright"],
+    featured: true,
+    status: "Prototype",
+    githubUrl: "https://github.com/piuswanyangu/listing-app-deployed",
+    liveUrl: "https://stayniaairbnb.vercel.app/",
+    features: [
+      "Destination search, filtering, sorting, result counts, and clear filters",
+      "URL-backed discovery state",
+      "Reusable property cards backed by canonical fixture data",
+      "Statically generated property-detail pages and image galleries",
+      "Guest capacity, amenities, sample ratings, KES pricing, and related stays",
+      "Internal property collection and detail API routes",
+      "Responsive layouts, custom 404 handling, and demo disclosures",
+    ],
+    architecture: [
+      { label: "Marketplace UI", detail: "Responsive discovery and property views", role: "frontend" },
+      { label: "Internal API routes", detail: "Property collection and detail endpoints", role: "backend" },
+      { label: "Canonical fixtures", detail: "Shared property data for UI and API responses", role: "database" },
+      { label: "Static property pages", detail: "Generated detail routes", role: "infrastructure" },
+    ],
+    testing:
+      "Playwright browser tests cover desktop and mobile user paths, with unit validation included where supported by the project.",
+    seo:
+      "The prototype includes page metadata, dynamic robots output, a restricted sitemap, statically generated property routes, and a custom not-found experience.",
+    limitations:
+      "StayNia currently uses fixture/demo data. Authentication, a production database, reservations, real availability, payment processing, live inventory, host onboarding, and submitted contact forms are intentionally not implemented.",
+    learning:
+      "This project strengthened my understanding of keeping UI and API responses aligned through shared data, representing discovery state in URLs, testing responsive user journeys, and clearly separating a working prototype from future transactional features.",
+    image: {
+      src: "/images/projects/staynia/staynia-home.png",
+      alt: "StayNia homepage and property discovery introduction",
+      width: 1354,
+      height: 586,
+    },
+    screenshots: [
+      {
+        src: "/images/projects/staynia/staynia-home.png",
+        alt: "StayNia homepage and property discovery introduction",
+        width: 1354,
+        height: 586,
+      },
+      {
+        src: "/images/projects/staynia/staynia-discovery.png",
+        alt: "StayNia property discovery results interface",
+        width: 1357,
+        height: 607,
+      },
+    ],
+    socialImage: "/images/projects/staynia/staynia-home.png",
+    visual: {
+      kind: "marketplace",
+      items: ["Search", "Filters", "Properties", "Details"],
+    },
+  },
+  {
     slug: "upright-support",
     name: "Upright Support",
     category: "Case reporting system",
@@ -146,7 +217,7 @@ export const projects = [
     solution:
       "Implemented a custom user model, case access using a case ID and access code, evidence validation, automatic timeline logging, notifications, and tested administration workflows.",
     technologies: ["Django", "Python"],
-    featured: true,
+    featured: false,
     status: null,
     githubUrl: null,
     liveUrl: null,

@@ -73,20 +73,20 @@ export function FeaturedProjectCard({
             <Link
               href={project.githubUrl}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="inline-flex min-h-11 items-center rounded-sm text-foreground transition-colors hover:text-accent"
             >
-              GitHub<span className="sr-only"> for {project.name} (opens in a new tab)</span>
+              GitHub <span aria-hidden="true">↗</span><span className="sr-only"> for {project.name} (opens in a new tab)</span>
             </Link>
           )}
           {project.liveUrl && (
             <Link
               href={project.liveUrl}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="inline-flex min-h-11 items-center rounded-sm text-foreground transition-colors hover:text-accent"
             >
-              Live Demo<span className="sr-only"> for {project.name} (opens in a new tab)</span>
+              Live Demo <span aria-hidden="true">↗</span><span className="sr-only"> for {project.name} (opens in a new tab)</span>
             </Link>
           )}
         </div>

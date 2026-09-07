@@ -6,7 +6,7 @@ export function ContactCta() {
   return (
     <section
       aria-labelledby="contact-cta-heading"
-      className="border-t border-border py-14 sm:py-18 lg:py-20"
+      className="section-enter border-t border-border py-14 sm:py-18 lg:py-20"
     >
       <Container>
         <div className="grid gap-8 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-12 lg:gap-20">
