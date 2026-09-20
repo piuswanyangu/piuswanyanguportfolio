@@ -17,11 +17,11 @@ export function FeaturedProjects() {
             id="featured-projects-heading"
             className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
           >
-            Selected Projects
+            Selected Work
           </h2>
           <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            Systems I have built while developing my full-stack and backend
-            engineering skills.
+            Explore selected software projects built by our founder that
+            demonstrate the engineering capabilities behind Afrinex Solutions.
           </p>
         </div>
 
@@ -38,10 +38,10 @@ export function FeaturedProjects() {
         </div>
 
         <Link
-          href="/projects"
+          href="/work"
           className="mt-4 inline-flex min-h-11 items-center rounded-sm text-sm font-semibold text-accent underline decoration-border underline-offset-4 transition-colors hover:text-accent-hover hover:decoration-accent-hover"
         >
-          View all projects
+          View selected work
         </Link>
       </Container>
     </section>

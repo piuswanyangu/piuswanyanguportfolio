@@ -6,7 +6,7 @@ import { createPageMetadata } from "@/lib/site-config";
 export const metadata = createPageMetadata({
   title: "Contact",
   description:
-    "Contact Pius Wanyangu about software engineering opportunities, freelance projects, collaborations, and business software needs.",
+    "Contact Afrinex Solutions about digital assistance, data services, software, AI, automation, design, and website support.",
   path: "/contact",
 });
 
@@ -16,7 +16,7 @@ export default function ContactPage() {
       <PageHeading
         eyebrow="Get in touch"
         title="Contact"
-        description="I'm open to software engineering roles, freelance development work, technical collaborations, and business automation projects."
+        description="Tell us what digital task, data work, software project, or professional support you need. For now, contact is available by email or WhatsApp."
       />
 
       <section
@@ -29,7 +29,7 @@ export default function ContactPage() {
         <dl className="grid gap-8 md:grid-cols-2 md:gap-12">
           <div>
             <dt className="font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Email
+              Email Afrinex
             </dt>
             <dd className="mt-3">
               <a
@@ -42,7 +42,7 @@ export default function ContactPage() {
           </div>
           <div>
             <dt className="font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              WhatsApp
+              WhatsApp Afrinex
             </dt>
             <dd className="mt-3">
               <a

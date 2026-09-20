@@ -14,11 +14,11 @@ export function TechnicalCapabilities() {
             id="technical-capabilities-heading"
             className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
           >
-            Engineering Stack
+            Technology Capabilities
           </h2>
             <p className="mt-5 max-w-md leading-7 text-muted-foreground">
-              Technologies I use across interfaces, APIs, data models,
-              background work, and deployment.
+              Technologies used across software delivery, APIs, data,
+              automation, AI integrations, and deployment.
             </p>
           </div>
           <dl className="border-t border-border">

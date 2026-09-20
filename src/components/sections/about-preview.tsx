@@ -14,27 +14,25 @@ export function AboutPreview() {
               id="about-preview-heading"
               className="max-w-md text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
             >
-              About Me
+              About Afrinex
             </h2>
           </div>
 
           <div className="max-w-2xl">
             <p className="text-lg leading-8 text-foreground">
-              I&apos;m a full-stack software engineer whose strongest interests are
-              backend engineering, API design, data flows, automation, and
-              system architecture.
+              Afrinex Solutions provides practical digital assistance, data
+              services, software development, AI-powered solutions, and automation.
             </p>
             <p className="mt-5 leading-7 text-muted-foreground">
-              I build projects around operational workflows such as marketplace
-              transactions, asynchronous monitoring, and controlled case
-              reporting. I&apos;m continuing to deepen my backend, cloud, system
-              design, and AI-integration skills through that work.
+              The company is founded by Pius Wanyangu, a software engineer focused
+              on building useful systems and helping people work more effectively
+              with technology.
             </p>
             <Link
               href="/about"
               className="mt-7 inline-flex min-h-11 items-center rounded-sm text-sm font-semibold text-accent underline decoration-border underline-offset-4 transition-colors hover:text-accent-hover hover:decoration-accent-hover"
             >
-              More about me
+              About the company
             </Link>
           </div>
         </div>

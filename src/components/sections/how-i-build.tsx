@@ -2,20 +2,20 @@ import { Container } from "@/components/layout/container";
 
 const workflow = [
   [
-    "Understand the workflow",
-    "Identify users, permissions, data, failure points, and the operational process before choosing implementation details.",
+    "Tell us what you need",
+    "Share the digital task, service request, or technology problem you want help with.",
   ],
   [
-    "Model the system",
-    "Define data models, API boundaries, state transitions, and background work before expanding the interface.",
+    "We assess the request",
+    "We review the requirement, clarify important details, and confirm whether Afrinex can help.",
   ],
   [
-    "Build and validate",
-    "Implement the core path first, then check edge cases, permissions, API behavior, tests, and responsive UI.",
+    "We agree on the solution",
+    "Before work begins, we align on the practical approach and what the requested service includes.",
   ],
   [
-    "Deploy and iterate",
-    "Run linting, type checks, production builds, and project-specific tests before deployment, then refine actual behavior.",
+    "We deliver",
+    "We complete the agreed work and communicate the result through the appropriate channel.",
   ],
 ] as const;
 
@@ -31,11 +31,10 @@ export function HowIBuild() {
             id="how-i-build-heading"
             className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
           >
-            How I Work
+            How It Works
           </h2>
           <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            Four principles I use to move from an operational workflow to a
-            tested implementation.
+            A clear process from the first conversation to the agreed delivery.
           </p>
         </div>
 

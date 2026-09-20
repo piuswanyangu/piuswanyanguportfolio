@@ -11,14 +11,14 @@ import "./globals.css";
 const themeInitializer = `
   (function () {
     try {
-      var preference = localStorage.getItem("pius-theme");
-      if (preference !== "dark" && preference !== "green") {
-        preference = "dark";
+      var preference = localStorage.getItem("afrinex-theme");
+      if (preference !== "light" && preference !== "dark" && preference !== "green") {
+        preference = "light";
       }
       var root = document.documentElement;
       root.dataset.theme = preference;
       root.dataset.themePreference = preference;
-      root.style.colorScheme = "dark";
+      root.style.colorScheme = preference === "light" ? "light" : "dark";
     } catch (_) {}
   })();
 `;
@@ -36,38 +36,38 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: siteConfig.url,
   title: {
-    default: "Pius Wanyangu | Full-Stack Software Engineer",
-    template: "%s | Pius Wanyangu",
+    default: "Afrinex Solutions | Digital Services, Software, AI & Automation",
+    template: "%s | Afrinex Solutions",
   },
   description:
     siteConfig.description,
-  applicationName: "Pius Wanyangu Portfolio",
-  authors: [{ name: "Pius Wanyangu" }],
-  creator: "Pius Wanyangu",
+  applicationName: "Afrinex Solutions",
+  authors: [{ name: "Afrinex Solutions" }],
+  creator: "Afrinex Solutions",
   keywords: [
-    "Full-Stack Software Engineer",
-    "Next.js",
-    "Django",
-    "Backend Engineering",
-    "Workflow Automation",
-    "AI-Powered Applications",
+    "Digital Services",
+    "Software Development",
+    "AI-Powered Solutions",
+    "Business Automation",
+    "Data Services",
+    "Online Service Assistance",
   ],
   openGraph: {
-    title: "Pius Wanyangu | Full-Stack Software Engineer",
+    title: "Afrinex Solutions | Digital Services, Software, AI & Automation",
     description:
-      "Full-stack engineering, backend systems, automation, and practical AI-powered applications.",
-    siteName: "Pius Wanyangu Portfolio",
+      "Afrinex Solutions helps individuals and businesses handle digital tasks, build digital solutions, and work smarter with technology.",
+    siteName: "Afrinex Solutions",
     type: "website",
     url: "/",
     images: siteConfig.socialImage
-      ? [{ url: siteConfig.socialImage, alt: "Pius Wanyangu portfolio" }]
+      ? [{ url: siteConfig.socialImage, alt: "Afrinex Solutions" }]
       : undefined,
   },
   twitter: {
     card: "summary",
-    title: "Pius Wanyangu | Full-Stack Software Engineer",
+    title: "Afrinex Solutions | Digital Services, Software, AI & Automation",
     description:
-      "Full-stack engineering, backend systems, automation, and practical AI-powered applications.",
+      "Digital services, software development, AI-powered solutions, and automation for individuals and businesses.",
     images: siteConfig.socialImage ? [siteConfig.socialImage] : undefined,
   },
 };
@@ -82,16 +82,21 @@ const structuredData: JsonLdValue = {
       name: siteConfig.name,
       description: siteConfig.description,
       inLanguage: "en",
+      publisher: { "@id": absoluteUrl("/#organization") },
     },
     {
-      "@type": "Person",
-      "@id": absoluteUrl("/#person"),
-      name: "Pius Wanyangu",
-      url: absoluteUrl("/about"),
+      "@type": "Organization",
+      "@id": absoluteUrl("/#organization"),
+      name: "Afrinex Solutions",
+      url: absoluteUrl("/"),
       email: contact.email,
-      jobTitle: "Full-Stack Software Engineer",
       description:
-        "Full-stack software engineer building practical web systems, automation, and AI-powered applications.",
+        "Digital services, software, AI-powered solutions, and automation for individuals and businesses.",
+      founder: {
+        "@type": "Person",
+        name: "Pius Wanyangu",
+        jobTitle: "Founder & Software Engineer",
+      },
     },
   ],
 };

@@ -1,10 +1,10 @@
-# Pius Wanyangu Portfolio
+# Afrinex Solutions
 
-A production-ready portfolio for Pius Wanyangu, a Full-Stack Software Engineer focused on backend systems, automation, and AI-powered applications.
+Company website for Afrinex Solutions: Digital Services, Software, AI & Automation.
 
 ## Overview
 
-This portfolio presents Pius's engineering experience to software recruiters, businesses looking for dependable software solutions, and potential collaborators. It demonstrates practical full-stack work through project case studies, technical capabilities, and clear contact paths.
+Afrinex Solutions helps individuals and businesses handle digital tasks, build digital solutions, and work smarter with technology. The current implementation establishes the company identity, approved service catalog, selected founder work, and direct contact paths.
 
 The interface follows a Developer Editorial direction: factual project evidence, strong typography, deliberate spacing, reusable components, accessible interactions, and minimal motion. Content is kept in centralized data modules so the site can evolve without coupling portfolio information to presentation code.
 
@@ -16,9 +16,10 @@ Production URL will be added after Vercel deployment.
 
 - Responsive application shell with reusable header, navigation, and footer
 - Accessible desktop and mobile navigation
-- Homepage sections for identity, selected projects, engineering stack, working approach, about, and contact
-- Data-driven project case studies with architecture and engineering decisions
-- Dedicated About, Projects, Skills, CV, Writing, and Contact pages
+- Homepage foundation for company identity, selected work, technical capability, process, about, and contact
+- Centralized typed service catalog grouped into four approved categories
+- Data-driven founder-project case studies with architecture and engineering decisions
+- Public Services, Work, About, and Contact pages
 - Email and WhatsApp contact options
 - Centralized project, capability, contact, and site configuration
 - Canonical URLs, Open Graph metadata, Twitter metadata, and JSON-LD
@@ -49,7 +50,7 @@ Production URL will be added after Vercel deployment.
 - Next.js Metadata API
 - Canonical URLs
 - Open Graph and Twitter metadata
-- WebSite and Person JSON-LD
+- WebSite and Organization JSON-LD with founder attribution
 - Generated sitemap and robots directives
 
 ### Tooling and Deployment
@@ -80,13 +81,11 @@ The App Router owns routing, page metadata, static project generation, and searc
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Portfolio overview and primary conversion paths |
-| `/about` | Professional background and engineering approach |
-| `/projects` | Project portfolio |
+| `/` | Company overview and primary conversion paths |
+| `/services` | Approved Afrinex service catalog |
+| `/work` | Selected founder work and case-study entry point |
+| `/about` | Company foundation and founder attribution |
 | `/projects/[slug]` | Statically generated project case studies |
-| `/skills` | Technical capabilities |
-| `/cv` | CV overview and experience |
-| `/writing` | Engineering notes and future articles |
 | `/contact` | Email and WhatsApp contact options |
 
 Project case-study routes are generated from `src/data/projects.ts`.
@@ -96,25 +95,25 @@ Project case-study routes are generated from `src/data/projects.ts`.
 The homepage prioritizes inspectable work before broader positioning:
 
 1. Hero
-2. Selected Projects
-3. Engineering Stack
-4. How I Work
-5. About
-6. Contact
+2. Service Categories
+3. Why Afrinex
+4. How It Works
+5. Selected Work
+6. Founder / Trust
+7. Final CTA
 
 ## Design System
 
-The dark engineering palette is expressed through semantic CSS tokens, allowing components to use intent-based colors instead of repeating raw values.
+Light is the default theme, with Dark and Green available through the persistent theme selector. All three use semantic CSS tokens so components rely on intent-based colors instead of repeating raw values.
 
 | Token role | Color |
 | --- | --- |
-| Background | `#07111F` |
-| Primary surface | `#0D1B2A` |
-| Elevated surface | `#12263A` |
-| Primary text | `#F8FAFC` |
-| Secondary text | `#94A3B8` |
-| Primary cyan | `#38BDF8` |
-| Secondary teal | `#14B8A6` |
+| Default background | `#F7F6F1` |
+| Default surface | `#FFFEFA` |
+| Default primary text | `#10202E` |
+| Brand green | `#16794B` |
+| Dark background | `#07111F` |
+| Green-theme background | `#07120D` |
 
 Geist Sans supports interface and long-form text, while Geist Mono is used for technical accents. Surface hierarchy, consistent borders, and a high-visibility cyan focus outline reinforce structure without decorative clutter.
 
@@ -248,11 +247,11 @@ They validate lint rules, static types, the production compilation and route gen
 - Downloadable CV
 - Optional verified professional social links
 
-## Author
+## Founder
 
 **Pius Wanyangu**
 
-Full-Stack Software Engineer | AI-Powered Applications
+Founder & Software Engineer
 
 ## License
 

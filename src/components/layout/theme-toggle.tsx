@@ -2,20 +2,20 @@
 
 import { useEffect, useState } from "react";
 
-type ThemePreference = "dark" | "green";
+type ThemePreference = "light" | "dark" | "green";
 
-const storageKey = "pius-theme";
+const storageKey = "afrinex-theme";
 
 function isThemePreference(value: string | null): value is ThemePreference {
-  return value === "dark" || value === "green";
+  return value === "light" || value === "dark" || value === "green";
 }
 
 function readStoredPreference(): ThemePreference {
   try {
     const storedPreference = window.localStorage.getItem(storageKey);
-    return isThemePreference(storedPreference) ? storedPreference : "dark";
+    return isThemePreference(storedPreference) ? storedPreference : "light";
   } catch {
-    return "dark";
+    return "light";
   }
 }
 
@@ -32,27 +32,11 @@ function applyTheme(preference: ThemePreference) {
 
   root.dataset.theme = preference;
   root.dataset.themePreference = preference;
-  root.style.colorScheme = "dark";
-}
-
-function ThemeIcon({ preference }: { preference: ThemePreference }) {
-  if (preference === "green") {
-    return (
-      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="size-5">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 4.5C13 4.7 7.8 7 5.8 11.1c-1.3 2.7-.7 5.7 1.4 7.8 2.7-5.2 6.1-8.1 10.3-10.2-3.6 2.7-6.2 5.8-7.9 9.4 2.3.5 4.7-.2 6.4-2 2.8-2.9 3.4-7.1 3.5-11.6Z" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="size-5">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M20.2 15.3A8.5 8.5 0 0 1 8.7 3.8 8.5 8.5 0 1 0 20.2 15.3Z" />
-    </svg>
-  );
+  root.style.colorScheme = preference === "light" ? "light" : "dark";
 }
 
 export function ThemeToggle() {
-  const [preference, setPreference] = useState<ThemePreference>("dark");
+  const [preference, setPreference] = useState<ThemePreference>("light");
 
   useEffect(() => {
     const initialPreference = readStoredPreference();
@@ -66,7 +50,7 @@ export function ThemeToggle() {
       if (event.key !== storageKey) return;
       const nextPreference = isThemePreference(event.newValue)
         ? event.newValue
-        : "dark";
+        : "light";
       setPreference(nextPreference);
       applyTheme(nextPreference);
     };
@@ -79,24 +63,25 @@ export function ThemeToggle() {
     };
   }, []);
 
-  const nextPreference: ThemePreference = preference === "dark" ? "green" : "dark";
-  const label = nextPreference === "green" ? "Use green theme" : "Use dark theme";
-
-  function cycleTheme() {
+  function selectTheme(nextPreference: ThemePreference) {
     storePreference(nextPreference);
     setPreference(nextPreference);
     applyTheme(nextPreference);
   }
 
   return (
-    <button
-      type="button"
-      onClick={cycleTheme}
-      aria-label={label}
-      title={label}
-      className="inline-flex size-11 shrink-0 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-border-strong hover:bg-surface hover:text-foreground"
-    >
-      <ThemeIcon preference={preference} />
-    </button>
+    <label className="relative shrink-0">
+      <span className="sr-only">Color theme</span>
+      <select
+        value={preference}
+        onChange={(event) => selectTheme(event.target.value as ThemePreference)}
+        aria-label="Color theme"
+        className="h-11 rounded-md border border-border bg-surface px-3 text-sm font-medium text-foreground transition-colors hover:border-border-strong focus-visible:border-accent"
+      >
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="green">Green</option>
+      </select>
+    </label>
   );
 }

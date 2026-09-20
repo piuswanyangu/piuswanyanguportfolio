@@ -10,16 +10,16 @@ export function Footer() {
       <Container className="grid gap-8 text-sm text-muted-foreground md:grid-cols-[1fr_auto] md:items-end">
         <div>
           <Link href="/" className="rounded-sm font-semibold text-foreground transition-colors hover:text-accent">
-            Pius Wanyangu
+            Afrinex Solutions
           </Link>
-          <p className="mt-2">Full-Stack Software Engineer</p>
-          <p className="mt-4">&copy; {currentYear} Pius Wanyangu</p>
+          <p className="mt-2">Digital Services &bull; Software &bull; AI &amp; Automation</p>
+          <p className="mt-4">&copy; {currentYear} Afrinex Solutions</p>
         </div>
         <nav aria-label="Footer navigation">
           <ul className="flex flex-wrap gap-x-5 gap-y-3">
             {navigationItems
               .filter((item) =>
-                ["/projects", "/about", "/writing", "/contact"].includes(item.href),
+                ["/services", "/work", "/about", "/contact"].includes(item.href),
               )
               .map((item) => (
                 <li key={item.href}>

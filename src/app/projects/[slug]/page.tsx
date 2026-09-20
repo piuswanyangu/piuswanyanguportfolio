@@ -32,7 +32,7 @@ export async function generateMetadata({
     description: project.summary,
     alternates: { canonical: `/projects/${project.slug}` },
     openGraph: {
-      title: `${project.name} | Pius Wanyangu`,
+      title: `${project.name} | Afrinex Solutions`,
       description: project.summary,
       type: "article",
       url: `/projects/${project.slug}`,
@@ -42,7 +42,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary",
-      title: `${project.name} | Pius Wanyangu`,
+      title: `${project.name} | Afrinex Solutions`,
       description: project.summary,
       images: project.socialImage ? [project.socialImage] : undefined,
     },
@@ -58,10 +58,10 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
   return (
     <Container className="py-12 sm:py-16 lg:py-20">
       <Link
-        href="/projects"
+        href="/work"
         className="inline-flex min-h-11 items-center rounded-sm text-sm font-semibold text-accent transition-colors hover:text-accent-hover"
       >
-        ← Back to Projects
+        ← Back to Work
       </Link>
 
       <header className="mt-8 grid gap-10 xl:grid-cols-[minmax(0,1.1fr)_minmax(24rem,0.9fr)] xl:items-start xl:gap-16">

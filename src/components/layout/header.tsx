@@ -12,7 +12,7 @@ export function Header() {
           href="/"
           className="rounded-sm text-sm font-semibold tracking-tight text-foreground transition-colors hover:text-accent sm:text-base"
         >
-          Pius Wanyangu
+          Afrinex Solutions
         </Link>
         <div className="flex items-center gap-1">
           <Navigation />

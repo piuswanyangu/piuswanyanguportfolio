@@ -5,10 +5,8 @@ import { absoluteUrl } from "@/lib/site-config";
 const publicRoutes = [
   "/",
   "/about",
-  "/projects",
-  "/skills",
-  "/cv",
-  "/writing",
+  "/services",
+  "/work",
   "/contact",
 ] as const;
 
@@ -16,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticEntries: MetadataRoute.Sitemap = publicRoutes.map((route) => ({
     url: absoluteUrl(route),
     changeFrequency: route === "/" ? "monthly" : "yearly",
-    priority: route === "/" ? 1 : route === "/projects" ? 0.9 : 0.7,
+    priority: route === "/" ? 1 : ["/services", "/work"].includes(route) ? 0.9 : 0.7,
   }));
 
   const projectEntries: MetadataRoute.Sitemap = projects.map((project) => ({

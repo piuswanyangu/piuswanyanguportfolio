@@ -15,10 +15,10 @@ function createSiteUrl(value: string): URL {
 }
 
 export const siteConfig = {
-  name: "Pius Wanyangu Portfolio",
-  shortName: "PIUS.",
+  name: "Afrinex Solutions",
+  shortName: "Afrinex",
   description:
-    "Portfolio of Pius Wanyangu, a full-stack software engineer building modern software and AI-powered applications.",
+    "Afrinex Solutions helps individuals and businesses handle digital tasks, build digital solutions, and work smarter with technology.",
   url: createSiteUrl(configuredSiteUrl),
   socialImage: null as string | null,
 } as const;
@@ -38,7 +38,7 @@ export function createPageMetadata({
   description,
   path,
 }: PageMetadataInput): Metadata {
-  const socialTitle = `${title} | Pius Wanyangu`;
+  const socialTitle = `${title} | Afrinex Solutions`;
 
   return {
     title,
