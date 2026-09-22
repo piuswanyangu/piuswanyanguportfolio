@@ -33,6 +33,7 @@ export function FeaturedProjects() {
               number={String(index + 1).padStart(2, "0")}
               reverse={index % 2 === 1}
               priority={index === 0}
+              variant="compact"
             />
           ))}
         </div>

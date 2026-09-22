@@ -76,7 +76,7 @@ export function ThemeToggle() {
         value={preference}
         onChange={(event) => selectTheme(event.target.value as ThemePreference)}
         aria-label="Color theme"
-        className="h-11 rounded-md border border-border bg-surface px-3 text-sm font-medium text-foreground transition-colors hover:border-border-strong focus-visible:border-accent"
+        className="h-11 rounded-md border border-border-interactive bg-surface px-3 text-sm font-medium text-foreground transition-colors hover:border-accent focus-visible:border-accent"
       >
         <option value="light">Light</option>
         <option value="dark">Dark</option>

@@ -6,11 +6,11 @@ Company website for Afrinex Solutions: Digital Services, Software, AI & Automati
 
 Afrinex Solutions helps individuals and businesses handle digital tasks, build digital solutions, and work smarter with technology. The current implementation establishes the company identity, approved service catalog, selected founder work, and direct contact paths.
 
-The interface follows a Developer Editorial direction: factual project evidence, strong typography, deliberate spacing, reusable components, accessible interactions, and minimal motion. Content is kept in centralized data modules so the site can evolve without coupling portfolio information to presentation code.
+The interface follows a Developer Editorial direction: factual project evidence, strong typography, deliberate spacing, reusable components, accessible interactions, and minimal motion. Content is kept in centralized data modules so the site can evolve without coupling company and project content to presentation code.
 
 ## Live Site
 
-Production URL will be added after Vercel deployment.
+Production URL will be added once the domain and hosting product are configured.
 
 ## Features
 
@@ -58,7 +58,7 @@ Production URL will be added after Vercel deployment.
 - ESLint
 - TypeScript compiler
 - Git and npm
-- Vercel-ready configuration
+- Fully prerendered output (no server-only features in use)
 
 ## Project Architecture
 
@@ -75,7 +75,7 @@ src/
 └── lib/                    # Central site and URL configuration
 ```
 
-The App Router owns routing, page metadata, static project generation, and search-engine endpoints. Shared layout and section components keep page composition readable, while content modules separate portfolio facts from UI code. The application is server-component-first; client-side JavaScript is limited to the interactive desktop and mobile navigation boundaries.
+The App Router owns routing, page metadata, static project generation, and search-engine endpoints. Shared layout and section components keep page composition readable, while content modules separate company and project content from UI code. The application is server-component-first; client-side JavaScript is limited to the interactive desktop and mobile navigation boundaries.
 
 ## Pages and Routes
 
@@ -115,7 +115,7 @@ Light is the default theme, with Dark and Green available through the persistent
 | Dark background | `#07111F` |
 | Green-theme background | `#07120D` |
 
-Geist Sans supports interface and long-form text, while Geist Mono is used for technical accents. Surface hierarchy, consistent borders, and a high-visibility cyan focus outline reinforce structure without decorative clutter.
+Geist Sans supports interface and long-form text, while Geist Mono is used for technical accents. Surface hierarchy, consistent borders, a dedicated higher-contrast border token for interactive controls, and a high-visibility green focus outline reinforce structure without decorative clutter.
 
 ## Motion
 
@@ -139,7 +139,7 @@ These are implementation decisions, not a claim of formal WCAG certification.
 
 The site configures `metadataBase`, canonical URLs, Open Graph data, Twitter metadata, WebSite JSON-LD, Person JSON-LD, `sitemap.xml`, and `robots.txt`.
 
-`NEXT_PUBLIC_SITE_URL` supplies the canonical production origin used by those features. When it is absent, Vercel's production project URL is used when available; local development otherwise falls back to `http://localhost:3000`.
+`NEXT_PUBLIC_SITE_URL` supplies the canonical production origin used by those features. `npm run dev` falls back to `http://localhost:3000`. A production build **fails** if the value is missing, not `https://`, or a localhost origin, so a deployment cannot silently ship localhost metadata.
 
 ## Environment Variables
 
@@ -149,15 +149,15 @@ Copy `.env.example` to `.env.local` and set:
 NEXT_PUBLIC_SITE_URL=https://your-domain.com
 ```
 
-Use the local fallback during development where appropriate, and configure the final HTTPS origin in Vercel for production. `NEXT_PUBLIC_SITE_URL` is public configuration, not a secret. Do not place private credentials in variables prefixed with `NEXT_PUBLIC_`.
+The value is inlined at build time and every route is prerendered, so it must be set **before** `npm run build` runs; setting it afterwards has no effect without rebuilding. `NEXT_PUBLIC_SITE_URL` is public configuration, not a secret. Do not place private credentials in variables prefixed with `NEXT_PUBLIC_`.
 
 ## Getting Started
 
 Prerequisites: a current Node.js release compatible with Next.js 16 and npm.
 
 ```bash
-git clone https://github.com/piuswanyangu/piuswanyanguportfolio.git
-cd piuswanyanguportfolio
+git clone <repository-url>
+cd MyPortfolio
 npm install
 ```
 
@@ -204,17 +204,29 @@ npm run build
 git diff --check
 ```
 
-They validate lint rules, static types, the production compilation and route generation, and whitespace integrity respectively.
+They validate lint rules, static types, the production compilation and route
+generation, and whitespace integrity respectively. `npm run build` requires
+`NEXT_PUBLIC_SITE_URL` to be set to a public `https://` origin.
 
-## Deployment to Vercel
+## Deployment
 
-1. Push the repository to GitHub.
-2. Import the repository into Vercel and confirm Next.js framework detection.
-3. Set `NEXT_PUBLIC_SITE_URL` to the final public HTTPS origin.
-4. Deploy the application.
-5. Attach the custom domain.
-6. Redeploy after domain configuration if the origin changed.
-7. Verify canonical and Open Graph URLs, `/robots.txt`, and `/sitemap.xml` on production.
+The hosting product has not been selected yet, so these steps are
+platform-agnostic.
+
+Every route is prerendered and the application uses no server-only features
+(no middleware, route handlers, server actions, cookies, or ISR). It can run
+either as a Next.js Node server (`npm run start`, Node.js >= 20.9.0) or, with
+`next.config.ts` changes that have deliberately not been made yet, as a static
+export. The only static-export blocker is `next/image` with the default loader.
+
+1. Register the domain and decide the hosting product.
+2. Set `NEXT_PUBLIC_SITE_URL` to the final public HTTPS origin in the build
+   environment.
+3. Run `npm ci && npm run build`. The build fails fast if the origin is
+   missing or invalid.
+4. Serve the build (`npm run start` for Node hosting).
+5. Attach the custom domain and confirm HTTPS.
+6. Verify canonical URLs, `/robots.txt`, and `/sitemap.xml` on production.
 
 ## SEO Launch Checklist
 
@@ -232,10 +244,8 @@ They validate lint rules, static types, the production compilation and route gen
 ## Content Updates
 
 - Projects and case studies: `src/data/projects.ts`
-- Technical capability groups: `src/data/technical-capabilities.ts`
 - Email and WhatsApp details: `src/data/contact.ts`
 - Navigation: `src/data/navigation.ts`
-- Engineering articles: `src/data/articles.ts`
 - Site identity, production URL behavior, and social image: `src/lib/site-config.ts`
 
 ## Future Enhancements
@@ -244,7 +254,6 @@ They validate lint rules, static types, the production compilation and route gen
 - Social preview image
 - Project screenshots
 - Real GitHub repository and live deployment URLs
-- Downloadable CV
 - Optional verified professional social links
 
 ## Founder

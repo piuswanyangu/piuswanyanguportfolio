@@ -1,5 +1,7 @@
 import { Container } from "@/components/layout/container";
 import { PageHeading } from "@/components/layout/page-heading";
+import { CredentialSafetyNotice } from "@/components/sections/credential-safety-notice";
+import { PageCta } from "@/components/sections/page-cta";
 import { serviceCategories, services } from "@/data/services";
 import { createPageMetadata } from "@/lib/site-config";
 
@@ -50,6 +52,16 @@ export default function ServicesPage() {
           );
         })}
       </div>
+
+      <div className="mt-16 sm:mt-20">
+        <CredentialSafetyNotice />
+      </div>
+
+      <PageCta
+        title="Ready to request a service?"
+        description="Tell Afrinex which service you need and what you are trying to get done. Every request is reviewed and the approach is agreed with you before any work begins."
+        secondary={{ href: "/work", label: "See selected work" }}
+      />
     </Container>
   );
 }

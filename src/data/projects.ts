@@ -177,7 +177,7 @@ export const projects = [
     limitations:
       "StayNia currently uses fixture/demo data. Authentication, a production database, reservations, real availability, payment processing, live inventory, host onboarding, and submitted contact forms are intentionally not implemented.",
     learning:
-      "This project strengthened my understanding of keeping UI and API responses aligned through shared data, representing discovery state in URLs, testing responsive user journeys, and clearly separating a working prototype from future transactional features.",
+      "The build reinforced four practices that carry into comparable Afrinex work: keeping UI and API responses aligned through a single shared data source, representing discovery state in the URL so results stay shareable, testing responsive journeys across desktop and mobile, and drawing a clear line between a working prototype and future transactional features.",
     image: {
       src: "/images/projects/staynia/staynia-home.png",
       alt: "StayNia homepage and property discovery introduction",

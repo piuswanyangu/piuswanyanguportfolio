@@ -64,7 +64,7 @@ export const metadata: Metadata = {
       : undefined,
   },
   twitter: {
-    card: "summary",
+    card: siteConfig.socialImage ? "summary_large_image" : "summary",
     title: "Afrinex Solutions | Digital Services, Software, AI & Automation",
     description:
       "Digital services, software development, AI-powered solutions, and automation for individuals and businesses.",
@@ -90,8 +90,14 @@ const structuredData: JsonLdValue = {
       name: "Afrinex Solutions",
       url: absoluteUrl("/"),
       email: contact.email,
+      telephone: contact.phone,
       description:
         "Digital services, software, AI-powered solutions, and automation for individuals and businesses.",
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "KE",
+      },
+      areaServed: [{ "@type": "Country", name: "Kenya" }],
       founder: {
         "@type": "Person",
         name: "Pius Wanyangu",
@@ -113,6 +119,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="theme-transition flex min-h-screen flex-col">
         <StructuredData data={structuredData} />
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <Header />
         <main id="main-content" className="flex-1">
           {children}

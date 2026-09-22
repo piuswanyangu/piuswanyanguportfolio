@@ -13,6 +13,10 @@ export function Footer() {
             Afrinex Solutions
           </Link>
           <p className="mt-2">Digital Services &bull; Software &bull; AI &amp; Automation</p>
+          <p className="mt-2 max-w-md">
+            Based in Kenya. SHA and KRA assistance for Kenyan customers;
+            software, data, and creative services available remotely.
+          </p>
           <p className="mt-4">&copy; {currentYear} Afrinex Solutions</p>
         </div>
         <nav aria-label="Footer navigation">

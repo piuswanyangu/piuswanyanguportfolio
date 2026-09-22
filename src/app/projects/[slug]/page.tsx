@@ -7,6 +7,7 @@ import { ArchitectureDiagram } from "@/components/projects/architecture-diagram"
 import { CaseStudySection } from "@/components/projects/case-study-section";
 import { EngineeringDecisions } from "@/components/projects/engineering-decisions";
 import { ProjectMedia } from "@/components/projects/project-media";
+import { PageCta } from "@/components/sections/page-cta";
 import { getProjectBySlug, projects } from "@/data/projects";
 
 type ProjectPageProps = {
@@ -109,7 +110,7 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-11 items-center rounded-md border border-border bg-surface px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-accent/40 hover:bg-accent-soft"
+                  className="inline-flex min-h-11 items-center rounded-md border border-border-interactive bg-surface px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-accent/40 hover:bg-accent-soft"
                 >
                   GitHub <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span>
                 </Link>
@@ -180,7 +181,7 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
           </CaseStudySection>
         )}
         {project.learning && (
-          <CaseStudySection id="learning" title="What I Learned">
+          <CaseStudySection id="engineering-insights" title="Engineering Insights">
             <p>{project.learning}</p>
           </CaseStudySection>
         )}
@@ -203,6 +204,12 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
           </CaseStudySection>
         )}
       </div>
+
+      <PageCta
+        title="Have a similar project in mind?"
+        description="This case study documents founder-built work demonstrating the engineering capability behind Afrinex. If you need comparable software, data, automation, or website work, describe your requirement and Afrinex will confirm whether it can help."
+        secondary={{ href: "/work", label: "Back to Work" }}
+      />
     </Container>
   );
 }

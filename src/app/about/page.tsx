@@ -5,7 +5,7 @@ import { createPageMetadata } from "@/lib/site-config";
 export const metadata = createPageMetadata({
   title: "About",
   description:
-    "Learn about Afrinex Solutions and its practical approach to digital services, software, AI, automation, and data support.",
+    "Learn about Afrinex Solutions, a Kenya-based provider of digital assistance, data services, software development, AI, automation, and creative support.",
   path: "/about",
 });
 
@@ -30,7 +30,7 @@ const workAreas = [
 
 export default function AboutPage() {
   return (
-    <Container className="py-14 sm:py-18 lg:py-22 ">
+    <Container className="py-14 sm:py-18 lg:py-22">
       <article className="max-w-4xl">
         <header className="max-w-2xl">
           <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">About</p>
@@ -39,13 +39,20 @@ export default function AboutPage() {
           </h1>
           <div className="mt-7 space-y-5 text-base leading-8 text-muted-foreground sm:text-lg">
             <p>
-              Afrinex Solutions helps individuals and businesses handle digital tasks, build digital solutions, and work smarter with technology.
+              Afrinex Solutions helps individuals and businesses handle digital
+              tasks, build digital solutions, and work smarter with technology.
             </p>
             <p>
-              The company brings digital assistance, data work, software development, AI, automation, and creative support into one practical service offering.
+              The company exists because this work is usually scattered. Getting
+              help with an online government process, tidying up a spreadsheet,
+              and fixing a website often means finding three different people.
+              Afrinex brings that work together, so a request can be understood,
+              agreed, and delivered without being passed around.
             </p>
             <p>
-              Afrinex Solutions was founded by Pius Wanyangu, Founder &amp; Software Engineer. More founder and company information will be added as the website develops.
+              Afrinex Solutions is based in Kenya. The SHA and KRA assistance
+              services are for Kenyan customers, while software, data, AI,
+              automation, and creative work can be delivered remotely.
             </p>
           </div>
         </header>
@@ -60,6 +67,30 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+        </section>
+
+        <section aria-labelledby="founder-heading" className="mt-16 border-t border-border pt-8 sm:mt-20">
+          <h2 id="founder-heading" className="text-2xl font-semibold tracking-tight text-foreground">
+            Who is behind Afrinex
+          </h2>
+          <p className="mt-4 max-w-2xl leading-7 text-muted-foreground">
+            Afrinex Solutions was founded by Pius Wanyangu, Founder &amp;
+            Software Engineer, who leads the technical work directly.
+          </p>
+          <p className="mt-4 max-w-2xl leading-7 text-muted-foreground">
+            That work covers full-stack web development with Next.js, React, and
+            TypeScript; backend and API development with Django and Python;
+            background processing, automation, and data workflows; and
+            browser-based testing. Rather than describe this in the abstract,
+            selected projects are published as case studies so customers can
+            inspect the engineering for themselves.
+          </p>
+          <Link
+            href="/work"
+            className="mt-6 inline-flex min-h-11 items-center rounded-sm text-sm font-semibold text-accent underline decoration-border underline-offset-4 transition-colors hover:text-accent-hover hover:decoration-accent-hover"
+          >
+            See selected work <span aria-hidden="true" className="ml-1">→</span>
+          </Link>
         </section>
 
         <section aria-labelledby="independence-heading" className="mt-16 border-t border-border pt-8 sm:mt-20">
@@ -79,7 +110,7 @@ export default function AboutPage() {
         </Link>
         <Link
           href="/contact"
-          className="inline-flex min-h-12 items-center justify-center rounded-md border border-border bg-surface px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-accent/40"
+          className="inline-flex min-h-12 items-center justify-center rounded-md border border-border-interactive bg-surface px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-accent/40"
         >
           Request a Service
         </Link>

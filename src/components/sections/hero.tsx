@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
+import { serviceCategories } from "@/data/services";
 
 export function Hero() {
   return (
     <section aria-labelledby="hero-heading" className="relative isolate overflow-hidden py-14 sm:py-18 lg:py-22">
-      <div aria-hidden="true" className="hero-media-layer" />
-      <div aria-hidden="true" className="hero-readability-layer" />
       <Container className="relative z-10">
         <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.12fr)_minmax(22rem,0.88fr)] lg:gap-14 xl:gap-20">
           <div className="max-w-4xl">
@@ -15,7 +14,7 @@ export function Hero() {
 
           <h1
             id="hero-heading"
-            className="mt-5 max-w-3xl text-5xl font-bold leading-[1.02] tracking-[-0.045em] text-foreground sm:text-6xl lg:text-6xl xl:text-7xl"
+            className="mt-5 max-w-3xl text-4xl font-bold leading-[1.06] tracking-[-0.04em] text-foreground sm:text-5xl sm:leading-[1.02] sm:tracking-[-0.045em] lg:text-6xl xl:text-7xl"
           >
             Digital solutions that help you get things done and grow.
           </h1>
@@ -43,38 +42,28 @@ export function Hero() {
             </Link>
           </div>
 
-          <ul className="mt-10 flex max-w-3xl flex-wrap gap-x-5 gap-y-3 border-t border-border pt-5 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-            {[
-              "Digital Services",
-              "Data",
-              "Software",
-              "AI & Automation",
-              "Creative Services",
-            ].map((capability) => (
-              <li key={capability} className="flex items-center gap-2">
-                <span aria-hidden="true" className="size-1.5 rounded-full bg-secondary-accent" />
-                {capability}
-              </li>
-            ))}
-          </ul>
           </div>
 
           <figure className="relative mx-auto w-full max-w-lg border border-border bg-surface-muted p-5 shadow-[var(--shadow-soft)] sm:p-7 lg:justify-self-end">
             <figcaption className="sr-only">
-              Afrinex Solutions connects digital services, data, software, AI, and automation capabilities.
+              Afrinex Solutions brings its four service areas together under one
+              practical technology partner.
             </figcaption>
             <div className="border border-border-strong bg-background px-5 py-4 text-center">
               <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">Afrinex Solutions</p>
               <p className="mt-2 text-sm text-muted-foreground">One practical technology partner</p>
             </div>
             <div aria-hidden="true" className="mx-auto h-6 w-px bg-border-strong" />
-            <div className="grid grid-cols-2 gap-3">
-              {["Digital", "Data", "Software", "AI & Automation"].map((item) => (
-                <div key={item} className="border border-border bg-surface px-4 py-4 text-center text-sm font-semibold text-foreground">
-                  {item}
-                </div>
+            <ul className="grid grid-cols-2 gap-3">
+              {serviceCategories.map((category) => (
+                <li
+                  key={category}
+                  className="flex min-h-16 items-center justify-center border border-border bg-surface px-3 py-3 text-center text-sm font-semibold leading-snug text-foreground"
+                >
+                  {category}
+                </li>
               ))}
-            </div>
+            </ul>
             <div className="mt-3 border-l-2 border-accent bg-accent-soft px-4 py-3 text-sm text-muted-foreground">
               Connected services shaped around the customer&apos;s actual need.
             </div>
