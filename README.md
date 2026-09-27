@@ -244,6 +244,8 @@ export. The only static-export blocker is `next/image` with the default loader.
 ## Content Updates
 
 - Projects and case studies: `src/data/projects.ts`
+- Blog articles: `src/data/articles.ts`. Drafts are previewable with `npm run dev` at `/blog/[slug]`; change `status` to `published` only after review. Production builds generate public routes only for published articles.
+- Testimonials: `src/data/testimonials.ts`. Add a genuine customer-approved quote and set `approved: true`; unapproved entries are excluded from the homepage.
 - Email and WhatsApp details: `src/data/contact.ts`
 - Navigation: `src/data/navigation.ts`
 - Site identity, production URL behavior, and social image: `src/lib/site-config.ts`

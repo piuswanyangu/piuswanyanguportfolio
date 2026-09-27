@@ -68,6 +68,7 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
       <header className="mt-8 grid gap-10 xl:grid-cols-[minmax(0,1.1fr)_minmax(24rem,0.9fr)] xl:items-start xl:gap-16">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+            <span>Founder project</span>
             <span>{project.category}</span>
             {project.status && (
               <span className="inline-flex items-center gap-2 text-foreground">
@@ -133,7 +134,7 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
         <CaseStudySection id="problem" title="Problem">
           <p>{project.problem}</p>
         </CaseStudySection>
-        <CaseStudySection id="implementation" title="Implementation">
+        <CaseStudySection id="implementation" title="What Afrinex Delivered">
           <p>{project.solution}</p>
         </CaseStudySection>
         {project.plannedWork && (

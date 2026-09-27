@@ -40,6 +40,12 @@ export default function ContactPage() {
         description="Tell us what digital task, data work, software project, or professional support you need."
       />
 
+      <section aria-labelledby="enquiry-heading" className="mt-12 rounded-lg border border-border bg-surface p-6 sm:p-8">
+        <h2 id="enquiry-heading" className="text-2xl font-semibold tracking-tight text-foreground">Start your enquiry</h2>
+        <p className="mt-3 max-w-2xl leading-7 text-muted-foreground">Share only the basic details needed to begin. Your message will open in WhatsApp or email for you to review and send.</p>
+        <Suspense fallback={<p className="mt-6 text-sm text-muted-foreground">Loading enquiry options…</p>}><EnquiryForm /></Suspense>
+      </section>
+
       <section
         aria-labelledby="contact-options-heading"
         className="mt-12 border-t border-border pt-8"
@@ -121,3 +127,5 @@ export default function ContactPage() {
     </Container>
   );
 }
+import { Suspense } from "react";
+import { EnquiryForm } from "@/components/contact/enquiry-form";

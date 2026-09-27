@@ -16,3 +16,11 @@ export const contact = {
   emailUrl: `mailto:${email}?subject=${encodeURIComponent(emailSubject)}`,
   whatsappUrl: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappGreeting)}`,
 } as const;
+
+export function createWhatsAppUrl(message: string) {
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+}
+
+export function createEmailUrl(subject: string, body: string) {
+  return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}

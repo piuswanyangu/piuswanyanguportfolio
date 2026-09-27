@@ -23,7 +23,7 @@ export function Footer() {
           <ul className="flex flex-wrap gap-x-5 gap-y-3">
             {navigationItems
               .filter((item) =>
-                ["/services", "/work", "/about", "/contact"].includes(item.href),
+                ["/services", "/work", "/blog", "/about", "/contact"].includes(item.href),
               )
               .map((item) => (
                 <li key={item.href}>

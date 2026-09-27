@@ -14,7 +14,7 @@ export function Navigation() {
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Primary navigation" className="hidden md:block">
+    <nav aria-label="Primary navigation" className="hidden lg:block">
       <ul className="flex items-center gap-1">
         {navigationItems.map((item) => {
           const isActive = isActiveRoute(pathname, item.href);

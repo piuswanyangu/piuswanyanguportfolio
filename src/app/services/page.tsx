@@ -64,7 +64,7 @@ export default function ServicesPage() {
                     <h3 className="mt-5 text-lg font-semibold tracking-tight text-foreground">{service.name}</h3>
                     <p className="mt-3 flex-1 text-sm leading-6 text-muted-foreground">{service.shortDescription}</p>
                     <p className="mt-3 text-sm leading-6 text-muted-foreground">Useful when you want clear, guided support without having to work through the task alone.</p>
-                    <Link href={`/contact?service=${encodeURIComponent(service.name)}`} className="mt-6 inline-flex min-h-11 items-center justify-center rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover">Request this service</Link>
+                    <Link href={`/services/${service.slug}`} className="mt-6 inline-flex min-h-11 items-center justify-center rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover">View service details</Link>
                   </article>
                 ))}
               </div>

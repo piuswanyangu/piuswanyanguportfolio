@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { ContactCta } from "@/components/sections/contact-cta";
+import { FaqSection } from "@/components/sections/faq-section";
 import { FeaturedProjects } from "@/components/sections/featured-projects";
-import { FounderTrust } from "@/components/sections/founder-trust";
 import { Hero } from "@/components/sections/hero";
 import { HowIBuild } from "@/components/sections/how-i-build";
-import { ServiceCategories } from "@/components/sections/service-categories";
+import { LatestArticles } from "@/components/sections/latest-articles";
+import { ServiceShowcase } from "@/components/sections/service-showcase";
+import { Testimonials } from "@/components/sections/testimonials";
 import { WhyAfrinex } from "@/components/sections/why-afrinex";
 
 export const metadata: Metadata = {
@@ -15,11 +17,13 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <ServiceCategories />
+      <ServiceShowcase />
+      <FeaturedProjects />
       <WhyAfrinex />
       <HowIBuild />
-      <FeaturedProjects />
-      <FounderTrust />
+      <Testimonials />
+      <LatestArticles />
+      <FaqSection />
       <ContactCta />
     </>
   );
