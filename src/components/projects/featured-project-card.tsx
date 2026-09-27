@@ -35,7 +35,7 @@ export function FeaturedProjectCard({
   const isCompact = variant === "compact";
 
   return (
-    <article className="group grid gap-8 border-t border-border py-10 transition-colors hover:border-accent/35 sm:py-12 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:items-start xl:gap-16 xl:py-14">
+    <article className={`group grid gap-8 border-t border-border transition-colors hover:border-accent/35 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] xl:items-start ${isCompact ? "py-8 sm:py-10 xl:gap-12" : "py-10 sm:py-12 xl:gap-16 xl:py-14"}`}>
       <div className={`order-2 ${reverse ? "xl:order-2" : "xl:order-1"}`}>
         <ProjectMedia project={project} priority={priority} />
       </div>
@@ -106,7 +106,7 @@ export function FeaturedProjectCard({
             </span>
             <span className="sr-only">: {project.name}</span>
           </Link>
-          {!isCompact && project.githubUrl && (
+          {project.githubUrl && (
             <Link
               href={project.githubUrl}
               target="_blank"
@@ -116,7 +116,7 @@ export function FeaturedProjectCard({
               GitHub <span aria-hidden="true">↗</span><span className="sr-only"> for {project.name} (opens in a new tab)</span>
             </Link>
           )}
-          {!isCompact && project.liveUrl && (
+          {project.liveUrl && (
             <Link
               href={project.liveUrl}
               target="_blank"

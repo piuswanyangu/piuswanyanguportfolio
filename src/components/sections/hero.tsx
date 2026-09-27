@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
+import { ServiceIcon } from "@/components/services/service-icon";
 import { serviceCategories } from "@/data/services";
+
+const categoryIds = {
+  "Digital & Online Services": "digital-online-services",
+  "Data Services": "data-services",
+  "Software & Technology": "software-technology",
+  "Creative & Professional": "creative-professional",
+} as const;
 
 export function Hero() {
   return (
@@ -27,16 +35,16 @@ export function Hero() {
             </p>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-semibold">
+          <div className="mt-8 flex flex-col items-stretch justify-center gap-3 text-sm font-semibold sm:flex-row sm:items-center lg:max-w-2xl">
             <Link
               href="/contact"
-              className="inline-flex min-h-11 items-center rounded-md bg-accent px-5 py-2.5 text-accent-foreground transition-colors hover:bg-accent-hover"
+              className="interactive-action inline-flex min-h-12 items-center justify-center rounded-md bg-accent px-6 py-3 text-accent-foreground hover:bg-accent-hover"
             >
               Request a Service
             </Link>
             <Link
               href="/services"
-              className="inline-flex min-h-11 items-center rounded-sm text-accent underline decoration-border underline-offset-4 transition-colors hover:text-accent-hover hover:decoration-accent-hover"
+              className="interactive-action inline-flex min-h-12 items-center justify-center rounded-md border border-border-interactive bg-surface px-6 py-3 text-foreground hover:border-accent hover:text-accent"
             >
               Explore Services
             </Link>
@@ -44,29 +52,31 @@ export function Hero() {
 
           </div>
 
-          <figure className="relative mx-auto w-full max-w-lg border border-border bg-surface-muted p-5 shadow-[var(--shadow-soft)] sm:p-7 lg:justify-self-end">
+          <figure className="relative mx-auto w-full max-w-lg overflow-visible rounded-xl bg-surface-muted p-5 shadow-[var(--shadow-soft)] sm:p-7 lg:justify-self-end">
             <figcaption className="sr-only">
               Afrinex Solutions brings its four service areas together under one
               practical technology partner.
             </figcaption>
-            <div className="border border-border-strong bg-background px-5 py-4 text-center">
+            <div className="mx-auto max-w-sm text-center">
               <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">Afrinex Solutions</p>
-              <p className="mt-2 text-sm text-muted-foreground">One practical technology partner</p>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">One practical technology partner for everyday tasks and ambitious ideas.</p>
             </div>
-            <div aria-hidden="true" className="mx-auto h-6 w-px bg-border-strong" />
-            <ul className="grid grid-cols-2 gap-3">
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
               {serviceCategories.map((category) => (
-                <li
-                  key={category}
-                  className="flex min-h-16 items-center justify-center border border-border bg-surface px-3 py-3 text-center text-sm font-semibold leading-snug text-foreground"
-                >
-                  {category}
+                <li key={category}>
+                  <Link
+                    href={`/services#${categoryIds[category]}`}
+                    className="interactive-card flex min-h-28 flex-col items-center justify-center rounded-lg border border-border bg-surface px-4 py-5 text-center text-sm font-semibold leading-snug text-foreground"
+                  >
+                    <span className="mb-3 inline-flex size-10 items-center justify-center rounded-md bg-accent-soft text-accent">
+                      <ServiceIcon category={category} className="size-5" />
+                    </span>
+                    {category}
+                  </Link>
                 </li>
               ))}
             </ul>
-            <div className="mt-3 border-l-2 border-accent bg-accent-soft px-4 py-3 text-sm text-muted-foreground">
-              Connected services shaped around the customer&apos;s actual need.
-            </div>
+            
           </figure>
         </div>
       </Container>

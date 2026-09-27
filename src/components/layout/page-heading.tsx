@@ -12,7 +12,7 @@ export function PageHeading({
   return (
     <header className="max-w-3xl">
       {eyebrow && (
-        <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+        <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">
           {eyebrow}
         </p>
       )}

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { createPageMetadata } from "@/lib/site-config";
@@ -9,112 +10,92 @@ export const metadata = createPageMetadata({
   path: "/about",
 });
 
-const workAreas = [
-  {
-    title: "Digital assistance",
-    body: "Practical assistance with selected online processes, including SHA and KRA-related registration and returns tasks.",
-  },
-  {
-    title: "Data services",
-    body: "Data entry, cleaning, and analysis for clearer, more useful information.",
-  },
-  {
-    title: "Software and technology",
-    body: "Software development, AI-powered solutions, automation services, and website maintenance.",
-  },
-  {
-    title: "Creative and professional support",
-    body: "Graphic design and LinkedIn profile optimization for clearer communication and positioning.",
-  },
-] as const;
-
 export default function AboutPage() {
   return (
-    <Container className="py-14 sm:py-18 lg:py-22">
-      <article className="max-w-4xl">
-        <header className="max-w-2xl">
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">About</p>
-          <h1 className="mt-4 text-4xl font-bold tracking-[-0.035em] text-foreground sm:text-5xl">
-            Practical help with digital work.
+    <Container className="py-10 sm:py-14 lg:py-16">
+      <article className="mx-auto max-w-3xl text-center">
+        <header className="mx-auto max-w-2xl">
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">
+            About Afrinex
+          </p>
+          <h1 className="mt-3 text-[2rem] font-bold leading-[1.12] tracking-[-0.035em] text-foreground sm:text-5xl">
+            One partner for your digital needs.
           </h1>
-          <div className="mt-7 space-y-5 text-base leading-8 text-muted-foreground sm:text-lg">
-            <p>
-              Afrinex Solutions helps individuals and businesses handle digital
-              tasks, build digital solutions, and work smarter with technology.
-            </p>
-            <p>
-              The company exists because this work is usually scattered. Getting
-              help with an online government process, tidying up a spreadsheet,
-              and fixing a website often means finding three different people.
-              Afrinex brings that work together, so a request can be understood,
-              agreed, and delivered without being passed around.
-            </p>
-            <p>
-              Afrinex Solutions is based in Kenya. The SHA and KRA assistance
-              services are for Kenyan customers, while software, data, AI,
-              automation, and creative work can be delivered remotely.
-            </p>
-          </div>
+          <p className="mx-auto mt-5 max-w-[58ch] text-base leading-[1.65] text-muted-foreground sm:text-lg">
+            Afrinex Solutions helps individuals and businesses with online
+            services, data, websites, and software.
+          </p>
         </header>
 
-        <section aria-labelledby="work-heading" className="mt-16 border-t border-border pt-8 sm:mt-20">
-          <h2 id="work-heading" className="text-2xl font-semibold tracking-tight text-foreground">What Afrinex works on</h2>
-          <div className="mt-6 divide-y divide-border border-y border-border">
-            {workAreas.map((area) => (
-              <div key={area.title} className="grid gap-2 py-5 sm:grid-cols-[11rem_1fr] sm:gap-8">
-                <h3 className="font-semibold text-foreground">{area.title}</h3>
-                <p className="max-w-2xl leading-7 text-muted-foreground">{area.body}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section aria-labelledby="founder-heading" className="mt-16 border-t border-border pt-8 sm:mt-20">
-          <h2 id="founder-heading" className="text-2xl font-semibold tracking-tight text-foreground">
-            Who is behind Afrinex
-          </h2>
-          <p className="mt-4 max-w-2xl leading-7 text-muted-foreground">
-            Afrinex Solutions was founded by Pius Wanyangu, Founder &amp;
-            Software Engineer, who leads the technical work directly.
-          </p>
-          <p className="mt-4 max-w-2xl leading-7 text-muted-foreground">
-            That work covers full-stack web development with Next.js, React, and
-            TypeScript; backend and API development with Django and Python;
-            background processing, automation, and data workflows; and
-            browser-based testing. Rather than describe this in the abstract,
-            selected projects are published as case studies so customers can
-            inspect the engineering for themselves.
-          </p>
-          <Link
-            href="/work"
-            className="mt-6 inline-flex min-h-11 items-center rounded-sm text-sm font-semibold text-accent underline decoration-border underline-offset-4 transition-colors hover:text-accent-hover hover:decoration-accent-hover"
+        <section
+          aria-labelledby="why-heading"
+          className="mx-auto mt-12 max-w-[60ch] sm:mt-14"
+        >
+          <h2
+            id="why-heading"
+            className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
           >
-            See selected work <span aria-hidden="true" className="ml-1">→</span>
-          </Link>
-        </section>
-
-        <section aria-labelledby="independence-heading" className="mt-16 border-t border-border pt-8 sm:mt-20">
-          <h2 id="independence-heading" className="text-2xl font-semibold tracking-tight text-foreground">Independent assistance</h2>
-          <p className="mt-4 max-w-2xl leading-7 text-muted-foreground">
-            Government-related services are provided as independent assistance. Afrinex Solutions is not KRA, SHA, eCitizen, the Government of Kenya, or an official representative of those institutions.
+            Why Afrinex exists
+          </h2>
+          <p className="mt-4 text-base leading-[1.7] text-muted-foreground sm:text-lg">
+            Finding help for different digital tasks can mean dealing with
+            several providers. Afrinex brings these services together, giving
+            you one place to explain your needs and agree on the right support.
           </p>
         </section>
-      </article>
 
-      <div className="mt-16 flex flex-col gap-3 border-t border-border pt-8 sm:mt-20 sm:flex-row">
-        <Link
-          href="/services"
-          className="inline-flex min-h-12 items-center justify-center rounded-md bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
+        <aside className="mx-auto mt-12 max-w-[60ch] sm:mt-14">
+          <p className="font-mono text-sm font-semibold text-accent">
+            Based in Kenya. Available remotely.
+          </p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
+            SHA and KRA assistance is for customers in Kenya. Website,
+            software, data, and creative services are available remotely.
+          </p>
+        </aside>
+
+        <section
+          aria-labelledby="founder-heading"
+          className="mx-auto mt-14 max-w-[60ch] sm:mt-16"
         >
-          Explore Services
-        </Link>
-        <Link
-          href="/contact"
-          className="inline-flex min-h-12 items-center justify-center rounded-md border border-border-interactive bg-surface px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-accent/40"
-        >
-          Request a Service
-        </Link>
-      </div>
+          <Image
+            src="/images/pius-wanyangu-profile.jpeg"
+            alt="Pius Wanyangu, founder of Afrinex Solutions"
+            width={413}
+            height={413}
+            className="mx-auto size-32 rounded-full border-2 border-border-strong object-cover shadow-[var(--shadow-soft)] sm:size-36"
+          />
+          <h2
+            id="founder-heading"
+            className="mt-5 text-2xl font-semibold tracking-tight text-foreground"
+          >
+            Pius Wanyangu
+          </h2>
+          <p className="mt-1 font-mono text-sm text-accent">
+            Founder &amp; Software Engineer
+          </p>
+          <p className="mt-4 text-base leading-[1.7] text-muted-foreground">
+            Pius leads the technical work directly, including full-stack web
+            development, backend and API development, automation, data
+            workflows, and browser-based testing.
+          </p>
+        </section>
+
+        <div className="mt-14 flex flex-col justify-center gap-3 sm:mt-16 sm:flex-row">
+          <Link
+            href="/contact"
+            className="interactive-action inline-flex min-h-12 items-center justify-center rounded-md bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground hover:bg-accent-hover"
+          >
+            Request a Service
+          </Link>
+          <Link
+            href="/services"
+            className="interactive-action inline-flex min-h-12 items-center justify-center rounded-md border border-border-interactive bg-surface px-6 py-3 text-sm font-semibold text-foreground hover:border-accent hover:text-accent"
+          >
+            Explore Services
+          </Link>
+        </div>
+      </article>
     </Container>
   );
 }

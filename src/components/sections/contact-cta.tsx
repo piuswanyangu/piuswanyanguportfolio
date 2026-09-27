@@ -9,7 +9,7 @@ export function ContactCta() {
       className="section-enter border-t border-border py-14 sm:py-18 lg:py-20"
     >
       <Container>
-        <div className="border border-border bg-surface px-6 py-10 sm:px-10 sm:py-12 lg:grid lg:grid-cols-[minmax(0,3fr)_minmax(18rem,2fr)] lg:items-end lg:gap-16">
+        <div className="border-l-4 border-accent bg-accent-soft px-6 py-10 sm:px-10 sm:py-12 lg:grid lg:grid-cols-[minmax(0,3fr)_minmax(18rem,2fr)] lg:items-end lg:gap-16">
           <div className="max-w-3xl">
             <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">Start a conversation</p>
             <h2

@@ -20,7 +20,7 @@ export function Navigation() {
           const isActive = isActiveRoute(pathname, item.href);
 
           return (
-            <li key={item.href}>
+            <li key={item.href} className={item.href === "/contact" ? "lg:hidden" : undefined}>
               <Link
                 href={item.href}
                 aria-current={isActive ? "page" : undefined}

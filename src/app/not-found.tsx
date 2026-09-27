@@ -27,7 +27,7 @@ export default function NotFound() {
           Error 404
         </p>
         <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-[-0.03em] text-foreground sm:text-5xl">
-          This page could not be found.
+          OOPS  this page could not be found.
         </h1>
         <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
           The page you requested does not exist, or it has moved. The links

@@ -3,19 +3,19 @@ import { Container } from "@/components/layout/container";
 const workflow = [
   [
     "Tell us what you need",
-    "Share the digital task, service request, or technology problem you want help with.",
+    "Share the service or business problem you need help with.",
   ],
   [
-    "We assess the request",
-    "We review the requirement, clarify important details, and confirm whether Afrinex can help.",
+    "We review your request",
+    "We clarify the details and confirm how we can help.",
   ],
   [
-    "We agree on the solution",
-    "Before work begins, we align on the practical approach and what the requested service includes.",
+    "Agree on the work",
+    "We confirm the scope, cost, and expected timeline with you.",
   ],
   [
-    "We deliver",
-    "We complete the agreed work and communicate the result through the appropriate channel.",
+    "Receive your solution",
+    "We complete the agreed work and explain the next steps.",
   ],
 ] as const;
 
@@ -26,7 +26,7 @@ export function HowIBuild() {
       className="section-enter border-t border-border py-14 sm:py-18 lg:py-20"
     >
       <Container>
-        <div className="max-w-2xl">
+        <div className="mx-auto max-w-2xl text-center">
           <h2
             id="how-i-build-heading"
             className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
@@ -38,14 +38,14 @@ export function HowIBuild() {
           </p>
         </div>
 
-        <ol className="mt-10 border-t border-border sm:mt-12">
+        <ol className="mt-10 grid gap-5 sm:mt-12 sm:grid-cols-2 lg:grid-cols-4">
           {workflow.map(([title, description], index) => (
-            <li key={title} className="grid gap-3 border-b border-border py-6 md:grid-cols-[4rem_14rem_1fr] md:gap-6">
-              <p className="font-mono text-xs text-muted-foreground">
+            <li key={title} className="interactive-card rounded-lg border border-border bg-surface p-6">
+              <p className="inline-flex size-11 items-center justify-center rounded-full bg-accent text-center font-mono text-xs text-accent-foreground">
                 {String(index + 1).padStart(2, "0")}
               </p>
-              <h3 className="font-semibold text-foreground">{title}</h3>
-              <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
+              <h3 className="mt-5 font-semibold text-foreground">{title}</h3>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
                 {description}
               </p>
             </li>

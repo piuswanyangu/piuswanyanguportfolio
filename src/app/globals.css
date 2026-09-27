@@ -199,6 +199,37 @@ button {
   transition-timing-function: var(--ease-standard);
 }
 
+.interactive-card,
+.interactive-action {
+  transition-property: transform, box-shadow, border-color, background-color, color;
+  transition-duration: 220ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .interactive-card:hover {
+    z-index: 1;
+    transform: translateY(-4px) scale(1.02);
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .interactive-action:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(16, 32, 46, 0.12);
+  }
+}
+
+.interactive-card:focus-visible,
+.interactive-card:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.interactive-action:active {
+  transform: scale(0.98);
+}
+
 a:active,
 button:active {
   transition-duration: 50ms;
@@ -234,6 +265,14 @@ button:disabled,
     animation: none;
     opacity: 1;
     transform: none;
+  }
+
+  .interactive-card,
+  .interactive-card:hover,
+  .interactive-action,
+  .interactive-action:hover,
+  .interactive-action:active {
+    transform: none !important;
   }
 
   a:hover,

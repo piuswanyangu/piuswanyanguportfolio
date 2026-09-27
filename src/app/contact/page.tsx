@@ -19,7 +19,7 @@ const firstMessageChecklist = [
   {
     label: "The service you need",
     detail:
-      "For example SHA registration assistance, data cleaning, or a website.",
+      "For example SHA registration , data cleaning, or a website.",
   },
   {
     label: "A short description of the task",
@@ -37,7 +37,7 @@ export default function ContactPage() {
       <PageHeading
         eyebrow="Get in touch"
         title="Contact"
-        description="Tell us what digital task, data work, software project, or professional support you need. For now, contact is available by email or WhatsApp."
+        description="Tell us what digital task, data work, software project, or professional support you need."
       />
 
       <section
@@ -118,13 +118,6 @@ export default function ContactPage() {
       <div className="mt-12">
         <CredentialSafetyNotice />
       </div>
-
-      <p className="mt-10 max-w-3xl border-l-2 border-border-strong pl-4 text-xs leading-6 text-muted-foreground">
-        Afrinex Solutions provides independent assistance with SHA and KRA
-        processes. It is not affiliated with KRA, SHA, eCitizen, or the
-        Government of Kenya, and is not an official representative of those
-        institutions.
-      </p>
     </Container>
   );
 }

@@ -29,14 +29,17 @@ export function ServiceCategories() {
             </Link>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid border-t border-border sm:grid-cols-2">
             {serviceCategories.map((category, index) => {
               const categoryServices = services.filter(
                 (service) => service.category === category,
               );
 
               return (
-                <article key={category} className="border border-border bg-surface p-5 sm:p-6">
+                <article
+                  key={category}
+                  className="border-b border-border py-6 sm:px-6 sm:first:border-r sm:nth-[3]:border-r"
+                >
                   <div className="flex items-start justify-between gap-4">
                     <h3 className="max-w-[15rem] text-lg font-semibold tracking-tight text-foreground">
                       {category}
@@ -45,7 +48,7 @@ export function ServiceCategories() {
                       {String(index + 1).padStart(2, "0")}
                     </span>
                   </div>
-                  <ul className="mt-5 space-y-3 border-t border-border pt-4">
+                  <ul className="mt-5 space-y-3">
                     {categoryServices.map((service) => (
                       <li key={service.slug} className="flex gap-3 text-sm leading-6 text-muted-foreground">
                         <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-secondary-accent" />
@@ -58,10 +61,6 @@ export function ServiceCategories() {
             })}
           </div>
         </div>
-
-        <p className="mt-6 max-w-3xl border-l-2 border-border-strong pl-4 text-xs leading-6 text-muted-foreground">
-          SHA and KRA services are independent assistance services. Afrinex Solutions is not affiliated with KRA, SHA, eCitizen, or the Government of Kenya.
-        </p>
       </Container>
     </section>
   );

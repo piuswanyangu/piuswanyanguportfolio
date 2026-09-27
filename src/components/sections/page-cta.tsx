@@ -9,6 +9,7 @@ type PageCtaProps = {
   title: string;
   description: string;
   secondary?: PageCtaLink;
+  centered?: boolean;
 };
 
 const headingId = "page-cta-heading";
@@ -19,7 +20,7 @@ const headingId = "page-cta-heading";
  * Unlike `ContactCta`, this renders inside a page that already provides its own
  * `Container`, so it intentionally omits container and section padding.
  */
-export function PageCta({ title, description, secondary }: PageCtaProps) {
+export function PageCta({ title, description, secondary, centered = false }: PageCtaProps) {
   return (
     <section
       aria-labelledby={headingId}
@@ -31,10 +32,10 @@ export function PageCta({ title, description, secondary }: PageCtaProps) {
       >
         {title}
       </h2>
-      <p className="mt-4 max-w-2xl leading-7 text-muted-foreground">
+      <p className={`mt-4 max-w-2xl leading-7 text-muted-foreground ${centered ? "mx-auto" : ""}`}>
         {description}
       </p>
-      <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+      <div className={`mt-7 flex flex-col gap-3 sm:flex-row ${centered ? "justify-center" : ""}`}>
         <Link
           href="/contact"
           className="inline-flex min-h-12 items-center justify-center rounded-md bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"

@@ -30,17 +30,17 @@ export function WhyAfrinex() {
       className="section-enter border-t border-border bg-surface-muted py-14 sm:py-18 lg:py-20"
     >
       <Container>
-        <div className="max-w-2xl">
+        <div className="mx-auto max-w-2xl text-center">
           <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">Why Afrinex</p>
           <h2 id="why-afrinex-heading" className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
             Technology support grounded in real needs.
           </h2>
         </div>
 
-        <ol className="mt-10 grid border-t border-border sm:grid-cols-2 lg:grid-cols-4 sm:mt-12">
+        <ol className="mt-10 grid gap-5 sm:mt-12 sm:grid-cols-2 lg:grid-cols-4">
           {principles.map((principle, index) => (
-            <li key={principle.title} className="border-b border-border py-6 sm:px-6 sm:first:pl-0 lg:border-r lg:last:border-r-0">
-              <p className="font-mono text-xs text-accent">{String(index + 1).padStart(2, "0")}</p>
+            <li key={principle.title} className="interactive-card rounded-lg border border-border bg-surface p-6">
+              <span className="inline-flex size-10 items-center justify-center rounded-md bg-accent-soft font-mono text-xs text-accent">{String(index + 1).padStart(2, "0")}</span>
               <h3 className="mt-4 font-semibold text-foreground">{principle.title}</h3>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{principle.description}</p>
             </li>

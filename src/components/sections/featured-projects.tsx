@@ -4,7 +4,9 @@ import { FeaturedProjectCard } from "@/components/projects/featured-project-card
 import { projects } from "@/data/projects";
 
 export function FeaturedProjects() {
-  const featuredProjects = projects.filter((project) => project.featured);
+  const featuredProjects = projects
+    .filter((project) => project.featured)
+    .sort((a, b) => Number(Boolean(b.image)) - Number(Boolean(a.image)));
 
   return (
     <section
@@ -12,13 +14,16 @@ export function FeaturedProjects() {
       className="section-enter border-t border-border py-14 sm:py-18 lg:py-20"
     >
       <Container>
-        <div className="max-w-2xl">
-          <h2
-            id="featured-projects-heading"
-            className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
-          >
-            Selected Work
-          </h2>
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.7fr)] lg:items-end lg:gap-16">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">Engineering proof</p>
+            <h2
+              id="featured-projects-heading"
+              className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
+            >
+              Selected Work
+            </h2>
+          </div>
           <p className="mt-5 text-lg leading-8 text-muted-foreground">
             Explore selected software projects built by our founder that
             demonstrate the engineering capabilities behind Afrinex Solutions.
