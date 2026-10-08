@@ -14,20 +14,19 @@ export const metadata = createPageMetadata({
 const firstMessageChecklist = [
   {
     label: "Your name",
-    detail: "So Afrinex knows who it is speaking with.",
+    detail: "Add the name you want Afrinex to use when responding.",
   },
   {
     label: "The service you need",
-    detail:
-      "For example SHA registration , data cleaning, or a website.",
+    detail: "Mention the support area, such as a registration task, data work, website, software, or automation request.",
   },
   {
     label: "A short description of the task",
-    detail: "What you are trying to get done, in your own words.",
+    detail: "Describe the goal, what is already in place, and any deadlines or priorities.",
   },
   {
     label: "How you prefer to be contacted",
-    detail: "Whether a reply by WhatsApp or by email suits you better.",
+    detail: "Tell us whether email or WhatsApp is the best way to continue the conversation.",
   },
 ] as const;
 
@@ -42,7 +41,7 @@ export default function ContactPage() {
 
       <section aria-labelledby="enquiry-heading" className="mt-12 rounded-lg border border-border bg-surface p-6 sm:p-8">
         <h2 id="enquiry-heading" className="text-2xl font-semibold tracking-tight text-foreground">Start your enquiry</h2>
-        <p className="mt-3 max-w-2xl leading-7 text-muted-foreground">Share only the basic details needed to begin. Your message will open in WhatsApp or email for you to review and send.</p>
+        <p className="mt-3 max-w-2xl leading-7 text-muted-foreground">Share the basic details needed to begin. Your message will open in WhatsApp or email for you to review and send.</p>
         <Suspense fallback={<p className="mt-6 text-sm text-muted-foreground">Loading enquiry options…</p>}><EnquiryForm /></Suspense>
       </section>
 

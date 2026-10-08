@@ -12,14 +12,19 @@ const themeInitializer = `
   (function () {
     try {
       var preference = localStorage.getItem("afrinex-theme");
-      if (preference !== "light" && preference !== "dark" && preference !== "green") {
-        preference = "light";
+      if (preference !== "dark" && preference !== "green") {
+        preference = "dark";
       }
       var root = document.documentElement;
       root.dataset.theme = preference;
       root.dataset.themePreference = preference;
-      root.style.colorScheme = preference === "light" ? "light" : "dark";
-    } catch (_) {}
+      root.style.colorScheme = "dark";
+    } catch (_) {
+      var root = document.documentElement;
+      root.dataset.theme = "dark";
+      root.dataset.themePreference = "dark";
+      root.style.colorScheme = "dark";
+    }
   })();
 `;
 

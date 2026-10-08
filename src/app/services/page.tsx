@@ -37,10 +37,12 @@ export default function ServicesPage() {
   return (
     <Container className="py-14 sm:py-18 lg:py-22">
       <header className="mx-auto max-w-3xl text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">What we offer</p>
-        <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-[-0.03em] text-foreground sm:text-5xl">Services</h1>
-        <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
-          Practical digital support for individuals and businesses. Choose the service closest to what you need, then tell us about your request.
+        <p className="eyebrow">What we offer</p>
+        <h1 className="mt-5 text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-foreground sm:text-5xl lg:text-6xl">
+          Practical digital support built around the real task.
+        </h1>
+        <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
+          Afrinex helps with the online services, data work, software, AI, automation, and creative support that people and businesses need to move forward with less friction.
         </p>
       </header>
 
@@ -51,20 +53,24 @@ export default function ServicesPage() {
 
           return (
             <section key={category} id={details.id} aria-labelledby={`${details.id}-heading`} className="scroll-mt-24">
-              <div className="mx-auto max-w-2xl text-center">
-                <span className="mx-auto inline-flex size-12 items-center justify-center rounded-lg bg-accent-soft text-accent"><ServiceIcon category={category} className="size-6" /></span>
+              <div className="mx-auto max-w-3xl text-center">
+                <span className="mx-auto inline-flex size-12 items-center justify-center rounded-xl bg-accent-soft text-accent ring-1 ring-inset ring-border"><ServiceIcon category={category} className="size-6" /></span>
                 <h2 id={`${details.id}-heading`} className="mt-5 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{category}</h2>
                 <p className="mx-auto mt-3 max-w-xl leading-7 text-muted-foreground">{details.description}</p>
               </div>
 
-              <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
                 {categoryServices.map((service) => (
-                  <article key={service.slug} className="interactive-card flex flex-col items-center rounded-lg border border-border bg-surface p-6 text-center">
-                    <div className="flex h-16 w-full items-center justify-center text-accent"><ServiceMark service={service} /></div>
-                    <h3 className="mt-5 text-lg font-semibold tracking-tight text-foreground">{service.name}</h3>
-                    <p className="mt-3 flex-1 text-sm leading-6 text-muted-foreground">{service.shortDescription}</p>
-                    <p className="mt-3 text-sm leading-6 text-muted-foreground">Useful when you want clear, guided support without having to work through the task alone.</p>
-                    <Link href={`/services/${service.slug}`} className="mt-6 inline-flex min-h-11 items-center justify-center rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover">View service details</Link>
+                  <article key={service.slug} className="interactive-card flex h-full flex-col rounded-[1.5rem] border border-border bg-surface p-6 shadow-sm">
+                    <div className="flex h-16 w-full items-center justify-center rounded-2xl border border-border bg-surface-muted text-accent">
+                      <ServiceMark service={service} />
+                    </div>
+                    <h3 className="mt-5 text-xl font-semibold tracking-tight text-foreground">{service.name}</h3>
+                    <p className="mt-3 flex-1 text-sm leading-7 text-muted-foreground">{service.shortDescription}</p>
+                    <p className="mt-4 text-sm leading-6 text-muted-foreground">Useful when you need clear, guided support without having to figure out the task alone.</p>
+                    <Link href={`/services/${service.slug}`} className="mt-6 inline-flex min-h-11 items-center justify-center rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover">
+                      View service details
+                    </Link>
                   </article>
                 ))}
               </div>
