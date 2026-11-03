@@ -16,10 +16,11 @@ export function CaseStudySection({
   return (
     <section
       aria-labelledby={headingId}
-      className="grid gap-5 border-t border-border py-8 md:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] md:gap-10 lg:py-10"
+      className="grid gap-5 border-t border-border py-10 first:border-t-0 md:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] md:gap-10 lg:py-12"
     >
       <div>
-        <h2 id={headingId} className="text-xl font-semibold tracking-tight">
+        <span aria-hidden="true" className="heading-bar w-10" />
+        <h2 id={headingId} className="title-3 mt-4">
           {title}
         </h2>
       </div>

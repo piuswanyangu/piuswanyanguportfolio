@@ -35,27 +35,28 @@ export function FeaturedProjectCard({
   const isCompact = variant === "compact";
 
   return (
-    <article className={`group grid gap-8 border-t border-border transition-colors hover:border-accent/35 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] xl:items-start ${isCompact ? "py-8 sm:py-10 xl:gap-12" : "py-10 sm:py-12 xl:gap-16 xl:py-14"}`}>
+    <article data-reveal className={`card group grid gap-8 p-5 sm:p-8 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] xl:items-center ${isCompact ? "xl:gap-12" : "xl:gap-14 xl:p-10"}`}>
       <div className={`order-2 ${reverse ? "xl:order-2" : "xl:order-1"}`}>
         <ProjectMedia project={project} priority={priority} />
       </div>
 
       <div className={`order-1 ${reverse ? "xl:order-1" : "xl:order-2"}`}>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-          <span>Project {number}</span>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">
+          <span className="text-accent">Project {number}</span>
+          <span aria-hidden="true">·</span>
           <span>{project.category}</span>
           {project.status && (
-            <span className="inline-flex items-center gap-2 text-foreground">
-              <span aria-hidden="true" className="size-1.5 rounded-full bg-secondary-accent" />
-              Status: {project.status}
+            <span className="rounded-full bg-accent-soft px-2.5 py-1 text-accent">
+              <span className="sr-only">Status: </span>
+              {project.status}
             </span>
           )}
         </div>
         <Heading
           className={
             isCompact
-              ? "mt-4 text-2xl font-semibold tracking-[-0.02em] text-foreground sm:text-3xl"
-              : "mt-4 text-4xl font-semibold tracking-[-0.035em] text-foreground sm:text-5xl"
+              ? "title-3 mt-4 text-2xl sm:text-3xl"
+              : "display-2 mt-4"
           }
         >
           {project.name}
@@ -73,21 +74,21 @@ export function FeaturedProjectCard({
         ) : (
           <dl className="mt-6 space-y-5">
             <div className="grid gap-2 sm:grid-cols-[7rem_1fr] sm:gap-5">
-              <dt className="font-mono text-xs uppercase tracking-wider text-muted-foreground">Problem</dt>
+              <dt className="text-xs font-bold uppercase tracking-[0.1em] text-accent">Problem</dt>
               <dd className="leading-7 text-muted-foreground">{project.problem}</dd>
             </div>
             <div className="grid gap-2 sm:grid-cols-[7rem_1fr] sm:gap-5">
-              <dt className="font-mono text-xs uppercase tracking-wider text-muted-foreground">Implemented</dt>
+              <dt className="text-xs font-bold uppercase tracking-[0.1em] text-accent">Implemented</dt>
               <dd className="leading-7 text-foreground">{project.solution}</dd>
             </div>
             {project.plannedWork && (
               <div className="grid gap-2 sm:grid-cols-[7rem_1fr] sm:gap-5">
-                <dt className="font-mono text-xs uppercase tracking-wider text-muted-foreground">Planned</dt>
+                <dt className="text-xs font-bold uppercase tracking-[0.1em] text-accent">Planned</dt>
                 <dd className="leading-7 text-muted-foreground">{project.plannedWork}</dd>
               </div>
             )}
             <div className="grid gap-2 sm:grid-cols-[7rem_1fr] sm:gap-5">
-              <dt className="font-mono text-xs uppercase tracking-wider text-muted-foreground">Stack</dt>
+              <dt className="text-xs font-bold uppercase tracking-[0.1em] text-accent">Stack</dt>
               <dd className="font-mono text-xs leading-6 text-muted-foreground">
                 {project.technologies.join(" / ")}
               </dd>
@@ -96,14 +97,8 @@ export function FeaturedProjectCard({
         )}
 
         <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-semibold">
-          <Link
-            href={`/projects/${project.slug}`}
-            className="inline-flex min-h-11 items-center rounded-sm text-accent underline decoration-border underline-offset-4 transition-colors hover:text-accent-hover hover:decoration-accent-hover"
-          >
+          <Link href={`/projects/${project.slug}`} className="btn btn-primary">
             Case study
-            <span aria-hidden="true" className="ml-1 inline-block transition-transform group-hover:translate-x-0.5">
-              →
-            </span>
             <span className="sr-only">: {project.name}</span>
           </Link>
           {project.githubUrl && (

@@ -1,7 +1,6 @@
-const email = "ndubipius96@gmail.com";
-const phone = "+254792342944";
+import { siteConfig } from "@/lib/site-config";
 
-const whatsappNumber = phone.replace(/\D/g, "");
+const { email, phone, whatsappNumber } = siteConfig.contact;
 
 /**
  * Prefilled openers. These deliberately contain no personal or sensitive
@@ -13,6 +12,7 @@ const emailSubject = "Afrinex Service Request";
 export const contact = {
   email,
   phone,
+  phoneDisplay: siteConfig.contact.phoneDisplay,
   emailUrl: `mailto:${email}?subject=${encodeURIComponent(emailSubject)}`,
   whatsappUrl: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappGreeting)}`,
 } as const;

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { formatArticleDate } from "@/components/blog/article-card";
 import { Container } from "@/components/layout/container";
+import { PageBanner } from "@/components/layout/page-banner";
 import { StructuredData } from "@/components/seo/structured-data";
 import { articles, getArticleBySlug, publishedArticles } from "@/data/articles";
 import { absoluteUrl, createPageMetadata } from "@/lib/site-config";
@@ -14,5 +16,36 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params; const article = getArticleBySlug(slug); if (!article || (article.status !== "published" && !isDevelopment)) notFound();
   const related = publishedArticles.filter((item) => item.slug !== article.slug && item.category === article.category).slice(0, 2);
-  return <Container className="py-12 sm:py-16 lg:py-20">{article.status === "published" && <StructuredData data={{ "@context": "https://schema.org", "@type": "Article", headline: article.title, description: article.excerpt, datePublished: article.publishedAt, dateModified: article.updatedAt ?? article.publishedAt, author: { "@type": "Person", name: article.author }, mainEntityOfPage: absoluteUrl(`/blog/${article.slug}`) }} />}<article className="mx-auto max-w-[72ch]"><Link href="/blog" className="inline-flex min-h-11 items-center text-sm font-semibold text-accent">← Back to Blog</Link>{article.status === "draft" && <p className="mt-5 border-l-2 border-accent bg-accent-soft px-4 py-3 text-sm font-semibold text-foreground">Development preview · Draft article</p>}<header className="mt-6"><p className="font-mono text-xs uppercase text-accent">{article.category}</p><h1 className="mt-4 text-4xl font-semibold leading-tight tracking-[-0.03em] text-foreground sm:text-5xl">{article.title}</h1><p className="mt-5 text-lg leading-8 text-muted-foreground">{article.excerpt}</p><p className="mt-5 text-sm text-muted-foreground">By {article.author} · {article.publishedAt}</p></header><div className="mt-10 space-y-6 text-left text-base leading-8 text-muted-foreground">{article.body.map((block, index) => block.type === "heading" ? <h2 key={index} className="pt-4 text-2xl font-semibold text-foreground">{block.text}</h2> : block.type === "list" ? <ul key={index} className="list-disc space-y-2 pl-6">{block.items.map((item) => <li key={item}>{item}</li>)}</ul> : <p key={index}>{block.text}</p>)}</div>{related.length > 0 && <section aria-labelledby="related-heading" className="mt-12 border-t border-border pt-8"><h2 id="related-heading" className="text-2xl font-semibold text-foreground">Related articles</h2><ul className="mt-4 space-y-3">{related.map((item) => <li key={item.slug}><Link href={`/blog/${item.slug}`} className="font-semibold text-accent hover:text-accent-hover">{item.title}</Link></li>)}</ul></section>}<aside className="mt-12 border-l-4 border-accent bg-accent-soft p-6"><h2 className="text-xl font-semibold text-foreground">Need help with this?</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">Tell Afrinex what you are trying to achieve and we will review the request with you.</p><Link href={`/contact?service=${article.relatedServiceSlug}`} className="mt-5 inline-flex min-h-11 items-center rounded-md bg-accent px-5 text-sm font-semibold text-accent-foreground">Request a Service</Link></aside></article></Container>;
+  return (
+    <>
+      {article.status === "published" && <StructuredData data={{ "@context": "https://schema.org", "@type": "Article", headline: article.title, description: article.excerpt, datePublished: article.publishedAt, dateModified: article.updatedAt ?? article.publishedAt, author: { "@type": "Person", name: article.author }, mainEntityOfPage: absoluteUrl(`/blog/${article.slug}`) }} />}
+      <PageBanner
+        eyebrow={article.category}
+        title={article.title}
+        description={article.excerpt}
+        breadcrumbs={[{ label: "Blog", href: "/blog" }, { label: article.title, href: `/blog/${article.slug}` }]}
+      >
+        <p className="mt-5 text-sm text-muted-foreground">
+          By {article.author} · <time dateTime={article.publishedAt}>{formatArticleDate(article.publishedAt)}</time>
+        </p>
+      </PageBanner>
+      <Container className="section">
+        <article className="prose-doc mx-auto">
+          {article.status === "draft" && <p className="mt-0! border-l-4 border-accent bg-accent-soft px-4 py-3 text-sm font-semibold text-foreground">Development preview · Draft article</p>}
+          {article.body.map((block, index) => block.type === "heading" ? <h2 key={index}>{block.text}</h2> : block.type === "list" ? <ul key={index}>{block.items.map((item) => <li key={item}>{item}</li>)}</ul> : <p key={index}>{block.text}</p>)}
+          {related.length > 0 && (
+            <section aria-labelledby="related-heading" className="mt-12 border-t border-border pt-8">
+              <h2 id="related-heading" className="mt-0!">Related articles</h2>
+              <ul>{related.map((item) => <li key={item.slug}><Link href={`/blog/${item.slug}`}>{item.title}</Link></li>)}</ul>
+            </section>
+          )}
+          <aside className="card mt-12 border-l-4 border-l-accent p-6">
+            <h2 className="mt-0! text-xl!">Need help with this?</h2>
+            <p>Tell Afrinex what you are trying to achieve and we will review the request with you.</p>
+            <Link href={`/contact?service=${article.relatedServiceSlug}`} className="btn btn-primary mt-5 text-accent-foreground! no-underline!">Request a Service</Link>
+          </aside>
+        </article>
+      </Container>
+    </>
+  );
 }

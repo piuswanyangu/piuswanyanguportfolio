@@ -4,14 +4,15 @@ import { publishedArticles } from "@/data/articles";
 import { services } from "@/data/services";
 import { absoluteUrl } from "@/lib/site-config";
 
+// Legal pages stay out of the sitemap while they are noindex drafts.
 const publicRoutes = [
   "/",
   "/about",
   "/services",
   "/work",
-  "/blog",
+  ...(publishedArticles.length > 0 ? ["/blog"] : []),
   "/contact",
-] as const;
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticEntries: MetadataRoute.Sitemap = publicRoutes.map((route) => ({

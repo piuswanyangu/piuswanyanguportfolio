@@ -1,62 +1,42 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
-
-const destinations = [
-  {
-    href: "/",
-    label: "Home",
-    detail: "What Afrinex Solutions does and who it helps.",
-  },
-  {
-    href: "/services",
-    label: "Services",
-    detail: "Digital assistance, data, software, AI, automation, and design.",
-  },
-  {
-    href: "/contact",
-    label: "Contact",
-    detail: "Reach Afrinex by email or WhatsApp.",
-  },
-] as const;
+import { Icon } from "@/components/ui/icons";
+import { siteConfig, serviceGroupHref } from "@/lib/site-config";
 
 export default function NotFound() {
   return (
-    <Container className="py-14 sm:py-18 lg:py-22">
-      <div className="max-w-3xl">
-        <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
-          Error 404
+    <section className="relative overflow-hidden bg-surface-muted">
+      <div aria-hidden="true" className="absolute -right-32 -top-32 size-[30rem] rounded-full bg-accent-soft opacity-70 blur-3xl" />
+      <Container className="relative py-20 text-center sm:py-28">
+        <p aria-hidden="true" className="text-[6rem] font-bold leading-none tracking-[-0.05em] text-accent sm:text-[9rem]">
+          404
         </p>
-        <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-[-0.03em] text-foreground sm:text-5xl">
-          OOPS  this page could not be found.
-        </h1>
-        <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
-          The page you requested does not exist, or it has moved. The links
-          below cover everything on the Afrinex Solutions website.
+        <p className="eyebrow mt-4">Page not found</p>
+        <h1 className="display-1 mx-auto mt-3 max-w-2xl">This page could not be found.</h1>
+        <p className="lead mx-auto mt-5 max-w-xl">
+          The page you requested does not exist, or it has moved. Head back home or explore what Afrinex can help with.
         </p>
-      </div>
+        <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+          <Link href="/" className="btn btn-primary">Back to Home</Link>
+          <Link href="/services" className="btn btn-outline">Explore Services</Link>
+        </div>
 
-      <nav
-        aria-label="Suggested pages"
-        className="mt-12 border-t border-border"
-      >
-        <ul className="divide-y divide-border">
-          {destinations.map((destination) => (
-            <li key={destination.href}>
-              <Link
-                href={destination.href}
-                className="grid gap-1 py-5 transition-colors hover:text-accent sm:grid-cols-[11rem_1fr] sm:gap-8"
-              >
-                <span className="font-semibold text-foreground">
-                  {destination.label}
-                </span>
-                <span className="leading-7 text-muted-foreground">
-                  {destination.detail}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </Container>
+        <nav aria-label="Service groups" className="mx-auto mt-14 max-w-3xl">
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {siteConfig.serviceGroups.map((group) => (
+              <li key={group.id}>
+                <Link
+                  href={serviceGroupHref(group.id)}
+                  className="card card-lift flex items-center justify-between gap-3 px-5 py-4 text-left font-semibold text-foreground hover:text-accent"
+                >
+                  {group.category}
+                  <Icon name="arrowRight" className="size-4 shrink-0 text-accent" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </Container>
+    </section>
   );
 }

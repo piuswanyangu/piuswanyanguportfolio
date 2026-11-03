@@ -1,4 +1,6 @@
 import { Container } from "@/components/layout/container";
+import { Icon } from "@/components/ui/icons";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 const faqs = [
   ["How do I request a service?", "Choose a service or use the contact page, then share your name, preferred contact details, and a short description of what you need."],
@@ -7,6 +9,36 @@ const faqs = [
   ["When are scope and timelines agreed?", "The work, cost, and expected timeline are discussed and agreed before work begins."],
 ] as const;
 
+export type FaqItem = { question: string; answer: string };
+
+/** Native <details>/<summary> accordion: keyboard and screen-reader support built in. */
+export function FaqList({ items }: { items: readonly FaqItem[] }) {
+  return (
+    <div className="space-y-4">
+      {items.map((faq) => (
+        <details key={faq.question} className="card-flat group overflow-hidden open:shadow-[var(--shadow-card)]">
+          <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 px-6 py-4 font-semibold text-foreground transition-colors hover:text-accent">
+            <span>{faq.question}</span>
+            <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent transition-transform duration-200 group-open:rotate-45">
+              <Icon name="plus" className="size-4" strokeWidth={2.4} />
+            </span>
+          </summary>
+          <p className="px-6 pb-6 text-[0.9375rem] leading-7 text-muted-foreground">{faq.answer}</p>
+        </details>
+      ))}
+    </div>
+  );
+}
+
 export function FaqSection() {
-  return <section aria-labelledby="faq-heading" className="section-enter border-t border-border py-14 sm:py-18"><Container><div className="mx-auto max-w-3xl"><div className="text-center"><p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">Common questions</p><h2 id="faq-heading" className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Before you enquire</h2></div><div className="mt-9 divide-y divide-border border-y border-border">{faqs.map(([question, answer]) => <details key={question} className="group py-5"><summary className="flex min-h-7 cursor-pointer list-none items-center justify-between gap-4 font-semibold text-foreground marker:content-none"><span>{question}</span><span aria-hidden="true" className="text-accent group-open:rotate-45">+</span></summary><p className="mt-3 max-w-2xl pr-8 text-sm leading-6 text-muted-foreground">{answer}</p></details>)}</div></div></Container></section>;
+  return (
+    <section aria-labelledby="faq-heading" className="section">
+      <Container className="max-w-[52rem]">
+        <SectionHeading id="faq-heading" eyebrow="Common questions" title="Before you enquire" />
+        <div className="mt-12">
+          <FaqList items={faqs.map(([question, answer]) => ({ question, answer }))} />
+        </div>
+      </Container>
+    </section>
+  );
 }

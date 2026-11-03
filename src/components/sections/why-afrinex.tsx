@@ -1,51 +1,56 @@
 import { Container } from "@/components/layout/container";
+import { Icon, type IconName } from "@/components/ui/icons";
+import { SectionHeading } from "@/components/ui/section-heading";
 
-const principles = [
+const principles: ReadonlyArray<{ title: string; description: string; icon: IconName }> = [
   {
     title: "One partner, multiple digital needs",
     description:
       "Get help with everyday online tasks, data work, creative support, and more advanced technology projects in one place.",
+    icon: "layers",
   },
   {
     title: "Technology-focused",
     description:
       "We use modern software, AI, data, and automation where they genuinely make the solution clearer or more effective.",
+    icon: "cpu",
   },
   {
     title: "Practical solutions",
     description:
       "The customer problem comes first. Technology is selected to support the work, not to add unnecessary complexity.",
+    icon: "target",
   },
   {
     title: "Direct communication",
     description:
       "Discuss your request directly through the available email and WhatsApp contact channels.",
+    icon: "message",
   },
-] as const;
+];
 
 export function WhyAfrinex() {
   return (
-    <section
-      aria-labelledby="why-afrinex-heading"
-      className="section-enter border-t border-border bg-surface-muted py-14 sm:py-18 lg:py-20"
-    >
-      <Container>
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">Why Afrinex</p>
-          <h2 id="why-afrinex-heading" className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Technology support grounded in real needs.
-          </h2>
-        </div>
+    <section aria-labelledby="why-afrinex-heading" className="section bg-accent-soft/60">
+      <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-16">
+        <SectionHeading
+          id="why-afrinex-heading"
+          eyebrow="Why Afrinex"
+          title="Technology support grounded in real needs."
+          align="left"
+        />
 
-        <ol className="mt-10 grid gap-5 sm:mt-12 sm:grid-cols-2 lg:grid-cols-4">
-          {principles.map((principle, index) => (
-            <li key={principle.title} className="interactive-card rounded-lg border border-border bg-surface p-6">
-              <span className="inline-flex size-10 items-center justify-center rounded-md bg-accent-soft font-mono text-xs text-accent">{String(index + 1).padStart(2, "0")}</span>
-              <h3 className="mt-4 font-semibold text-foreground">{principle.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">{principle.description}</p>
+        <ul className="grid gap-6 sm:grid-cols-2">
+          {principles.map((principle) => (
+            <li key={principle.title} data-reveal className="card card-lift p-7">
+              <span className="icon-badge">
+                <Icon name={principle.icon} className="size-6" />
+              </span>
+              <h3 className="title-3 mt-5 text-lg">{principle.title}</h3>
+              <p className="mt-2 text-[0.9375rem] leading-7 text-muted-foreground">{principle.description}</p>
             </li>
           ))}
-        </ol>
+        </ul>
       </Container>
     </section>
   );

@@ -1,30 +1,48 @@
 @import "tailwindcss";
 
+/*
+ * Design tokens. Every theme in the switcher (light, dark, green) defines the
+ * same set of variables, so components only ever reference tokens.
+ *
+ * Proportions (type scale, section rhythm, radius, shadow depth, button
+ * weight) follow a corporate consulting layout; colors stay Afrinex teal.
+ */
 :root,
 [data-theme="light"] {
-  --background: #f3f7f5;
-  --foreground: #0f1f2a;
-  --muted: #edf3f0;
-  --muted-foreground: #52616b;
-  --border: rgba(15, 31, 42, 0.1);
-  --border-strong: rgba(15, 31, 42, 0.2);
-  --border-interactive: #8aa29f;
+  --background: #ffffff;
+  --foreground: #10202b;
+  --muted: #eef4f2;
+  --muted-foreground: #4a5963;
+  --border: rgba(16, 32, 43, 0.1);
+  --border-strong: rgba(16, 32, 43, 0.2);
+  --border-interactive: #7f9894;
   --accent: #0f766e;
   --accent-hover: #0b5d57;
-  --accent-soft: #dff5f0;
-  --accent-foreground: #f7fffd;
+  --accent-soft: #ddf3ee;
+  --accent-foreground: #ffffff;
   --status-success: #0f766e;
   --secondary-accent: var(--status-success);
   --focus: #0f766e;
   --surface: #ffffff;
-  --surface-muted: #edf6f2;
-  --surface-elevated: #e6efe9;
+  --surface-muted: #f1f6f4;
+  --surface-elevated: #e6efeb;
+  --brand-band: #0b5d57;
+  --brand-band-strong: #084843;
+  --on-brand: #ffffff;
+  --on-brand-muted: #d3ece7;
+  --danger: #b42318;
   --shadow-soft: 0 24px 60px rgba(11, 25, 34, 0.08);
+  --shadow-card: 0 25px 80px -10px rgba(23, 24, 26, 0.15);
+  --shadow-card-hover: 0 30px 80px -12px rgba(23, 24, 26, 0.22);
+  --shadow-header: 0 6px 24px rgba(16, 32, 43, 0.08);
   --duration-fast: 150ms;
   --duration-normal: 220ms;
-  --duration-slow: 480ms;
+  --duration-slow: 300ms;
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --ease-emphasized: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --radius-button: 0.375rem;
+  --radius-card: 0.75rem;
+  --header-height: 5rem;
 }
 
 [data-theme="dark"] {
@@ -45,7 +63,15 @@
   --surface: #0d1d27;
   --surface-muted: #0d212d;
   --surface-elevated: #112b31;
+  --brand-band: #0f4a46;
+  --brand-band-strong: #0a3835;
+  --on-brand: #f7fffd;
+  --on-brand-muted: #c4e6df;
+  --danger: #fca5a5;
   --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.2);
+  --shadow-card: 0 25px 70px -12px rgba(0, 0, 0, 0.55);
+  --shadow-card-hover: 0 30px 80px -12px rgba(0, 0, 0, 0.7);
+  --shadow-header: 0 6px 24px rgba(0, 0, 0, 0.35);
 }
 
 [data-theme="green"] {
@@ -66,7 +92,15 @@
   --surface: #0d1d18;
   --surface-muted: #0b2018;
   --surface-elevated: #113126;
+  --brand-band: #0d4a33;
+  --brand-band-strong: #093826;
+  --on-brand: #f2fff9;
+  --on-brand-muted: #c2e8d6;
+  --danger: #fca5a5;
   --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.22);
+  --shadow-card: 0 25px 70px -12px rgba(0, 0, 0, 0.55);
+  --shadow-card-hover: 0 30px 80px -12px rgba(0, 0, 0, 0.7);
+  --shadow-header: 0 6px 24px rgba(0, 0, 0, 0.35);
 }
 
 @theme inline {
@@ -88,6 +122,14 @@
   --color-surface: var(--surface);
   --color-surface-muted: var(--surface-muted);
   --color-surface-elevated: var(--surface-elevated);
+  --color-brand-band: var(--brand-band);
+  --color-brand-band-strong: var(--brand-band-strong);
+  --color-on-brand: var(--on-brand);
+  --color-on-brand-muted: var(--on-brand-muted);
+  --color-danger: var(--danger);
+  --radius-button: var(--radius-button);
+  --radius-card: var(--radius-card);
+  --shadow-card: var(--shadow-card);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -98,17 +140,17 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: calc(var(--header-height) + 1rem);
 }
 
 body {
   min-height: 100%;
   margin: 0;
-  background:
-    radial-gradient(circle at top left, color-mix(in srgb, var(--accent-soft) 80%, transparent), transparent 28%),
-    linear-gradient(180deg, color-mix(in srgb, var(--background) 96%, #ffffff 4%), var(--background));
+  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.75;
   text-rendering: optimizeLegibility;
 }
 
@@ -121,123 +163,363 @@ div {
   text-wrap: pretty;
 }
 
-@keyframes drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.7;
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+/* ---------- Layout rhythm ---------- */
+
+@layer components {
+  .section {
+    padding-block: 4rem;
   }
-  50% {
-    transform: translate3d(0, -10px, 0) scale(1.04);
-    opacity: 1;
+
+  @media (min-width: 640px) {
+    .section {
+      padding-block: 5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section {
+      padding-block: 6.25rem;
+    }
+  }
+
+  .section-tint {
+    background: var(--surface-muted);
+  }
+
+  /* ---------- Type scale ---------- */
+
+  .display-1 {
+    font-size: clamp(2.25rem, 1.6rem + 2.8vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    color: var(--foreground);
+  }
+
+  .display-2 {
+    font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--foreground);
+  }
+
+  .title-3 {
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .lead {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--muted-foreground);
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* Short accent rule placed above centered section headings. */
+  .heading-bar {
+    display: block;
+    width: 3.5rem;
+    height: 0.25rem;
+    border-radius: 9999px;
+    background: var(--accent);
+  }
+
+  /* ---------- Buttons ---------- */
+
+  .btn {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-button);
+    padding: 0.8125rem 1.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color var(--duration-fast) var(--ease-standard),
+      border-color var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard),
+      transform var(--duration-fast) var(--ease-standard),
+      box-shadow var(--duration-fast) var(--ease-standard);
+  }
+
+  .btn-primary,
+  .primary-button {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  .btn-primary:hover,
+  .primary-button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--accent) 60%, transparent);
+  }
+
+  .btn-outline,
+  .secondary-button {
+    border-color: var(--accent);
+    background: transparent;
+    color: var(--accent);
+  }
+
+  .btn-outline:hover,
+  .secondary-button:hover {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  /* For use on the brand-colored band. */
+  .btn-on-brand {
+    background: var(--on-brand);
+    color: var(--brand-band-strong);
+  }
+
+  .btn-on-brand:hover {
+    background: color-mix(in srgb, var(--on-brand) 88%, var(--brand-band));
+    transform: translateY(-1px);
+  }
+
+  .btn-outline-on-brand {
+    border-color: color-mix(in srgb, var(--on-brand) 70%, transparent);
+    color: var(--on-brand);
+  }
+
+  .btn-outline-on-brand:hover {
+    border-color: var(--on-brand);
+    background: color-mix(in srgb, var(--on-brand) 12%, transparent);
+  }
+
+  .primary-button,
+  .secondary-button {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: var(--radius-button);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .secondary-button {
+    border-color: var(--accent);
+  }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-underline-offset: 4px;
+  }
+
+  .text-link:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+  }
+
+  /* ---------- Cards ---------- */
+
+  .card {
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-flat {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+  }
+
+  .card-lift {
+    transition: transform var(--duration-normal) var(--ease-standard),
+      box-shadow var(--duration-normal) var(--ease-standard);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .card-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+    }
+  }
+
+  .card-lift:focus-within {
+    box-shadow: 0 0 0 2px var(--focus), var(--shadow-card);
+  }
+
+  .icon-badge {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 0.625rem;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    background: var(--surface);
+    padding: 0.375rem 0.875rem;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: var(--foreground);
+  }
+
+  /* ---------- Forms ---------- */
+
+  .field {
+    margin-top: 0.5rem;
+    display: block;
+    min-height: 3rem;
+    width: 100%;
+    border: 1px solid var(--border-interactive);
+    border-radius: var(--radius-button);
+    background: var(--surface);
+    padding: 0.625rem 0.875rem;
+    font-size: 1rem;
+    color: var(--foreground);
+  }
+
+  .field:focus-visible {
+    border-color: var(--accent);
+    outline: 2px solid var(--focus);
+    outline-offset: 1px;
+  }
+
+  .field[aria-invalid="true"] {
+    border-color: var(--danger);
+  }
+
+  .skeleton {
+    border-radius: var(--radius-button);
+    background: linear-gradient(90deg, var(--surface-muted), var(--surface-elevated), var(--surface-muted));
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  }
+
+  /* ---------- Long-form prose (legal pages, articles) ---------- */
+
+  .prose-doc {
+    max-width: 72ch;
+    color: var(--muted-foreground);
+    line-height: 1.85;
+  }
+
+  .prose-doc h2 {
+    margin-top: 2.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--foreground);
+  }
+
+  .prose-doc h3 {
+    margin-top: 1.75rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--foreground);
+  }
+
+  .prose-doc p,
+  .prose-doc ul {
+    margin-top: 1rem;
+  }
+
+  .prose-doc ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+  }
+
+  .prose-doc li + li {
+    margin-top: 0.375rem;
+  }
+
+  .prose-doc a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .prose-doc strong {
+    color: var(--foreground);
+  }
+
+  .todo-marker {
+    display: inline-block;
+    border-radius: 0.25rem;
+    background: color-mix(in srgb, #f59e0b 22%, transparent);
+    padding: 0 0.375rem;
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--foreground);
   }
 }
 
-@keyframes pulse-glow {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(94, 234, 212, 0.2);
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 200% 0;
   }
-  50% {
-    box-shadow: 0 0 0 18px rgba(94, 234, 212, 0);
+  to {
+    background-position: -200% 0;
   }
 }
 
-.motion-orb {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(18px);
-  opacity: 0.66;
-  animation: drift 12s ease-in-out infinite;
-  pointer-events: none;
+/* ---------- Header ---------- */
+
+.site-header {
+  transition: box-shadow var(--duration-normal) var(--ease-standard),
+    background-color var(--duration-normal) var(--ease-standard);
 }
 
-.motion-orb--primary {
-  background: color-mix(in srgb, var(--accent) 40%, transparent);
-  animation-delay: 0s;
+.site-header[data-scrolled="true"] {
+  box-shadow: var(--shadow-header);
 }
 
-.motion-orb--secondary {
-  background: color-mix(in srgb, var(--accent-soft) 80%, transparent);
-  animation-delay: 2s;
-}
-
-.motion-ring {
-  animation: pulse-glow 5s ease-in-out infinite;
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.eyebrow::before {
-  content: "";
-  display: inline-block;
-  width: 0.6rem;
-  height: 0.6rem;
-  border-radius: 9999px;
-  background: var(--accent);
-  box-shadow: 0 0 0 0.3rem color-mix(in srgb, var(--accent) 18%, transparent);
-}
-
-.primary-button,
-.secondary-button {
-  display: inline-flex;
-  min-height: 2.9rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.875rem;
-  font-size: 0.9rem;
-  font-weight: 700;
-  transition: background-color var(--duration-fast) var(--ease-standard),
-    border-color var(--duration-fast) var(--ease-standard),
-    color var(--duration-fast) var(--ease-standard),
-    transform var(--duration-fast) var(--ease-standard),
-    box-shadow var(--duration-fast) var(--ease-standard);
-}
-
-.primary-button {
-  background: linear-gradient(135deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 83%, #ffffff 17%) 100%);
-  color: var(--accent-foreground);
-  box-shadow: 0 16px 30px color-mix(in srgb, var(--accent) 20%, transparent);
-}
-
-.primary-button:hover {
-  background: linear-gradient(135deg, var(--accent-hover) 0%, var(--accent) 100%);
-}
-
-.secondary-button {
-  border: 1px solid var(--border-interactive);
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--foreground);
-}
-
-.secondary-button:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.hero-panel {
-  position: relative;
-  border: 1px solid var(--border);
-  border-radius: 1.75rem;
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, transparent), var(--surface)),
-    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-soft) 80%, transparent), transparent 42%);
-  box-shadow: var(--shadow-soft);
-}
+/* ---------- Theme transitions ---------- */
 
 .theme-transition,
-.theme-transition :where(header, footer, section, article, figure, nav, div, a, button, select) {
-  transition-property: background-color, color, border-color, box-shadow;
+.theme-transition :where(header, footer, section, article, figure, nav, a, button, select) {
+  transition-property: background-color, color, border-color, box-shadow, transform;
   transition-duration: var(--duration-normal);
   transition-timing-function: var(--ease-standard);
 }
@@ -250,6 +532,10 @@ div {
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
+}
+
+.on-brand :focus-visible {
+  outline-color: var(--on-brand);
 }
 
 /* Hidden until keyboard focus, then revealed above the sticky header. */
@@ -284,6 +570,8 @@ div {
   box-shadow: var(--shadow-soft);
 }
 
+/* ---------- Entrance animations ---------- */
+
 @keyframes content-enter {
   from {
     opacity: 0;
@@ -295,27 +583,25 @@ div {
   }
 }
 
-@keyframes section-enter {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .content-enter {
   animation: content-enter var(--duration-normal) var(--ease-emphasized) both;
 }
 
-@supports (animation-timeline: view()) {
-  .section-enter {
-    animation: section-enter var(--duration-slow) var(--ease-emphasized) both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 22%;
-  }
+/*
+ * Scroll reveal. `ScrollReveal` marks each element it observes with
+ * `reveal-pending`, so anything not yet registered (no JS, reduced motion,
+ * late-streamed content) is always visible.
+ */
+[data-reveal].reveal-pending {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--duration-slow) var(--ease-emphasized),
+    transform var(--duration-slow) var(--ease-emphasized);
+}
+
+[data-reveal].reveal-pending.is-revealed {
+  opacity: 1;
+  transform: none;
 }
 
 a,
@@ -334,14 +620,13 @@ button {
 @media (hover: hover) and (pointer: fine) {
   .interactive-card:hover {
     z-index: 1;
-    transform: translateY(-4px) scale(1.02);
+    transform: translateY(-4px);
     border-color: color-mix(in srgb, var(--accent) 45%, transparent);
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--shadow-card);
   }
 
   .interactive-action:hover {
     transform: scale(1.03);
-    box-shadow: 0 8px 20px rgba(16, 32, 46, 0.12);
   }
 }
 
@@ -349,10 +634,6 @@ button {
 .interactive-card:focus-within {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-soft);
-}
-
-.interactive-action:active {
-  transform: scale(0.98);
 }
 
 a:active,
@@ -365,6 +646,11 @@ button:disabled,
 [aria-disabled="true"] {
   cursor: not-allowed;
   opacity: 0.55;
+}
+
+/* FAQ disclosure: hide the native marker everywhere. */
+summary::-webkit-details-marker {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -381,29 +667,17 @@ button:disabled,
     transition-duration: 0.01ms !important;
   }
 
-  .content-enter {
+  [data-reveal].reveal-pending {
     opacity: 1;
     transform: none;
   }
 
-  .section-enter {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-
-  .interactive-card,
+  .card-lift:hover,
   .interactive-card:hover,
-  .interactive-action,
   .interactive-action:hover,
-  .interactive-action:active {
-    transform: none !important;
-  }
-
-  a:hover,
-  button:hover,
-  .group:hover figure,
-  .group:hover img {
+  .btn:hover,
+  .btn-primary:hover,
+  .btn-on-brand:hover {
     transform: none !important;
   }
 }

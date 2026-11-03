@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
-import { FeaturedProjectCard } from "@/components/projects/featured-project-card";
+import { ProjectMedia } from "@/components/projects/project-media";
+import { Icon } from "@/components/ui/icons";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { projects } from "@/data/projects";
 
 export function FeaturedProjects() {
@@ -9,46 +11,56 @@ export function FeaturedProjects() {
     .sort((a, b) => Number(Boolean(b.image)) - Number(Boolean(a.image)));
 
   return (
-    <section
-      aria-labelledby="featured-projects-heading"
-      className="section-enter border-t border-border py-14 sm:py-18 lg:py-20"
-    >
+    <section aria-labelledby="featured-projects-heading" className="section section-tint">
       <Container>
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.7fr)] lg:items-end lg:gap-16">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">Engineering proof</p>
-            <h2
-              id="featured-projects-heading"
-              className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
-            >
-              Selected Work
-            </h2>
-          </div>
-          <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            Explore selected software projects built by our founder that
-            demonstrate the engineering capabilities behind Afrinex Solutions.
-          </p>
-        </div>
+        <SectionHeading
+          id="featured-projects-heading"
+          eyebrow="Engineering proof"
+          title="Selected Work"
+          description="Explore selected software projects built by our founder that demonstrate the engineering capabilities behind Afrinex Solutions."
+        />
 
-        <div className="mt-10 sm:mt-12">
+        <ul className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3 md:max-lg:[&>li:last-child:nth-child(odd)]:col-span-2 md:max-lg:[&>li:last-child:nth-child(odd)]:mx-auto md:max-lg:[&>li:last-child:nth-child(odd)]:w-[calc(50%-1rem)]">
           {featuredProjects.map((project, index) => (
-            <FeaturedProjectCard
-              key={project.slug}
-              project={project}
-              number={String(index + 1).padStart(2, "0")}
-              reverse={index % 2 === 1}
-              priority={index === 0}
-              variant="compact"
-            />
+            <li key={project.slug} data-reveal className="card card-lift relative flex flex-col overflow-hidden">
+              <div className="p-3 pb-0">
+                <ProjectMedia
+                  project={project}
+                  fixedAspect
+                  priority={index === 0}
+                  sizes="(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw"
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-6 pt-5">
+                <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">
+                  <span>{project.category}</span>
+                  {project.status && (
+                    <span className="rounded-full bg-accent-soft px-2.5 py-1 text-accent">{project.status}</span>
+                  )}
+                </div>
+                <h3 className="title-3 mt-3">
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="rounded-sm transition-colors after:absolute after:inset-0 after:content-[''] hover:text-accent focus-visible:outline-none"
+                  >
+                    {project.name}
+                  </Link>
+                </h3>
+                <p className="mt-3 flex-1 text-[0.9375rem] leading-7 text-muted-foreground">{project.valueProposition}</p>
+                <span aria-hidden="true" className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-accent">
+                  Case study
+                  <Icon name="arrowRight" className="size-4" />
+                </span>
+              </div>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <Link
-          href="/work"
-          className="mt-4 inline-flex min-h-11 items-center rounded-sm text-sm font-semibold text-accent underline decoration-border underline-offset-4 transition-colors hover:text-accent-hover hover:decoration-accent-hover"
-        >
-          View selected work
-        </Link>
+        <div className="mt-12 text-center">
+          <Link href="/work" className="btn btn-outline">
+            View selected work
+          </Link>
+        </div>
       </Container>
     </section>
   );

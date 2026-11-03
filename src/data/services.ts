@@ -1,3 +1,5 @@
+import type { IconName } from "@/components/ui/icons";
+
 export const serviceCategories = [
   "Digital & Online Services",
   "Data Services",
@@ -20,6 +22,12 @@ export type Service = {
   category: ServiceCategory;
   featured: boolean;
   serviceType: ServiceType;
+  icon: IconName;
+  /**
+   * One line describing who the service is for, shown on /services cards.
+   * TODO(Pius): write a specific line for each service; cards omit it while unset.
+   */
+  whoItsFor?: string;
 };
 
 export const services = [
@@ -30,6 +38,7 @@ export const services = [
     category: "Digital & Online Services",
     featured: true,
     serviceType: "assistance",
+    icon: "heartPulse",
   },
   {
     slug: "kra-registration-assistance",
@@ -38,6 +47,7 @@ export const services = [
     category: "Digital & Online Services",
     featured: true,
     serviceType: "assistance",
+    icon: "idCard",
   },
   {
     slug: "kra-returns-assistance",
@@ -46,6 +56,7 @@ export const services = [
     category: "Digital & Online Services",
     featured: true,
     serviceType: "assistance",
+    icon: "fileCheck",
   },
   {
     slug: "etims-assistance",
@@ -54,6 +65,7 @@ export const services = [
     category: "Digital & Online Services",
     featured: true,
     serviceType: "assistance",
+    icon: "receipt",
   },
   {
     slug: "data-entry",
@@ -62,6 +74,7 @@ export const services = [
     category: "Data Services",
     featured: false,
     serviceType: "data",
+    icon: "keyboard",
   },
   {
     slug: "data-cleaning",
@@ -70,6 +83,7 @@ export const services = [
     category: "Data Services",
     featured: true,
     serviceType: "data",
+    icon: "filter",
   },
   {
     slug: "data-analysis",
@@ -78,6 +92,7 @@ export const services = [
     category: "Data Services",
     featured: false,
     serviceType: "data",
+    icon: "barChart",
   },
   {
     slug: "software-development",
@@ -86,6 +101,7 @@ export const services = [
     category: "Software & Technology",
     featured: true,
     serviceType: "technology",
+    icon: "code",
   },
   {
     slug: "ai-powered-solutions",
@@ -94,6 +110,7 @@ export const services = [
     category: "Software & Technology",
     featured: true,
     serviceType: "technology",
+    icon: "cpu",
   },
   {
     slug: "automation-services",
@@ -102,6 +119,7 @@ export const services = [
     category: "Software & Technology",
     featured: true,
     serviceType: "technology",
+    icon: "workflow",
   },
   {
     slug: "website-maintenance",
@@ -110,6 +128,7 @@ export const services = [
     category: "Software & Technology",
     featured: false,
     serviceType: "technology",
+    icon: "wrench",
   },
   {
     slug: "graphic-design",
@@ -118,6 +137,7 @@ export const services = [
     category: "Creative & Professional",
     featured: false,
     serviceType: "professional",
+    icon: "penTool",
   },
   {
     slug: "linkedin-optimization",
@@ -126,5 +146,6 @@ export const services = [
     category: "Creative & Professional",
     featured: false,
     serviceType: "professional",
+    icon: "userCheck",
   },
 ] as const satisfies readonly Service[];

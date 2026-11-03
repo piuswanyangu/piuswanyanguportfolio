@@ -1,7 +1,42 @@
+import Image from "next/image";
 import { Container } from "@/components/layout/container";
-import { approvedTestimonials } from "@/data/testimonials";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { approvedTestimonials, type Testimonial } from "@/data/testimonials";
 
-export function Testimonials() {
-  if (approvedTestimonials.length === 0) return null;
-  return <section aria-labelledby="testimonials-heading" className="border-t border-border py-14 sm:py-18"><Container><div className="mx-auto max-w-2xl text-center"><h2 id="testimonials-heading" className="text-3xl font-semibold tracking-tight text-foreground">Client feedback</h2></div><div className="mt-9 grid gap-5 md:grid-cols-3">{approvedTestimonials.slice(0, 3).map((item) => <figure key={`${item.customerName}-${item.service}`} className="interactive-card rounded-lg border border-border bg-surface p-6"><blockquote className="leading-7 text-foreground">“{item.quote}”</blockquote><figcaption className="mt-5 text-sm text-muted-foreground"><strong className="block text-foreground">{item.customerName}</strong>{item.businessOrRole && <span className="block">{item.businessOrRole}</span>}<span className="mt-2 block font-mono text-xs text-accent">{item.service}</span></figcaption></figure>)}</div></Container></section>;
+type TestimonialsProps = { items?: readonly Testimonial[] };
+
+/** Renders nothing until at least one approved testimonial exists. */
+export function Testimonials({ items = approvedTestimonials }: TestimonialsProps) {
+  if (items.length === 0) return null;
+
+  return (
+    <section aria-labelledby="testimonials-heading" className="section">
+      <Container>
+        <SectionHeading id="testimonials-heading" eyebrow="Client feedback" title="What clients say" />
+        <ul className="mt-16 grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+          {items.slice(0, 3).map((item) => (
+            <li key={`${item.name}-${item.location}`} data-reveal className="card relative px-7 pb-8 pt-12 text-center">
+              {item.photo && (
+                <Image
+                  src={item.photo.src}
+                  alt={item.photo.alt}
+                  width={72}
+                  height={72}
+                  className="absolute -top-9 left-1/2 size-[4.5rem] -translate-x-1/2 rounded-full object-cover ring-4 ring-background"
+                />
+              )}
+              <figure>
+                <blockquote className="italic leading-8 text-foreground">&ldquo;{item.quote}&rdquo;</blockquote>
+                <figcaption className="mt-6">
+                  <span className="block font-bold text-foreground">{item.name}</span>
+                  {item.businessOrRole && <span className="block text-sm text-muted-foreground">{item.businessOrRole}</span>}
+                  <span className="mt-1 block text-sm font-medium text-accent">{item.location}</span>
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </section>
+  );
 }
