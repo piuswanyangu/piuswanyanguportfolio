@@ -1,30 +1,26 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { FloatingActions } from "@/components/layout/floating-actions";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { ScrollReveal } from "@/components/layout/scroll-reveal";
+import { getSocialLinks } from "@/components/layout/social-links";
 import { StructuredData } from "@/components/seo/structured-data";
 import type { JsonLdValue } from "@/components/seo/structured-data";
-import { contact } from "@/data/contact";
 import { absoluteUrl, siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
 const themeInitializer = `
   (function () {
+    var root = document.documentElement;
+    var preference = "light";
     try {
-      var preference = localStorage.getItem("afrinex-theme");
-      if (preference !== "dark" && preference !== "green") {
-        preference = "dark";
-      }
-      var root = document.documentElement;
-      root.dataset.theme = preference;
-      root.dataset.themePreference = preference;
-      root.style.colorScheme = "dark";
-    } catch (_) {
-      var root = document.documentElement;
-      root.dataset.theme = "dark";
-      root.dataset.themePreference = "dark";
-      root.style.colorScheme = "dark";
-    }
+      var stored = localStorage.getItem("afrinex-theme");
+      if (stored === "light" || stored === "dark" || stored === "green") preference = stored;
+    } catch (_) {}
+    root.dataset.theme = preference;
+    root.dataset.themePreference = preference;
+    root.style.colorScheme = preference === "light" ? "light" : "dark";
   })();
 `;
 
@@ -69,7 +65,7 @@ export const metadata: Metadata = {
       : undefined,
   },
   twitter: {
-    card: siteConfig.socialImage ? "summary_large_image" : "summary",
+    card: "summary_large_image",
     title: "Afrinex Solutions | Digital Services, Software, AI & Automation",
     description:
       "Digital services, software development, AI-powered solutions, and automation for individuals and businesses.",
@@ -90,23 +86,27 @@ const structuredData: JsonLdValue = {
       publisher: { "@id": absoluteUrl("/#organization") },
     },
     {
-      "@type": "Organization",
+      "@type": ["Organization", "ProfessionalService"],
       "@id": absoluteUrl("/#organization"),
-      name: "Afrinex Solutions",
+      name: siteConfig.name,
       url: absoluteUrl("/"),
-      email: contact.email,
-      telephone: contact.phone,
-      description:
-        "Digital services, software, AI-powered solutions, and automation for individuals and businesses.",
+      logo: absoluteUrl("/icon.svg"),
+      image: absoluteUrl("/opengraph-image"),
+      email: siteConfig.contact.email,
+      telephone: siteConfig.contact.phone,
+      description: siteConfig.description,
       address: {
         "@type": "PostalAddress",
         addressCountry: "KE",
       },
-      areaServed: [{ "@type": "Country", name: "Kenya" }],
+      areaServed: [{ "@type": "Country", name: siteConfig.contact.location }],
+      sameAs: getSocialLinks()
+        .filter((link) => link.icon !== "whatsapp")
+        .map((link) => link.href),
       founder: {
         "@type": "Person",
-        name: "Pius Wanyangu",
-        jobTitle: "Founder & Software Engineer",
+        name: siteConfig.founder.name,
+        jobTitle: siteConfig.founder.role,
       },
     },
   ],
@@ -128,10 +128,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to main content
         </a>
         <Header />
-        <main id="main-content" className="flex-1">
+        <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
           {children}
         </main>
         <Footer />
+        <FloatingActions />
+        <ScrollReveal />
       </body>
     </html>
   );
