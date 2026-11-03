@@ -20,7 +20,7 @@ export function FeaturedProjects() {
           description="Explore selected software projects built by our founder that demonstrate the engineering capabilities behind Afrinex Solutions."
         />
 
-        <ul className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3 md:max-lg:[&>li:last-child:nth-child(odd)]:col-span-2 md:max-lg:[&>li:last-child:nth-child(odd)]:mx-auto md:max-lg:[&>li:last-child:nth-child(odd)]:w-[calc(50%-1rem)]">
           {featuredProjects.map((project, index) => (
             <li key={project.slug} data-reveal className="card card-lift relative flex flex-col overflow-hidden">
               <div className="p-3 pb-0">

@@ -99,7 +99,7 @@ export function MobileNavigation() {
             className="content-enter absolute inset-y-0 right-0 flex h-dvh w-full max-w-sm flex-col overflow-y-auto bg-background shadow-[var(--shadow-card)]"
           >
             <div className="flex items-center justify-between border-b border-border px-5 py-4">
-              <Link href="/" onClick={close} className="rounded-sm" aria-label="Afrinex Solutions home">
+              <Link href="/" onClick={close} className="rounded-sm">
                 <Logo />
               </Link>
               <button

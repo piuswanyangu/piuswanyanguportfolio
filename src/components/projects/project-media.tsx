@@ -35,7 +35,7 @@ export function ProjectMedia({
           fill
           preload={priority}
           sizes={sizes}
-          className="object-cover object-top"
+          className="object-cover object-left-top"
         />
       ) : (
         <Image

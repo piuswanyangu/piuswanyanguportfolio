@@ -13,7 +13,7 @@ export function Header() {
       <TopBar />
       <StickyHeader>
         <Container className="flex h-[var(--header-height)] items-center justify-between gap-4">
-          <Link href="/" aria-label="Afrinex Solutions home" className="shrink-0 rounded-sm">
+          <Link href="/" className="shrink-0 rounded-sm">
             <Logo />
           </Link>
 

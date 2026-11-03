@@ -19,7 +19,7 @@ export function Footer() {
     <footer className="on-brand bg-brand-band-strong text-on-brand">
       <Container className="grid gap-10 py-14 sm:grid-cols-2 sm:py-16 lg:grid-cols-[1.4fr_0.8fr_1.1fr_1.2fr] lg:gap-12">
         <div>
-          <Link href="/" aria-label="Afrinex Solutions home" className="inline-block rounded-sm">
+          <Link href="/" className="inline-block rounded-sm">
             <Logo tone="on-brand" />
           </Link>
           <p className="mt-5 max-w-xs text-[0.9375rem] leading-7 text-on-brand-muted">
