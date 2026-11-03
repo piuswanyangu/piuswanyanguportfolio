@@ -50,3 +50,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local UI audit (throwaway)
+/ui-audit/
+/scripts/ui-audit.ts
+/scripts/shot.ts
+/test-results/
+/playwright-report/
