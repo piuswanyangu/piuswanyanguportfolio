@@ -28,7 +28,7 @@ export function Hero() {
           <p className="lead mt-6 max-w-xl">
             Afrinex Solutions helps individuals and businesses handle online
             processes, data work, software projects, automation, and practical
-            digital support without unnecessary complexity.
+            digital support without unnecessary complexity globally.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
