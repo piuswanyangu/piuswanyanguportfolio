@@ -33,9 +33,13 @@ export function MobileNavigation() {
     const { overflow } = document.body.style;
     document.body.style.overflow = "hidden";
 
+    // Tab stops in order. A radio group is one stop: only its checked radio counts.
     const focusables = () =>
       Array.from(drawerRef.current?.querySelectorAll<HTMLElement>(focusableSelector) ?? []).filter(
-        (element) => element.offsetParent !== null,
+        (element) => {
+          if (element instanceof HTMLInputElement && element.type === "radio") return element.checked;
+          return element.offsetParent !== null;
+        },
       );
     focusables()[0]?.focus();
 

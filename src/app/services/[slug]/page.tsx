@@ -20,7 +20,12 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   const { slug } = await params;
   const service = services.find((item) => item.slug === slug);
   if (!service) return {};
-  return createPageMetadata({ title: service.name, description: service.shortDescription, path: `/services/${service.slug}` });
+  return createPageMetadata({
+    title: service.name,
+    description: service.shortDescription,
+    path: `/services/${service.slug}`,
+    image: `/services/${service.slug}/opengraph-image`,
+  });
 }
 
 function CheckList({ items }: { items: readonly string[] }) {

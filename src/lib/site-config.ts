@@ -158,12 +158,15 @@ type PageMetadataInput = {
   title: string;
   description: string;
   path: string;
+  /** Social card for this page; defaults to the site-wide image. */
+  image?: string;
 };
 
 export function createPageMetadata({
   title,
   description,
   path,
+  image = siteConfig.socialImage ?? undefined,
 }: PageMetadataInput): Metadata {
   const socialTitle = `${title} | Afrinex Solutions`;
 
@@ -177,15 +180,13 @@ export function createPageMetadata({
       url: path,
       siteName: siteConfig.name,
       type: "website",
-      images: siteConfig.socialImage
-        ? [{ url: siteConfig.socialImage, alt: siteConfig.name }]
-        : undefined,
+      images: image ? [{ url: image, width: 1200, height: 630, alt: socialTitle }] : undefined,
     },
     twitter: {
       card: "summary_large_image",
       title: socialTitle,
       description,
-      images: siteConfig.socialImage ? [siteConfig.socialImage] : undefined,
+      images: image ? [image] : undefined,
     },
   };
 }

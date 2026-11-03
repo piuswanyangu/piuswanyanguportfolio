@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/icons";
 import { createEmailUrl, createWhatsAppUrl } from "@/data/contact";
 import { serviceCategories, services } from "@/data/services";
@@ -46,6 +46,11 @@ export function EnquiryForm({ initialService = "" }: EnquiryFormProps) {
   const [errors, setErrors] = useState<Errors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+
+  // Marks the form as interactive once hydrated (used by end-to-end tests).
+  useEffect(() => {
+    formRef.current?.setAttribute("data-hydrated", "true");
+  }, []);
 
   const values: Record<FieldName, string> = { name, service, message };
 

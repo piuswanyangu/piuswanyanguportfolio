@@ -11,6 +11,7 @@ import { ContactCta } from "@/components/sections/contact-cta";
 import { PageBanner } from "@/components/layout/page-banner";
 import { Icon } from "@/components/ui/icons";
 import { getProjectBySlug, projects } from "@/data/projects";
+import { createPageMetadata } from "@/lib/site-config";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -31,23 +32,19 @@ export async function generateMetadata({
   if (!project) return {};
 
   return {
-    title: project.name,
-    description: project.summary,
-    alternates: { canonical: `/projects/${project.slug}` },
+    ...createPageMetadata({
+      title: project.name,
+      description: project.summary,
+      path: `/projects/${project.slug}`,
+      image: `/projects/${project.slug}/opengraph-image`,
+    }),
     openGraph: {
       title: `${project.name} | Afrinex Solutions`,
       description: project.summary,
       type: "article",
       url: `/projects/${project.slug}`,
-      images: project.socialImage
-        ? [{ url: project.socialImage, alt: `${project.name} case study` }]
-        : undefined,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${project.name} | Afrinex Solutions`,
-      description: project.summary,
-      images: project.socialImage ? [project.socialImage] : undefined,
+      siteName: "Afrinex Solutions",
+      images: [{ url: `/projects/${project.slug}/opengraph-image`, width: 1200, height: 630, alt: `${project.name} case study` }],
     },
   };
 }
