@@ -10,7 +10,8 @@ The interface follows a Developer Editorial direction: factual project evidence,
 
 ## Live Site
 
-Production URL will be added once the domain and hosting product are configured.
+[afrinexsolutions.co.ke](https://afrinexsolutions.co.ke), self-hosted with Docker
+and nginx on an Ubuntu VPS behind Cloudflare. See [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Features
 
@@ -59,6 +60,7 @@ Production URL will be added once the domain and hosting product are configured.
 - TypeScript compiler
 - Git and npm
 - Fully prerendered output (no server-only features in use)
+- Docker (Next.js standalone output) and nginx behind Cloudflare
 
 ## Project Architecture
 
@@ -210,23 +212,25 @@ generation, and whitespace integrity respectively. `npm run build` requires
 
 ## Deployment
 
-The hosting product has not been selected yet, so these steps are
-platform-agnostic.
+Production runs on an Ubuntu VPS with Docker Compose:
 
-Every route is prerendered and the application uses no server-only features
-(no middleware, route handlers, server actions, cookies, or ISR). It can run
-either as a Next.js Node server (`npm run start`, Node.js >= 20.9.0) or, with
-`next.config.ts` changes that have deliberately not been made yet, as a static
-export. The only static-export blocker is `next/image` with the default loader.
+- `web` builds the Next.js standalone server from the `Dockerfile`.
+- `nginx` terminates HTTPS with a Cloudflare Origin Certificate and proxies
+  to `web`. `www` redirects to the apex domain.
+- Cloudflare provides DNS, the public certificate, and caching.
 
-1. Register the domain and decide the hosting product.
-2. Set `NEXT_PUBLIC_SITE_URL` to the final public HTTPS origin in the build
-   environment.
-3. Run `npm ci && npm run build`. The build fails fast if the origin is
-   missing or invalid.
-4. Serve the build (`npm run start` for Node hosting).
-5. Attach the custom domain and confirm HTTPS.
-6. Verify canonical URLs, `/robots.txt`, and `/sitemap.xml` on production.
+`NEXT_PUBLIC_SITE_URL` is passed to the image build as a build argument and
+defaults to `https://afrinexsolutions.co.ke` in `docker-compose.yml`.
+
+First-time setup and every later update are documented step by step in
+[DEPLOYMENT.md](DEPLOYMENT.md). In short, on the VPS:
+
+```bash
+cd ~/afrinex && bash scripts/deploy.sh
+```
+
+After deploying, verify canonical URLs, `/robots.txt`, and `/sitemap.xml`
+on production.
 
 ## SEO Launch Checklist
 

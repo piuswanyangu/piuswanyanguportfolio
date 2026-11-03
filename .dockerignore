@@ -1,0 +1,34 @@
+# Keep the build context small and free of local state.
+.git
+.gitignore
+.gitattributes
+node_modules
+.next
+out
+build
+coverage
+
+# Local env files must not leak into the image; the build arg sets the URL.
+.env*
+!.env.example
+
+# Tests, audits and editor/tooling folders are not needed to build the site.
+tests
+test-results
+playwright-report
+playwright.config.ts
+ui-audit
+scripts
+.kilo
+.vscode
+.idea
+*.log
+*.tsbuildinfo
+next-env.d.ts
+
+# Deployment files themselves.
+Dockerfile
+.dockerignore
+docker-compose.yml
+nginx
+DEPLOYMENT.md

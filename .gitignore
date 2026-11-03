@@ -57,3 +57,7 @@ next-env.d.ts
 /scripts/shot.ts
 /test-results/
 /playwright-report/
+
+# TLS certificates and keys for nginx live only on the server
+/nginx/certs/*
+!/nginx/certs/.gitkeep

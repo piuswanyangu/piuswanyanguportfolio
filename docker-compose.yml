@@ -1,0 +1,44 @@
+# Afrinex Solutions production stack.
+#
+#   web   - Next.js server (internal only, port 3000 is never published)
+#   nginx - public entry point on 80/443, TLS with a Cloudflare Origin Certificate
+#
+# Usage on the VPS (from the repo root):
+#   docker compose up -d --build
+# or simply: bash scripts/deploy.sh
+
+name: afrinex
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://afrinexsolutions.co.ke}
+    image: afrinex-web:latest
+    restart: unless-stopped
+    expose:
+      - "3000"
+    # Health check is defined in the Dockerfile; nginx waits for it below.
+    stop_grace_period: 20s
+    logging: *default-logging
+
+  nginx:
+    image: nginx:stable-alpine
+    restart: unless-stopped
+    depends_on:
+      web:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    logging: *default-logging
