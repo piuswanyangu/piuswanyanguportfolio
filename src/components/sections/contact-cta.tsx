@@ -1,46 +1,46 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
+import { Icon } from "@/components/ui/icons";
 import { contact } from "@/data/contact";
 
-export function ContactCta() {
-  return (
-    <section
-      aria-labelledby="contact-cta-heading"
-      className="section-enter border-t border-border py-14 sm:py-18 lg:py-20"
-    >
-      <Container>
-        <div className="border-l-4 border-accent bg-accent-soft px-6 py-10 sm:px-10 sm:py-12 lg:grid lg:grid-cols-[minmax(0,3fr)_minmax(18rem,2fr)] lg:items-end lg:gap-16">
-          <div className="max-w-3xl">
-            <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">Start a conversation</p>
-            <h2
-              id="contact-cta-heading"
-              className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
-            >
-              Have something you need help with?
-            </h2>
-            <p className="mt-4 leading-7 text-muted-foreground">
-              Whether it is an online service, data task, website, software project,
-              or automation idea, tell Afrinex what you need.
-            </p>
-          </div>
+type ContactCtaProps = {
+  title?: string;
+  description?: string;
+};
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center lg:mt-0 lg:justify-end">
-              <Link
-                href="/contact"
-                className="inline-flex min-h-11 items-center justify-center rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
-              >
-                Request a Service
-              </Link>
-              <a
-                href={contact.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center justify-center rounded-sm text-foreground transition-colors hover:text-accent"
-              >
-                WhatsApp <span aria-hidden="true" className="ml-1">↗</span>
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
-          </div>
+/** Full-width brand band closing most pages. */
+export function ContactCta({
+  title = "Have something you need help with?",
+  description = "Whether it is an online service, data task, website, software project, or automation idea, tell Afrinex what you need.",
+}: ContactCtaProps) {
+  return (
+    <section aria-labelledby="contact-cta-heading" className="on-brand relative overflow-hidden bg-brand-band text-on-brand">
+      <svg
+        aria-hidden="true"
+        focusable="false"
+        viewBox="0 0 200 200"
+        fill="none"
+        stroke="currentColor"
+        className="pointer-events-none absolute -left-20 -top-20 size-80 opacity-10"
+      >
+        <circle cx="100" cy="100" r="96" strokeWidth="2" />
+        <circle cx="100" cy="100" r="66" strokeWidth="2" />
+      </svg>
+      <Container className="relative py-16 text-center sm:py-20">
+        <span aria-hidden="true" className="mx-auto block h-1 w-14 rounded-full bg-on-brand/70" />
+        <h2 id="contact-cta-heading" className="display-2 mt-5 text-on-brand">
+          {title}
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-on-brand-muted">{description}</p>
+        <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+          <Link href="/contact" className="btn btn-on-brand">
+            Request a Service
+          </Link>
+          <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline-on-brand">
+            <Icon name="whatsapp" className="size-4" />
+            WhatsApp
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
         </div>
       </Container>
     </section>

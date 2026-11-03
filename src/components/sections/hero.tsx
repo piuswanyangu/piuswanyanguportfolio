@@ -1,105 +1,106 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
+import { Icon, type IconName } from "@/components/ui/icons";
+
+const trustChips = ["Kenya-based support", "Remote delivery", "Clear communication"] as const;
+
+const supportAreas: ReadonlyArray<{ label: string; value: string; icon: IconName }> = [
+  { label: "Online services", value: "Government & registration support", icon: "globe" },
+  { label: "Data work", value: "Clean, organize, and understand information", icon: "database" },
+  { label: "Software", value: "Practical websites and business tools", icon: "code" },
+  { label: "AI & automation", value: "Streamline repetitive digital work", icon: "workflow" },
+];
 
 export function Hero() {
   return (
-    <section aria-labelledby="hero-heading" className="relative overflow-hidden border-b border-border">
-      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(circle_at_top_left,rgba(15,118,110,0.18),transparent_42%)]" />
-      <div aria-hidden="true" className="absolute inset-0 hidden lg:block">
-        <div className="motion-orb motion-orb--primary left-[10%] top-20 h-52 w-52" />
-        <div className="motion-orb motion-orb--secondary right-[10%] top-24 h-56 w-56" />
-      </div>
+    <section aria-labelledby="hero-heading" className="relative overflow-hidden border-b border-border bg-surface-muted">
+      <div
+        aria-hidden="true"
+        className="absolute -right-40 -top-40 size-[36rem] rounded-full bg-accent-soft opacity-70 blur-3xl"
+      />
+      <Container className="relative grid gap-12 py-14 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 lg:py-24">
+        <div className="max-w-2xl">
+          <p className="eyebrow">Digital services • software • AI &amp; automation</p>
+          <h1 id="hero-heading" className="display-1 mt-4 lg:text-[3.5rem]">
+            Digital solutions that keep work moving and businesses growing.
+          </h1>
+          <p className="lead mt-6 max-w-xl">
+            Afrinex Solutions helps individuals and businesses handle online
+            processes, data work, software projects, automation, and practical
+            digital support without unnecessary complexity.
+          </p>
 
-      <Container className="relative py-14 sm:py-18 lg:py-22">
-        <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-          <div className="max-w-2xl">
-            <p className="eyebrow">Digital services • software • AI &amp; automation</p>
-            <h1
-              id="hero-heading"
-              className="mt-6 text-4xl font-semibold leading-[0.95] tracking-[-0.05em] text-foreground sm:text-5xl lg:text-[4.25rem]"
-            >
-              Digital solutions that keep work moving and businesses growing.
-            </h1>
-            <p className="mt-6 max-w-xl text-base leading-8 text-muted-foreground sm:text-lg">
-              Afrinex Solutions helps individuals and businesses handle online
-              processes, data work, software projects, automation, and practical
-              digital support without unnecessary complexity.
-            </p>
-
-            <div className="mt-8 flex flex-col items-stretch gap-3 text-sm font-semibold sm:flex-row sm:items-center">
-              <Link href="/contact" className="primary-button px-6 py-3">
-                Request a Service
-              </Link>
-              <Link href="/services" className="secondary-button px-6 py-3">
-                Explore Services
-              </Link>
-            </div>
-
-            <ul className="mt-8 flex flex-wrap gap-3 text-sm text-muted-foreground">
-              {[
-                "Kenya-based support",
-                "Remote delivery",
-                "Clear communication",
-              ].map((item) => (
-                <li
-                  key={item}
-                  className="rounded-full border border-border bg-surface/80 px-3 py-2 shadow-sm"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link href="/contact" className="btn btn-primary">
+              Request a Service
+            </Link>
+            <Link href="/services" className="btn btn-outline">
+              Explore Services
+            </Link>
           </div>
 
-          <div className="relative">
-            <div className="hero-panel p-4 sm:p-5">
-              <div className="flex items-center justify-between gap-3 border-b border-border pb-4">
-                <div>
-                  <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-muted-foreground">
-                    Support areas
-                  </p>
-                  <p className="mt-2 text-xl font-semibold tracking-tight text-foreground">
-                    Digital execution
-                  </p>
-                </div>
-                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-muted px-2.5 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-accent">
-                  <span aria-hidden="true" className="size-2 rounded-full bg-accent" />
-                  Available
+          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-3" aria-label="Why work with Afrinex">
+            {trustChips.map((item) => (
+              <li key={item} className="flex items-center gap-2 text-[0.9375rem] font-medium text-foreground">
+                <span className="inline-flex size-6 items-center justify-center rounded-full bg-accent text-accent-foreground">
+                  <Icon name="check" className="size-3.5" strokeWidth={2.6} />
                 </span>
-              </div>
-
-              <div className="mt-5 space-y-3">
-                {[
-                  { label: "Online services", value: "Government & registration support" },
-                  { label: "Data work", value: "Clean, organize, and understand information" },
-                  { label: "Software", value: "Practical websites and business tools" },
-                  { label: "AI & automation", value: "Streamline repetitive digital work" },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="rounded-2xl border border-border bg-surface-muted/70 p-4"
-                  >
-                    <p className="font-mono text-[0.66rem] uppercase tracking-[0.16em] text-muted-foreground">
-                      {item.label}
-                    </p>
-                    <p className="mt-2 text-sm leading-6 text-foreground">{item.value}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-5 rounded-2xl border border-accent/20 bg-accent-soft p-4">
-                <p className="font-mono text-[0.66rem] uppercase tracking-[0.16em] text-accent">
-                  Working approach
-                </p>
-                <p className="mt-2 text-sm leading-6 text-foreground">
-                  Understand the need, agree on scope, and deliver a solution that
-                  fits the actual work.
-                </p>
-              </div>
-            </div>
-          </div>
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
+
+        <HeroVisual />
       </Container>
     </section>
+  );
+}
+
+/**
+ * Founder photo with the "Support areas" card layered over it. Uses the real
+ * founder image only; no stock imagery.
+ */
+function HeroVisual() {
+  return (
+    <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+      <div className="relative ml-auto aspect-square w-[70%] max-w-[22rem] overflow-hidden rounded-[var(--radius-card)] shadow-[var(--shadow-card)]">
+        <Image
+          src="/images/pius-wanyangu-profile.jpeg"
+          alt="Pius Wanyangu, founder of Afrinex Solutions"
+          fill
+          preload
+          sizes="(min-width: 1024px) 340px, (min-width: 640px) 320px, 70vw"
+          className="object-cover"
+        />
+      </div>
+
+      <div className="card relative -mt-16 w-[90%] max-w-[23rem] border border-border p-5 sm:-mt-32 sm:p-6">
+        <div className="flex items-center justify-between gap-3 border-b border-border pb-4">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">Support areas</p>
+            <p className="mt-1 text-lg font-bold text-foreground">Digital execution</p>
+          </div>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-accent-soft px-2.5 py-1 text-xs font-semibold text-accent">
+            <span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />
+            Available
+          </span>
+        </div>
+        <ul className="mt-4 space-y-3">
+          {supportAreas.map((item) => (
+            <li key={item.label} className="flex items-start gap-3">
+              <span className="icon-badge size-9 rounded-md">
+                <Icon name={item.icon} className="size-[1.125rem]" />
+              </span>
+              <span>
+                <span className="block text-sm font-semibold leading-5 text-foreground">{item.label}</span>
+                <span className="block text-[0.8125rem] leading-5 text-muted-foreground">{item.value}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
