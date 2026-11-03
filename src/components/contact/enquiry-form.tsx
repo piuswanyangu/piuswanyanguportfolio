@@ -1,55 +1,214 @@
 "use client";
 
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useRef, useState } from "react";
+import { Icon } from "@/components/ui/icons";
 import { createEmailUrl, createWhatsAppUrl } from "@/data/contact";
 import { serviceCategories, services } from "@/data/services";
 
-type Errors = Partial<Record<"name" | "contactDetail" | "service" | "description", string>>;
+type Method = "whatsapp" | "email";
+type FieldName = "name" | "service" | "message";
+type Errors = Partial<Record<FieldName, string>>;
 
-export function EnquiryForm() {
-  const searchParams = useSearchParams();
-  const requestedService = searchParams.get("service") ?? "";
-  const initialService = useMemo(() => {
-    const match = services.find((service) => service.slug === requestedService || service.name === requestedService);
-    if (match) return match.slug;
-    return serviceCategories.includes(requestedService as (typeof serviceCategories)[number]) ? `category:${requestedService}` : "";
-  }, [requestedService]);
+/** Maps a `?service=` value (slug, service name, or category) to a select value. */
+export function resolveServiceParam(requested: string) {
+  if (!requested) return "";
+  const match = services.find((service) => service.slug === requested || service.name === requested);
+  if (match) return match.slug;
+  return serviceCategories.includes(requested as (typeof serviceCategories)[number])
+    ? `category:${requested}`
+    : "";
+}
+
+function validate(field: FieldName, value: string): string | undefined {
+  if (field === "name" && !value.trim()) return "Enter your name.";
+  if (field === "service" && !value) return "Choose the service you need.";
+  if (field === "message") {
+    if (!value.trim()) return "Briefly describe what you need.";
+    if (value.trim().length < 10) return "Add a little more detail (at least 10 characters).";
+  }
+  return undefined;
+}
+
+type EnquiryFormProps = { initialService?: string };
+
+/**
+ * Enquiry form. Renders fully on the server (as the Suspense fallback) so the
+ * page is never blank; the `?service=` prefill is applied once hydrated.
+ * Submitting opens WhatsApp or email with the message prepared.
+ */
+export function EnquiryForm({ initialService = "" }: EnquiryFormProps) {
   const [name, setName] = useState("");
-  const [method, setMethod] = useState<"whatsapp" | "email">("whatsapp");
-  const [contactDetail, setContactDetail] = useState("");
+  const [method, setMethod] = useState<Method>("whatsapp");
   const [service, setService] = useState(initialService);
-  const [description, setDescription] = useState("");
+  const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<Errors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const values: Record<FieldName, string> = { name, service, message };
+
+  function onBlur(field: FieldName) {
+    setErrors((current) => ({ ...current, [field]: validate(field, values[field]) }));
+  }
+
+  function onChange(field: FieldName, value: string, setter: (value: string) => void) {
+    setter(value);
+    // Clear an existing error as soon as the input becomes valid.
+    if (errors[field]) setErrors((current) => ({ ...current, [field]: validate(field, value) }));
+  }
 
   function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const nextErrors: Errors = {};
-    if (!name.trim()) nextErrors.name = "Enter your name.";
-    if (!contactDetail.trim()) nextErrors.contactDetail = `Enter your ${method === "email" ? "email address" : "WhatsApp number"}.`;
-    else if (method === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactDetail.trim())) nextErrors.contactDetail = "Enter a valid email address.";
-    else if (method === "whatsapp" && contactDetail.replace(/\D/g, "").length < 7) nextErrors.contactDetail = "Enter a valid WhatsApp number.";
-    if (!service) nextErrors.service = "Choose the service you need.";
-    if (!description.trim()) nextErrors.description = "Briefly describe what you need.";
+    (Object.keys(values) as FieldName[]).forEach((field) => {
+      const error = validate(field, values[field]);
+      if (error) nextErrors[field] = error;
+    });
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length > 0) return;
+
+    const firstInvalid = (["name", "service", "message"] as const).find((field) => nextErrors[field]);
+    if (firstInvalid) {
+      formRef.current?.querySelector<HTMLElement>(`[name="${firstInvalid}"]`)?.focus();
+      return;
+    }
 
     const selected = services.find((item) => item.slug === service)?.name ?? service.replace(/^category:/, "");
-    const message = `Hi Afrinex, I would like help with ${selected}.\n\nName: ${name.trim()}\nPreferred contact: ${method} — ${contactDetail.trim()}\nRequest: ${description.trim()}`;
+    const body = `Hi Afrinex, I would like help with ${selected}.\n\nName: ${name.trim()}\nPreferred contact: ${method === "whatsapp" ? "WhatsApp" : "Email"}\nRequest: ${message.trim()}`;
     setIsSubmitting(true);
-    const destination = method === "whatsapp" ? createWhatsAppUrl(message) : createEmailUrl(`Afrinex enquiry: ${selected}`, message);
-    window.location.href = destination;
+    window.location.href =
+      method === "whatsapp" ? createWhatsAppUrl(body) : createEmailUrl(`Afrinex enquiry: ${selected}`, body);
     window.setTimeout(() => setIsSubmitting(false), 800);
   }
 
-  const fieldClass = "mt-2 min-h-12 w-full rounded-md border border-border-interactive bg-surface px-3 py-2 text-foreground focus-visible:border-accent";
-  return <form onSubmit={submit} noValidate className="mt-8 grid gap-5 sm:grid-cols-2">
-    <label className="text-sm font-semibold text-foreground">Name<input value={name} onChange={(event) => setName(event.target.value)} aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} className={fieldClass} />{errors.name && <span id="name-error" className="mt-1 block text-sm text-red-700 dark:text-red-300">{errors.name}</span>}</label>
-    <label className="text-sm font-semibold text-foreground">Preferred contact method<select value={method} onChange={(event) => setMethod(event.target.value as "whatsapp" | "email")} className={fieldClass}><option value="whatsapp">WhatsApp</option><option value="email">Email</option></select></label>
-    <label className="text-sm font-semibold text-foreground">{method === "email" ? "Email address" : "WhatsApp number"}<input type={method === "email" ? "email" : "tel"} value={contactDetail} onChange={(event) => setContactDetail(event.target.value)} aria-invalid={Boolean(errors.contactDetail)} aria-describedby={errors.contactDetail ? "contact-error" : undefined} className={fieldClass} />{errors.contactDetail && <span id="contact-error" className="mt-1 block text-sm text-red-700 dark:text-red-300">{errors.contactDetail}</span>}</label>
-    <label className="text-sm font-semibold text-foreground">Service needed<select value={service} onChange={(event) => setService(event.target.value)} aria-invalid={Boolean(errors.service)} aria-describedby={errors.service ? "service-error" : undefined} className={fieldClass}><option value="">Choose a service</option>{serviceCategories.map((category) => <optgroup key={category} label={category}><option value={`category:${category}`}>General {category} enquiry</option>{services.filter((item) => item.category === category).map((item) => <option key={item.slug} value={item.slug}>{item.name}</option>)}</optgroup>)}</select>{errors.service && <span id="service-error" className="mt-1 block text-sm text-red-700 dark:text-red-300">{errors.service}</span>}</label>
-    <label className="text-sm font-semibold text-foreground sm:col-span-2">Brief description<textarea rows={5} value={description} onChange={(event) => setDescription(event.target.value)} aria-invalid={Boolean(errors.description)} aria-describedby={errors.description ? "description-error" : undefined} className={fieldClass} />{errors.description && <span id="description-error" className="mt-1 block text-sm text-red-700 dark:text-red-300">{errors.description}</span>}</label>
-    <div className="sm:col-span-2"><button type="submit" disabled={isSubmitting} className="inline-flex min-h-12 w-full items-center justify-center rounded-md bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground hover:bg-accent-hover sm:w-auto">{isSubmitting ? "Opening…" : method === "whatsapp" ? "Continue in WhatsApp" : "Continue in Email"}</button><p className="mt-3 text-xs leading-5 text-muted-foreground">This opens your chosen app with the message prepared. You review and send it yourself.</p></div>
-  </form>;
+  const labelClass = "block text-sm font-semibold text-foreground";
+  const errorClass = "mt-2 flex items-center gap-1.5 text-sm font-medium text-danger";
+
+  return (
+    <form ref={formRef} onSubmit={submit} noValidate aria-describedby="enquiry-note" className="grid gap-6">
+      <div>
+        <label htmlFor="enquiry-name" className={labelClass}>
+          Name <span aria-hidden="true" className="text-danger">*</span>
+        </label>
+        <input
+          id="enquiry-name"
+          name="name"
+          autoComplete="name"
+          required
+          value={name}
+          onChange={(event) => onChange("name", event.target.value, setName)}
+          onBlur={() => onBlur("name")}
+          aria-invalid={Boolean(errors.name)}
+          aria-describedby={errors.name ? "enquiry-name-error" : undefined}
+          className="field"
+        />
+        {errors.name && <p id="enquiry-name-error" className={errorClass}>{errors.name}</p>}
+      </div>
+
+      <fieldset>
+        <legend className={labelClass}>Preferred contact</legend>
+        <div className="mt-2 grid grid-cols-2 gap-3">
+          {([
+            ["whatsapp", "WhatsApp", "whatsapp"],
+            ["email", "Email", "mail"],
+          ] as const).map(([value, label, icon]) => (
+            <label
+              key={value}
+              className={`flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-button)] border px-4 text-sm font-semibold transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--focus)] ${
+                method === value
+                  ? "border-accent bg-accent-soft text-accent"
+                  : "border-border-interactive text-foreground hover:border-accent"
+              }`}
+            >
+              <input
+                type="radio"
+                name="method"
+                value={value}
+                checked={method === value}
+                onChange={() => setMethod(value)}
+                className="sr-only"
+              />
+              <Icon name={icon} className="size-4" />
+              {label}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <div>
+        <label htmlFor="enquiry-service" className={labelClass}>
+          Service needed <span aria-hidden="true" className="text-danger">*</span>
+        </label>
+        <select
+          id="enquiry-service"
+          name="service"
+          required
+          value={service}
+          onChange={(event) => onChange("service", event.target.value, setService)}
+          onBlur={() => onBlur("service")}
+          aria-invalid={Boolean(errors.service)}
+          aria-describedby={errors.service ? "enquiry-service-error" : undefined}
+          className="field"
+        >
+          <option value="">Choose a service</option>
+          {serviceCategories.map((category) => (
+            <optgroup key={category} label={category}>
+              <option value={`category:${category}`}>General {category} enquiry</option>
+              {services
+                .filter((item) => item.category === category)
+                .map((item) => (
+                  <option key={item.slug} value={item.slug}>{item.name}</option>
+                ))}
+            </optgroup>
+          ))}
+        </select>
+        {errors.service && <p id="enquiry-service-error" className={errorClass}>{errors.service}</p>}
+      </div>
+
+      <div>
+        <label htmlFor="enquiry-message" className={labelClass}>
+          Message <span aria-hidden="true" className="text-danger">*</span>
+        </label>
+        <textarea
+          id="enquiry-message"
+          name="message"
+          rows={5}
+          required
+          value={message}
+          onChange={(event) => onChange("message", event.target.value, setMessage)}
+          onBlur={() => onBlur("message")}
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={`enquiry-message-hint${errors.message ? " enquiry-message-error" : ""}`}
+          className="field resize-y"
+        />
+        <p id="enquiry-message-hint" className="mt-2 text-sm text-muted-foreground">
+          Describe the goal and any deadline. Don&apos;t include passwords, PINs or ID numbers.
+        </p>
+        {errors.message && <p id="enquiry-message-error" className={errorClass}>{errors.message}</p>}
+      </div>
+
+      <div>
+        <button type="submit" disabled={isSubmitting} className="btn btn-primary w-full sm:w-auto">
+          <Icon name={method === "whatsapp" ? "whatsapp" : "mail"} className="size-4" />
+          {isSubmitting ? "Opening…" : method === "whatsapp" ? "Continue in WhatsApp" : "Continue in Email"}
+        </button>
+        <p id="enquiry-note" className="mt-4 text-sm leading-6 text-muted-foreground">
+          This opens your chosen app with the message prepared. You review and send it yourself.
+          Read how enquiry details are handled in our{" "}
+          <Link href="/privacy-policy" className="font-semibold text-accent underline underline-offset-4 hover:text-accent-hover">
+            Privacy Policy
+          </Link>
+          .
+        </p>
+      </div>
+    </form>
+  );
+}
+
+/** Reads `?service=` and remounts the form with that value preselected. */
+export function EnquiryFormWithParams() {
+  const searchParams = useSearchParams();
+  const initialService = resolveServiceParam(searchParams.get("service") ?? "");
+  return <EnquiryForm key={initialService} initialService={initialService} />;
 }

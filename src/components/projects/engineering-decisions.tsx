@@ -8,7 +8,7 @@ export function EngineeringDecisions({ decisions }: EngineeringDecisionsProps) {
   return (
     <div className="space-y-6">
       {decisions.map((decision) => (
-        <article key={decision.decision} className="border border-border bg-surface p-5 sm:p-6">
+        <article key={decision.decision} className="card-flat p-5 sm:p-6">
           <h3 className="font-semibold text-foreground">{decision.decision}</h3>
           <dl className="mt-4 grid gap-4 sm:grid-cols-2">
             <div>

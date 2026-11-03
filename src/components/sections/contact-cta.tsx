@@ -6,12 +6,15 @@ import { contact } from "@/data/contact";
 type ContactCtaProps = {
   title?: string;
   description?: string;
+  /** Contact link, e.g. with a `?service=` prefill. */
+  requestHref?: string;
 };
 
 /** Full-width brand band closing most pages. */
 export function ContactCta({
   title = "Have something you need help with?",
   description = "Whether it is an online service, data task, website, software project, or automation idea, tell Afrinex what you need.",
+  requestHref = "/contact",
 }: ContactCtaProps) {
   return (
     <section aria-labelledby="contact-cta-heading" className="on-brand relative overflow-hidden bg-brand-band text-on-brand">
@@ -33,7 +36,7 @@ export function ContactCta({
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-on-brand-muted">{description}</p>
         <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-          <Link href="/contact" className="btn btn-on-brand">
+          <Link href={requestHref} className="btn btn-on-brand">
             Request a Service
           </Link>
           <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline-on-brand">

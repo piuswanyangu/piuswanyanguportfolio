@@ -1,9 +1,46 @@
 import Link from "next/link";
+import { ArticleGrid } from "@/components/blog/article-card";
 import { Container } from "@/components/layout/container";
+import { PageBanner } from "@/components/layout/page-banner";
+import { Icon } from "@/components/ui/icons";
 import { publishedArticles } from "@/data/articles";
 import { createPageMetadata } from "@/lib/site-config";
 
-export const metadata = createPageMetadata({ title: "Blog", description: "Practical articles about websites, business software, data, and digital work from Afrinex Solutions.", path: "/blog" });
+export const metadata = createPageMetadata({
+  title: "Blog",
+  description: "Practical articles about websites, business software, data, and digital work from Afrinex Solutions.",
+  path: "/blog",
+});
+
 export default function BlogPage() {
-  return <Container className="py-14 sm:py-18 lg:py-22"><header className="mx-auto max-w-3xl text-center"><p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">Afrinex articles</p><h1 className="mt-4 text-4xl font-semibold tracking-[-0.03em] text-foreground sm:text-5xl">Practical digital guidance</h1><p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">Clear articles for businesses and individuals making decisions about websites, software, and data.</p></header>{publishedArticles.length === 0 ? <section className="mx-auto mt-14 max-w-2xl rounded-lg border border-border bg-surface p-8 text-center"><h2 className="text-2xl font-semibold text-foreground">Articles are being prepared</h2><p className="mt-4 leading-7 text-muted-foreground">Practical guides are currently under review. Published articles will appear here when they are ready.</p><Link href="/services" className="mt-6 inline-flex min-h-11 items-center font-semibold text-accent hover:text-accent-hover">Explore Services</Link></section> : <div className="mt-12 grid gap-6 md:grid-cols-2">{publishedArticles.map((article) => <article key={article.slug} className="rounded-lg border border-border bg-surface p-6"><p className="font-mono text-xs uppercase text-accent">{article.category} · {article.publishedAt}</p><h2 className="mt-3 text-2xl font-semibold"><Link href={`/blog/${article.slug}`} className="hover:text-accent">{article.title}</Link></h2><p className="mt-3 leading-7 text-muted-foreground">{article.excerpt}</p></article>)}</div>}</Container>;
+  return (
+    <>
+      <PageBanner
+        eyebrow="Afrinex articles"
+        title="Practical digital guidance"
+        description="Clear articles for businesses and individuals making decisions about websites, software, and data."
+        breadcrumbs={[{ label: "Blog", href: "/blog" }]}
+      />
+      <section aria-label="Articles" className="section">
+        <Container>
+          {publishedArticles.length === 0 ? (
+            <div className="card mx-auto max-w-xl border border-border px-6 py-12 text-center sm:px-12">
+              <span className="icon-badge mx-auto size-20 rounded-full">
+                <Icon name="book" className="size-10" strokeWidth={1.5} />
+              </span>
+              <h2 className="title-3 mt-6 text-2xl">Articles are being prepared</h2>
+              <p className="mt-3 leading-7 text-muted-foreground">
+                Practical guides are currently under review. Published articles will appear here when they are ready.
+              </p>
+              <Link href="/services" className="btn btn-primary mt-8">
+                Explore Services
+              </Link>
+            </div>
+          ) : (
+            <ArticleGrid articles={publishedArticles} />
+          )}
+        </Container>
+      </section>
+    </>
+  );
 }

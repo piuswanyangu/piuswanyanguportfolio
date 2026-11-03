@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/layout/container";
+import { PageBanner } from "@/components/layout/page-banner";
+import { ContactCta } from "@/components/sections/contact-cta";
 import { CredentialSafetyNotice } from "@/components/sections/credential-safety-notice";
+import { FaqList } from "@/components/sections/faq-section";
+import { Icon } from "@/components/ui/icons";
 import { getServiceDetails } from "@/data/service-details";
 import { services } from "@/data/services";
-import { createPageMetadata } from "@/lib/site-config";
+import { createPageMetadata, serviceGroupHref, siteConfig } from "@/lib/site-config";
 
 type ServicePageProps = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
-export function generateStaticParams() { return services.map((service) => ({ slug: service.slug })); }
+export function generateStaticParams() {
+  return services.map((service) => ({ slug: service.slug }));
+}
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
   const service = services.find((item) => item.slug === slug);
@@ -18,22 +23,117 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   return createPageMetadata({ title: service.name, description: service.shortDescription, path: `/services/${service.slug}` });
 }
 
+function CheckList({ items }: { items: readonly string[] }) {
+  return (
+    <ul className="mt-5 space-y-3">
+      {items.map((item) => (
+        <li key={item} className="flex gap-3 leading-7 text-muted-foreground">
+          <Icon name="checkCircle" className="mt-1 size-5 shrink-0 text-accent" />
+          {item}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default async function ServicePage({ params }: ServicePageProps) {
   const { slug } = await params;
   const service = services.find((item) => item.slug === slug);
   if (!service) notFound();
   const details = getServiceDetails(service);
+  const group = siteConfig.serviceGroups.find((item) => item.category === service.category);
+  const requestHref = `/contact?service=${encodeURIComponent(service.slug)}`;
 
-  return <Container className="py-12 sm:py-16 lg:py-20">
-    <Link href="/services" className="inline-flex min-h-11 items-center text-sm font-semibold text-accent hover:text-accent-hover">← Back to Services</Link>
-    <header className="mx-auto mt-8 max-w-3xl text-center">{service.serviceType === "assistance" && <span className="mx-auto mb-5 inline-flex h-16 items-center rounded-md bg-white px-4">{service.slug === "sha-registration-assistance" ? <Image src="/images/organizations/sha-logo.png" alt="Social Health Authority" width={422} height={90} className="h-10 w-auto object-contain" /> : <Image src="/images/organizations/kra-logo.webp" alt="Kenya Revenue Authority" width={152} height={37} className="h-10 w-auto object-contain" />}</span>}<p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">{service.category}</p><h1 className="mt-4 text-4xl font-semibold tracking-[-0.03em] text-foreground sm:text-5xl">{service.name}</h1><p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">{service.shortDescription}</p></header>
-    <div className="mx-auto mt-14 max-w-4xl space-y-12">
-      <section aria-labelledby="who-heading" className="text-center"><h2 id="who-heading" className="text-2xl font-semibold text-foreground">Who this helps</h2><p className="mx-auto mt-4 max-w-[65ch] leading-7 text-muted-foreground">{details.whoItHelps}</p></section>
-      <div className="grid gap-8 md:grid-cols-2"><section aria-labelledby="included-heading"><h2 id="included-heading" className="text-xl font-semibold text-foreground">What is included</h2><ul className="mt-4 space-y-3">{details.included.map((item) => <li key={item} className="flex gap-3 leading-7 text-muted-foreground"><span aria-hidden="true" className="mt-3 size-1.5 shrink-0 rounded-full bg-accent" />{item}</li>)}</ul></section><section aria-labelledby="prepare-heading"><h2 id="prepare-heading" className="text-xl font-semibold text-foreground">What to prepare</h2><ul className="mt-4 space-y-3">{details.prepare.map((item) => <li key={item} className="flex gap-3 leading-7 text-muted-foreground"><span aria-hidden="true" className="mt-3 size-1.5 shrink-0 rounded-full bg-accent" />{item}</li>)}</ul></section></div>
-      <section aria-labelledby="process-heading"><h2 id="process-heading" className="text-center text-2xl font-semibold text-foreground">How the request works</h2><ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{details.process.map((item, index) => <li key={item} className="rounded-lg border border-border bg-surface p-5"><span className="font-mono text-xs text-accent">{String(index + 1).padStart(2, "0")}</span><p className="mt-3 text-sm leading-6 text-foreground">{item}</p></li>)}</ol></section>
-      {service.serviceType === "assistance" && <CredentialSafetyNotice />}
-      <section aria-labelledby="service-faq-heading"><h2 id="service-faq-heading" className="text-center text-2xl font-semibold text-foreground">Frequently asked questions</h2><div className="mt-6 divide-y divide-border border-y border-border">{details.faqs.map((faq) => <details key={faq.question} className="py-5"><summary className="cursor-pointer font-semibold text-foreground">{faq.question}</summary><p className="mt-3 text-sm leading-6 text-muted-foreground">{faq.answer}</p></details>)}</div></section>
-      <div className="text-center"><Link href={`/contact?service=${encodeURIComponent(service.slug)}`} className="interactive-action inline-flex min-h-12 items-center justify-center rounded-md bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground hover:bg-accent-hover">Request this service</Link></div>
-    </div>
-  </Container>;
+  return (
+    <>
+      <PageBanner
+        eyebrow={service.category}
+        title={service.name}
+        description={service.shortDescription}
+        breadcrumbs={[
+          { label: "Services", href: "/services" },
+          { label: service.name, href: `/services/${service.slug}` },
+        ]}
+      >
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Link href={requestHref} className="btn btn-primary">Request this service</Link>
+          {group && (
+            <Link href={serviceGroupHref(group.id)} className="btn btn-outline">
+              More {group.shortLabel.toLowerCase()} services
+            </Link>
+          )}
+        </div>
+      </PageBanner>
+
+      <section aria-labelledby="who-heading" className="section">
+        <Container className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+          <div>
+            <span className="icon-badge size-16 rounded-xl">
+              <Icon name={service.icon} className="size-8" />
+            </span>
+            <h2 id="who-heading" className="display-2 mt-6">Who this helps</h2>
+            <p className="lead mt-4">{details.whoItHelps}</p>
+            {service.category === "Digital & Online Services" && (
+              <p className="mt-6 flex gap-3 text-[0.9375rem] leading-7 text-muted-foreground">
+                <Icon name="shield" className="mt-1 size-5 shrink-0 text-accent" />
+                Afrinex Solutions is an independent service provider and is not affiliated with SHA or KRA.
+              </p>
+            )}
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
+            <section aria-labelledby="included-heading" className="card p-7">
+              <h3 id="included-heading" className="title-3">What is included</h3>
+              <CheckList items={details.included} />
+            </section>
+            <section aria-labelledby="prepare-heading" className="card p-7">
+              <h3 id="prepare-heading" className="title-3">What to prepare</h3>
+              <CheckList items={details.prepare} />
+            </section>
+          </div>
+        </Container>
+      </section>
+
+      <section aria-labelledby="process-heading" className="section section-tint">
+        <Container>
+          <div className="mx-auto max-w-2xl text-center">
+            <span aria-hidden="true" className="heading-bar mx-auto" />
+            <h2 id="process-heading" className="display-2 mt-5">How the request works</h2>
+          </div>
+          <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {details.process.map((item, index) => (
+              <li key={item} className="card p-6">
+                <span className="inline-flex size-12 items-center justify-center rounded-full bg-accent text-lg font-bold text-accent-foreground">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p className="mt-4 font-semibold leading-7 text-foreground">{item}</p>
+              </li>
+            ))}
+          </ol>
+        </Container>
+      </section>
+
+      <section aria-labelledby="service-faq-heading" className="section">
+        <Container className="max-w-[52rem]">
+          <div className="text-center">
+            <span aria-hidden="true" className="heading-bar mx-auto" />
+            <h2 id="service-faq-heading" className="display-2 mt-5">Frequently asked questions</h2>
+          </div>
+          <div className="mt-10">
+            <FaqList items={details.faqs} />
+          </div>
+          {service.serviceType === "assistance" && (
+            <div className="mt-10">
+              <CredentialSafetyNotice />
+            </div>
+          )}
+        </Container>
+      </section>
+
+      <ContactCta
+        title={`Need help with ${service.name}?`}
+        description="Send a short enquiry. Scope, cost, and the expected timeline are agreed before work begins."
+        requestHref={requestHref}
+      />
+    </>
+  );
 }

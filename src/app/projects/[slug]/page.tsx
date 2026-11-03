@@ -7,7 +7,9 @@ import { ArchitectureDiagram } from "@/components/projects/architecture-diagram"
 import { CaseStudySection } from "@/components/projects/case-study-section";
 import { EngineeringDecisions } from "@/components/projects/engineering-decisions";
 import { ProjectMedia } from "@/components/projects/project-media";
-import { PageCta } from "@/components/sections/page-cta";
+import { ContactCta } from "@/components/sections/contact-cta";
+import { PageBanner } from "@/components/layout/page-banner";
+import { Icon } from "@/components/ui/icons";
 import { getProjectBySlug, projects } from "@/data/projects";
 
 type ProjectPageProps = {
@@ -42,7 +44,7 @@ export async function generateMetadata({
         : undefined,
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: `${project.name} | Afrinex Solutions`,
       description: project.summary,
       images: project.socialImage ? [project.socialImage] : undefined,
@@ -57,77 +59,57 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
   if (!project) notFound();
 
   return (
-    <Container className="py-12 sm:py-16 lg:py-20">
-      <Link
-        href="/work"
-        className="inline-flex min-h-11 items-center rounded-sm text-sm font-semibold text-accent transition-colors hover:text-accent-hover"
+    <>
+      <PageBanner
+        eyebrow={`Founder project · ${project.category}`}
+        title={project.name}
+        description={project.valueProposition}
+        breadcrumbs={[
+          { label: "Work", href: "/work" },
+          { label: project.name, href: `/projects/${project.slug}` },
+        ]}
       >
-        ← Back to Work
-      </Link>
-
-      <header className="mt-8 grid gap-10 xl:grid-cols-[minmax(0,1.1fr)_minmax(24rem,0.9fr)] xl:items-start xl:gap-16">
-        <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-            <span>Founder project</span>
-            <span>{project.category}</span>
-            {project.status && (
-              <span className="inline-flex items-center gap-2 text-foreground">
-                <span aria-hidden="true" className="size-1.5 rounded-full bg-secondary-accent" />
-                Status: {project.status}
-              </span>
+        <div className="mt-6 flex flex-wrap items-center gap-2">
+          {project.status && (
+            <span className="rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-[0.1em] text-accent-foreground">
+              <span className="sr-only">Status: </span>
+              {project.status}
+            </span>
+          )}
+          <ul aria-label={`${project.name} technologies`} className="flex flex-wrap gap-2">
+            {project.technologies.map((technology) => (
+              <li key={technology} className="chip py-1 text-[0.8125rem]">{technology}</li>
+            ))}
+          </ul>
+        </div>
+        {(project.githubUrl || project.liveUrl) && (
+          <div className="mt-7 flex flex-wrap gap-3">
+            {project.liveUrl && (
+              <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                Live Demo <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span>
+              </Link>
+            )}
+            {project.githubUrl && (
+              <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                <Icon name="github" className="size-4" />
+                GitHub <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span>
+              </Link>
             )}
           </div>
-          <h1 className="mt-4 break-words text-4xl font-semibold leading-tight tracking-[-0.03em] text-foreground sm:text-5xl">
-            {project.name}
-          </h1>
-          <p className="mt-5 text-xl font-medium leading-8 text-foreground">
-            {project.valueProposition}
+        )}
+        {!project.githubUrl && !project.liveUrl && (
+          <p className="mt-6 text-sm leading-6 text-muted-foreground">
+            Public repository and live demo links are not currently provided.
           </p>
-          <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">
-            {project.summary}
-          </p>
+        )}
+      </PageBanner>
 
-          <p
-            aria-label={`${project.name} technologies`}
-            className="mt-7 font-mono text-xs leading-6 text-muted-foreground"
-          >
-            {project.technologies.join(" / ")}
-          </p>
-
-          {(project.githubUrl || project.liveUrl) && (
-            <div className="mt-7 flex flex-wrap gap-3">
-              {project.liveUrl && (
-                <Link
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-11 items-center rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
-                >
-                  Live Demo <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span>
-                </Link>
-              )}
-              {project.githubUrl && (
-                <Link
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-11 items-center rounded-md border border-border-interactive bg-surface px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-accent/40 hover:bg-accent-soft"
-                >
-                  GitHub <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span>
-                </Link>
-              )}
-            </div>
-          )}
-          {!project.githubUrl && !project.liveUrl && (
-            <p className="mt-7 font-mono text-xs leading-6 text-muted-foreground">
-              Public repository and live demo links are not currently provided.
-            </p>
-          )}
+      <Container className="section">
+        <div className={`mx-auto ${project.image ? "max-w-4xl" : "max-w-2xl"}`}>
+          <ProjectMedia project={project} priority sizes="(min-width: 1024px) 896px, 100vw" />
         </div>
-        <ProjectMedia project={project} priority />
-      </header>
 
-      <div className="mt-16 lg:mt-20">
+        <div className="mt-12 lg:mt-16">
         <CaseStudySection id="overview" title="Overview">
           <p>{project.summary}</p>
         </CaseStudySection>
@@ -206,11 +188,12 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
         )}
       </div>
 
-      <PageCta
+      </Container>
+
+      <ContactCta
         title="Have a similar project in mind?"
         description="This case study documents founder-built work demonstrating the engineering capability behind Afrinex. If you need comparable software, data, automation, or website work, describe your requirement and Afrinex will confirm whether it can help."
-        secondary={{ href: "/work", label: "Back to Work" }}
       />
-    </Container>
+    </>
   );
 }
