@@ -22,6 +22,14 @@ const guidance =
  * shipping unusable SEO metadata.
  */
 function resolveSiteUrl(): URL {
+  // Client components import siteConfig for contact details. In the browser only
+  // NEXT_PUBLIC_* values are inlined (VERCEL_PROJECT_PRODUCTION_URL is not), and
+  // the canonical origin is only used for server-rendered metadata, so use the
+  // page's own origin rather than failing the build-time check at runtime.
+  if (typeof window !== "undefined") {
+    return new URL(configuredSiteUrl || window.location.origin);
+  }
+
   const isProductionBuild = process.env.NODE_ENV === "production";
 
   if (!configuredSiteUrl) {

@@ -27,6 +27,8 @@ export default defineConfig({
         url: baseURL,
         timeout: 300_000,
         reuseExistingServer: !process.env.CI,
-        env: { NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL ?? "https://piuswanyanguportfolio.vercel.app" },
+        // Mirror Vercel: only the system variable is set, not NEXT_PUBLIC_SITE_URL,
+        // so client bundles are tested without a public site URL.
+        env: { VERCEL_PROJECT_PRODUCTION_URL: "piuswanyanguportfolio.vercel.app" },
       },
 });
