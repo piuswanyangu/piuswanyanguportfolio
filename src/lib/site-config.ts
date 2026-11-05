@@ -1,42 +1,40 @@
 import type { Metadata } from "next";
 
-/** Used only by `next dev`; a production build must supply a real origin. */
+/** The one canonical public address of the site. */
+export const productionOrigin = "https://afrinexsolutions.co.ke";
+
+/** Used only by `next dev` when no origin is configured. */
 const developmentOrigin = "http://localhost:3000";
 
+const isProductionBuild = process.env.NODE_ENV === "production";
+
+/**
+ * NEXT_PUBLIC_SITE_URL overrides the origin, for example for a staging build.
+ * Otherwise production builds always use the real domain. That way every copy
+ * of the site, including any old Vercel deployment, points search engines to
+ * afrinexsolutions.co.ke as the original, and `npm run build` works with no
+ * environment setup.
+ */
 const configuredSiteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "");
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() || (isProductionBuild ? productionOrigin : "");
 
 const guidance =
-  "Set NEXT_PUBLIC_SITE_URL to the public HTTPS origin (for example https://your-domain.com) before building. See README.md > Environment Variables.";
+  "Set NEXT_PUBLIC_SITE_URL to a public HTTPS origin (for example https://afrinexsolutions.co.ke), or leave it unset to use the production domain. See README.md > Environment Variables.";
 
 /**
  * Resolves the canonical origin used by metadata, canonical URLs, the sitemap,
- * and robots output.
- *
- * `NEXT_PUBLIC_*` values are inlined at build time and every route is
- * prerendered, so an unset origin would permanently bake `http://localhost:3000`
- * into the deployed HTML. A production build therefore fails loudly instead of
- * shipping unusable SEO metadata.
+ * and robots output. The value is inlined at build time, and every route is
+ * prerendered, so an invalid override fails the build loudly instead of
+ * shipping broken SEO metadata.
  */
 function resolveSiteUrl(): URL {
-  // Client components import siteConfig for contact details. In the browser only
-  // NEXT_PUBLIC_* values are inlined (VERCEL_PROJECT_PRODUCTION_URL is not), and
-  // the canonical origin is only used for server-rendered metadata, so use the
-  // page's own origin rather than failing the build-time check at runtime.
+  // In the browser `configuredSiteUrl` is already inlined. During `next dev`
+  // with no override it is empty, so fall back to the page's own origin.
   if (typeof window !== "undefined") {
     return new URL(configuredSiteUrl || window.location.origin);
   }
 
-  const isProductionBuild = process.env.NODE_ENV === "production";
-
   if (!configuredSiteUrl) {
-    if (isProductionBuild) {
-      throw new Error(`NEXT_PUBLIC_SITE_URL is not set. ${guidance}`);
-    }
-
     return new URL(developmentOrigin);
   }
 
@@ -163,7 +161,13 @@ export function absoluteUrl(path: string): string {
 }
 
 type PageMetadataInput = {
+  /** Page name. The layout template appends " | Afrinex Solutions". */
   title: string;
+  /**
+   * Complete title used as-is, without the template. Use it when the page
+   * name already contains the brand, e.g. "About Afrinex Solutions | ...".
+   */
+  fullTitle?: string;
   description: string;
   path: string;
   /** Social card for this page; defaults to the site-wide image. */
@@ -172,14 +176,15 @@ type PageMetadataInput = {
 
 export function createPageMetadata({
   title,
+  fullTitle,
   description,
   path,
   image = siteConfig.socialImage ?? undefined,
 }: PageMetadataInput): Metadata {
-  const socialTitle = `${title} | Afrinex Solutions`;
+  const socialTitle = fullTitle ?? `${title} | Afrinex Solutions`;
 
   return {
-    title,
+    title: fullTitle ? { absolute: fullTitle } : title,
     description,
     alternates: { canonical: path },
     openGraph: {

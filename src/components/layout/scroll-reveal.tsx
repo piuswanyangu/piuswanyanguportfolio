@@ -23,18 +23,29 @@ export function ScrollReveal() {
           observer.unobserve(entry.target);
         });
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
+      // The huge top margin treats everything above the viewport as already
+      // seen. A fast fling (or the End key) can carry an element from below the
+      // viewport to above it between two observer checks. Without this margin
+      // it would never "intersect" and would stay invisible until scrolled back.
+      { rootMargin: "100000px 0px -8% 0px", threshold: 0.05 },
     );
 
     function register() {
-      document
-        .querySelectorAll<HTMLElement>("[data-reveal]:not(.reveal-pending)")
-        .forEach((element) => {
-          // Already on screen: leave visible to avoid a flash.
-          if (element.getBoundingClientRect().top < window.innerHeight) return;
-          element.classList.add("reveal-pending");
-          observer.observe(element);
-        });
+      const candidates = document.querySelectorAll<HTMLElement>("[data-reveal]:not(.reveal-pending)");
+      const viewportHeight = window.innerHeight;
+
+      // Read every position first, then change classes. Interleaving a read
+      // (getBoundingClientRect) with a write (classList.add) forces the browser
+      // to recalculate styles and layout once per element ("layout thrashing").
+      const belowFold = Array.from(candidates).filter(
+        // Already on screen: leave visible to avoid a flash.
+        (element) => element.getBoundingClientRect().top >= viewportHeight,
+      );
+
+      belowFold.forEach((element) => {
+        element.classList.add("reveal-pending");
+        observer.observe(element);
+      });
     }
 
     register();

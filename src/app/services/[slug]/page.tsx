@@ -6,10 +6,12 @@ import { PageBanner } from "@/components/layout/page-banner";
 import { ContactCta } from "@/components/sections/contact-cta";
 import { CredentialSafetyNotice } from "@/components/sections/credential-safety-notice";
 import { FaqList } from "@/components/sections/faq-section";
+import { StructuredData } from "@/components/seo/structured-data";
 import { Icon } from "@/components/ui/icons";
 import { getServiceDetails } from "@/data/service-details";
+import { serviceSeo } from "@/data/service-seo";
 import { services } from "@/data/services";
-import { createPageMetadata, serviceGroupHref, siteConfig } from "@/lib/site-config";
+import { absoluteUrl, createPageMetadata, serviceGroupHref, siteConfig } from "@/lib/site-config";
 
 type ServicePageProps = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
@@ -20,9 +22,10 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   const { slug } = await params;
   const service = services.find((item) => item.slug === slug);
   if (!service) return {};
+  const seo = serviceSeo[service.slug];
   return createPageMetadata({
-    title: service.name,
-    description: service.shortDescription,
+    title: seo?.title ?? service.name,
+    description: seo?.description ?? service.shortDescription,
     path: `/services/${service.slug}`,
     image: `/services/${service.slug}/opengraph-image`,
   });
@@ -48,9 +51,24 @@ export default async function ServicePage({ params }: ServicePageProps) {
   const details = getServiceDetails(service);
   const group = siteConfig.serviceGroups.find((item) => item.category === service.category);
   const requestHref = `/contact?service=${encodeURIComponent(service.slug)}`;
+  const pageUrl = absoluteUrl(`/services/${service.slug}`);
 
   return (
     <>
+      <StructuredData
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "@id": `${pageUrl}#service`,
+          name: service.name,
+          description: serviceSeo[service.slug]?.description ?? service.shortDescription,
+          serviceType: service.name,
+          category: service.category,
+          url: pageUrl,
+          provider: { "@id": absoluteUrl("/#organization") },
+          areaServed: { "@type": "Country", name: "Kenya" },
+        }}
+      />
       <PageBanner
         eyebrow={service.category}
         title={service.name}

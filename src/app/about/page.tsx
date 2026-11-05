@@ -9,6 +9,7 @@ import { createPageMetadata, siteConfig } from "@/lib/site-config";
 
 export const metadata = createPageMetadata({
   title: "About",
+  fullTitle: "About Afrinex Solutions | Kenya-Based Digital Services",
   description:
     "Learn about Afrinex Solutions, a Kenya-based provider of digital assistance, data services, software development, AI, automation, and creative support.",
   path: "/about",

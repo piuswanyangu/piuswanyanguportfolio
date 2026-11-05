@@ -6,11 +6,16 @@ import { Icon } from "@/components/ui/icons";
 import { publishedArticles } from "@/data/articles";
 import { createPageMetadata } from "@/lib/site-config";
 
-export const metadata = createPageMetadata({
-  title: "Blog",
-  description: "Practical articles about websites, business software, data, and digital work from Afrinex Solutions.",
-  path: "/blog",
-});
+export const metadata = {
+  ...createPageMetadata({
+    title: "Blog",
+    description: "Practical articles about websites, business software, data, and digital work from Afrinex Solutions.",
+    path: "/blog",
+  }),
+  // An empty listing page is "thin content" for search engines. Keep it out of
+  // the index (links still followed) until the first article is published.
+  ...(publishedArticles.length === 0 ? { robots: { index: false, follow: true } } : {}),
+};
 
 export default function BlogPage() {
   return (

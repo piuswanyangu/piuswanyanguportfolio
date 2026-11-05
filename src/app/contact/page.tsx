@@ -9,8 +9,9 @@ import { createPageMetadata, siteConfig } from "@/lib/site-config";
 
 export const metadata = createPageMetadata({
   title: "Contact",
+  fullTitle: "Contact Afrinex Solutions | WhatsApp & Email",
   description:
-    "Contact Afrinex Solutions about digital assistance, data services, software, AI, automation, design, and website support.",
+    "Contact Afrinex Solutions on WhatsApp or by email about KRA and SHA assistance, data services, software, AI, automation, design or website support in Kenya.",
   path: "/contact",
 });
 

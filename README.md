@@ -139,16 +139,18 @@ These are implementation decisions, not a claim of formal WCAG certification.
 
 ## SEO
 
-The site configures `metadataBase`, canonical URLs, Open Graph data, Twitter metadata, WebSite JSON-LD, Person JSON-LD, `sitemap.xml`, and `robots.txt`.
+The site configures `metadataBase`, canonical URLs, Open Graph data, Twitter metadata, WebSite, Organization, Service and BreadcrumbList JSON-LD, `sitemap.xml`, and `robots.txt`. Search titles and descriptions for service pages live in `src/data/service-seo.ts`. See `SEO_AUDIT.md`.
 
-`NEXT_PUBLIC_SITE_URL` supplies the canonical production origin used by those features. `npm run dev` falls back to `http://localhost:3000`. A production build **fails** if the value is missing, not `https://`, or a localhost origin, so a deployment cannot silently ship localhost metadata.
+The canonical origin is `https://afrinexsolutions.co.ke` (`productionOrigin` in `src/lib/site-config.ts`). Every production build uses it unless `NEXT_PUBLIC_SITE_URL` overrides it. `npm run dev` uses `http://localhost:3000`. An override that is not `https://`, or is a localhost origin, fails the production build.
 
 ## Environment Variables
 
-Copy `.env.example` to `.env.local` and set:
+No environment variables are required. `npm run build` uses the production domain by default.
+
+To build for a different origin, such as a staging server, copy `.env.example` to `.env.local` and set:
 
 ```env
-NEXT_PUBLIC_SITE_URL=https://your-domain.com
+NEXT_PUBLIC_SITE_URL=https://staging.example.com
 ```
 
 The value is inlined at build time and every route is prerendered, so it must be set **before** `npm run build` runs; setting it afterwards has no effect without rebuilding. `NEXT_PUBLIC_SITE_URL` is public configuration, not a secret. Do not place private credentials in variables prefixed with `NEXT_PUBLIC_`.
@@ -207,8 +209,7 @@ git diff --check
 ```
 
 They validate lint rules, static types, the production compilation and route
-generation, and whitespace integrity respectively. `npm run build` requires
-`NEXT_PUBLIC_SITE_URL` to be set to a public `https://` origin.
+generation, and whitespace integrity respectively.
 
 ## Deployment
 
@@ -234,15 +235,16 @@ on production.
 
 ## SEO Launch Checklist
 
-- [ ] Configure the custom domain
-- [ ] Set `NEXT_PUBLIC_SITE_URL` to the production origin
+- [x] Configure the custom domain
+- [x] Canonical origin defaults to the production domain
 - [ ] Replace the scaffold favicon with branded icons
 - [ ] Add a social Open Graph image
 - [ ] Add real project source and deployment URLs
-- [ ] Verify `/sitemap.xml` on production
-- [ ] Verify `/robots.txt` on production
-- [ ] Configure Google Search Console
+- [x] Verify `/sitemap.xml` on production
+- [x] Verify `/robots.txt` on production
+- [ ] Configure Google Search Console (see `GOOGLE_SEARCH_SETUP.md`)
 - [ ] Submit the production sitemap
+- [ ] Retire or redirect the old Vercel deployment
 - [ ] Confirm intended production pages are indexed
 
 ## Content Updates

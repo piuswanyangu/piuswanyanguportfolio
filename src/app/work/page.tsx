@@ -6,9 +6,9 @@ import { projects } from "@/data/projects";
 import { createPageMetadata } from "@/lib/site-config";
 
 export const metadata = createPageMetadata({
-  title: "Work",
+  title: "Work & Case Studies",
   description:
-    "Selected founder projects demonstrating software development, backend systems, automation, testing, and practical product work.",
+    "Selected projects by Afrinex Solutions founder Pius Wanyangu, showing software development, backend systems, automation, testing and practical product work.",
   path: "/work",
 });
 

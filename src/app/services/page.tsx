@@ -9,9 +9,9 @@ import { services, type Service } from "@/data/services";
 import { createPageMetadata, siteConfig } from "@/lib/site-config";
 
 export const metadata = createPageMetadata({
-  title: "Services",
+  title: "Digital, Data & Software Services in Kenya",
   description:
-    "Explore digital assistance, data, software, AI, automation, creative, and professional services from Afrinex Solutions.",
+    "KRA, SHA and eTIMS assistance, data entry and analysis, website and software development, AI, automation and design services from Afrinex Solutions in Kenya.",
   path: "/services",
 });
 

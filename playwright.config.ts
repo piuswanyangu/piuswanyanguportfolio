@@ -27,8 +27,7 @@ export default defineConfig({
         url: baseURL,
         timeout: 300_000,
         reuseExistingServer: !process.env.CI,
-        // Mirror Vercel: only the system variable is set, not NEXT_PUBLIC_SITE_URL,
-        // so client bundles are tested without a public site URL.
-        env: { VERCEL_PROJECT_PRODUCTION_URL: "piuswanyanguportfolio.vercel.app" },
+        // No NEXT_PUBLIC_SITE_URL is set, so the tests exercise the same default
+        // as a plain `npm run build`: the production domain.
       },
 });
